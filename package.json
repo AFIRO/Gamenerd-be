@@ -17,22 +17,21 @@
     "url": "https://github.com/Web-IV/2223-webservices-AFIRO/issues"
   },
   "homepage": "https://github.com/Web-IV/2223-webservices-AFIRO#readme",
-
   "dependencies": {
     "@koa/cors": "^3.4.1",
     "@koa/router": "^12.0.0",
     "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.7.23",
     "config": "^3.3.8",
     "env-cmd": "^10.1.0",
+    "joi": "^17.6.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.3",
-    "winston": "^3.8.2",
-    "@types/node": "^18.7.23",
-    "ts-node": "^10.9.1"
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
   }
 }
-
