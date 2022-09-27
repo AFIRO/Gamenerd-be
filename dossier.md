@@ -1,13 +1,13 @@
-# Voornaam Familienaam (Studentennummer)
+# Andreeas Firoiu (077350AF)
 
 > Duid aan welke vakken je volgt en vermeld voor deze vakken de link naar jouw GitHub repository. In het geval je slechts één vak volgt, verwijder alle inhoud omtrent het andere vak.
 > Verwijder alle instructies (lijnen die starten met >)
 
-- [ ] Front-end Web Development
+- [X] Front-end Web Development
   - [GitHub repository](github.com/HOGENT-Web)
   - [Online versie](github.com/HOGENT-Web)
-- [ ] Web Services: GITHUB URL
-  - [GitHub repository](github.com/HOGENT-Web)
+- [X] Web Services: GITHUB URL
+  - [GitHub repository](https://github.com/Web-IV/2223-webservices-AFIRO)
   - [Online versie](github.com/HOGENT-Web)
 
 **Logingegevens**
@@ -19,7 +19,14 @@
 
 ## Projectbeschrijving
 
-> Omschrijf hier duidelijk waarover jouw project gaat. Voeg een domeinmodel (of EERD) toe om jouw entiteiten te verduidelijken.
+Game Nerd, de nieuwste en heetste gaming website, zal het Belgisch landschap veranderen met zijn sterke focus op recensies, catalogeren en
+degelijke nieuws.
+
+De website zal gebruikers toelaten om games op te zoeken, gelinkte recensies en nieuws te lezen en zelf recensies online te zetten.
+
+Technisch: 
+Game entiteiten met CRUD die one to many linken met nieuws items en recensies. Hoe de content opslaan nog niet besloten (me dunkt referenties naar een blob). Uiteraard moet content dan verder doorlinken
+naar users.
 
 ## Screenshots
 
