@@ -1,34 +1,42 @@
 import { GameCreateDto } from "../entity/dto/game/game.create.dto"
 import { GameUpdateDto } from "../entity/dto/game/game.update.dto"
 import { Logger } from "../util/logging";
-const logger = new Logger();
+import { PrismaClient } from '@prisma/client'
 
-const findAll = async () => {
-  throw new Error("Not implemented yet.")
+export class GameRepository{
+
+private prisma = new PrismaClient()
+
+private logger = new Logger();
+
+public findAll = async () => {
+  this.logger.info("Getting all games");
+  const games = await this.prisma.game.findMany();
+  return games;
   
 }
 
-const findById = async (id: number) => {
+findById = async (id: number) => {
   throw new Error("Not implemented yet.")
 }
 
-const create = async (dto: GameCreateDto) => {
+create = async (dto: GameCreateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-const updateById = async (Id: number, dto: GameUpdateDto) => {
+updateById = async (Id: number, dto: GameUpdateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-const deleteById =async (id:number) => {
+deleteById =async (id:number) => {
   throw new Error("Not implemented yet.")
 }
 
-
-module.exports = {
-  findAll,
-  findById,
-  create,
-  updateById,
-  deleteById,
-};
+}
+// module.exports = {
+//   findAll,
+//   findById,
+//   create,
+//   updateById,
+//   deleteById,
+// };

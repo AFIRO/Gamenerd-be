@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id  Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  role String @db.VarChar(255)
+  password String @db.VarChar(255)
+  reviewsWritten Review[]
+  newspostsWritten News[]
+}
+
+model News {
+  id  Int @id @default(autoincrement())
+  content String
+  writer User @relation(fields: [writerId],references: [id])
+  writerId Int 
+  game Game @relation(fields: [gameId],references: [id])
+  gameId Int
+}
+
+model Review {
+  id  Int @id @default(autoincrement())
+  content String
+  writer User @relation(fields: [writerId],references: [id])
+  writerId Int
+  game Game @relation(fields: [gameId],references: [id])
+  gameId Int
+}
+
+
+model Game {
+  id  Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  boxart String @db.VarChar(255)
+  reviews Review[]
+  news News[]
+}
+

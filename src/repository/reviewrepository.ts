@@ -1,7 +1,6 @@
 import { ReviewCreateDto } from "../entity/dto/reviewer/review.create.dto"
 import { ReviewUpdateDto } from "../entity/dto/reviewer/review.update.dto"
-import { Logger } from "../util/logging";
-const logger = new Logger();
+
 
 const findAll = async () => {
   throw new Error("Not implemented yet.")

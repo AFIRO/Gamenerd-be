@@ -1,4 +1,6 @@
+import { GameRepository } from "./repository/gamerepository";
 import { Logger } from "./util/logging";
+
 
 const koa = require('koa');
 const config = require('config')
@@ -8,6 +10,7 @@ const koaCors = require('@koa/cors');
 const router = new Router();
 const app = new koa();
 const logger = new Logger()
+const gameRepository = new GameRepository()
 
 app.use(bodyParser());
 app.use(router.routes())
@@ -22,6 +25,6 @@ logger.error("This is an error message for testing.")
 logger.info("Server started correctly.")
 
 router.get('/api/games',
-async(ctx) => ctx.body = "Ja, dat marcheert dus he");
+async(ctx) => ctx.body = JSON.stringify(await gameRepository.findAll()) );
 
 app.listen(9000);
