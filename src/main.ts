@@ -1,4 +1,5 @@
 import { GameRepository } from "./repository/gamerepository";
+import { ReviewRepository } from "./repository/reviewrepository";
 import { Logger } from "./util/logging";
 
 
@@ -11,6 +12,7 @@ const router = new Router();
 const app = new koa();
 const logger = new Logger()
 const gameRepository = new GameRepository()
+const reviewRepository = new ReviewRepository();
 
 app.use(bodyParser());
 app.use(router.routes())
@@ -26,5 +28,8 @@ logger.info("Server started correctly.")
 
 router.get('/api/games',
 async(ctx) => ctx.body = JSON.stringify(await gameRepository.findAll()) );
+router.get('/api/reviews',
+async(ctx) => ctx.body = JSON.stringify(await reviewRepository.findAll()) );
+
 
 app.listen(9000);
