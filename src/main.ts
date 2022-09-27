@@ -11,11 +11,13 @@ app.use(bodyParser());
 app.use(router.routes())
 .use(router.allowedMethods());
 
+const CURRENT_ENV = config.get('environment')
 const LOG_LEVEL = config.get('log.level');
 const LOG_DISABLED = config.get('log.disabled');
 const CORS_ORIGINS = config.get('cors.origins');
 const CORS_MAX_AGE = config.get('cors.maxAge');
 
+console.log(`Current environment = ${CURRENT_ENV}`);
 console.log(`Logging level = ${LOG_LEVEL}`);
 
 const logger = winston.createLogger({

@@ -5,8 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "test": "test",
-    "start-dev": "set NODE-ENV=development && npx env-cmd nodemon src/main.ts",
-    "start-prod": "set NODE-ENV=production && npx env-cmd nodemon src/main.ts"
+    "start": "npx env-cmd nodemon src/main.ts"
   },
   "repository": {
     "type": "git",
@@ -27,13 +26,13 @@
     "env-cmd": "^10.1.0",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.3",
+    "winston": "^3.8.2",
+    "@types/node": "^18.7.23",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
-    "@types/node": "^18.7.23",
-    "nodemon": "^2.0.20",
-    "ts-node": "^10.9.1",
-    "winston": "^3.8.2"
+    "nodemon": "^2.0.20"
   }
 }
 
