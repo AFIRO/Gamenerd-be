@@ -27,17 +27,20 @@ public async findById(id: number) {
 
 public async create(dto: SiteUserCreateDto) {
   this.logger.info(`Creating new user.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.user.create({data:dto});
 }
 
 public async updateById(id: number, dto: SiteUserUpdateDto) {
   this.logger.info(`Updating user with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.user.update({
+    where: {id:id},
+    data: dto
+  })
 }
 
 public async deleteById(id:number) {
   this.logger.info(`Deleting user with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.user.delete({where:{id:id}})
 }
 }
 

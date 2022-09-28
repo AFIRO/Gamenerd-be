@@ -28,17 +28,20 @@ public async findById(id: number) {
 
 public async create(dto: GameCreateDto) {
   this.logger.info(`Creating new game.`);
-  this.prisma.game.create(dto);
+  this.prisma.game.create({data:dto});
 }
 
 public async updateById(id: number, dto: GameUpdateDto) {
   this.logger.info(`Updating game with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.game.update({
+    where: {id:id},
+    data: dto
+  })
 }
 
 public async deleteById(id:number) {
   this.logger.info(`Deleting game with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.game.delete({where:{id:id}})
 }
 
 }

@@ -38,7 +38,7 @@ public async updateById(id: number, dto: NewsUpdateDto) {
 
 public async deleteById(id:number) {
   this.logger.info(`Deleting news with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.news.delete({where:{id:id}})
 }
 
 }

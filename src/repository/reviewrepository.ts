@@ -38,7 +38,7 @@ public async updateById(id: number, dto: ReviewUpdateDto) {
 
 public async deleteById(id:number) {
   this.logger.info(`Deleting review with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.review.delete({where:{id:id}})
 }
 
 }
