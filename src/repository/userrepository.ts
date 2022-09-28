@@ -8,24 +8,35 @@ export class UserRepository{
 private logger = new Logger();
 private prisma = new PrismaClient();
 
-public findAll = async () => {
-  throw new Error("Not implemented yet.")
+public async findAll() {
+  this.logger.info("Getting all users");
+  const users = await this.prisma.user.findMany();
+  return users;
   
 }
 
-public findById = async (id: number) => {
+public async findById(id: number) {
+  this.logger.info(`Getting user with id ${id}.`);
+  const potentialUser = this.prisma.user.findUniqueOrThrow({
+    where: {
+      id: id,
+    },
+  })
+  return potentialUser;
+}
+
+public async create(dto: SiteUserCreateDto) {
+  this.logger.info(`Creating new user.`);
   throw new Error("Not implemented yet.")
 }
 
-public create = async (dto: SiteUserCreateDto) => {
+public async updateById(id: number, dto: SiteUserUpdateDto) {
+  this.logger.info(`Updating user with id ${id}.`);
   throw new Error("Not implemented yet.")
 }
 
-public updateById = async (Id: number, dto: SiteUserUpdateDto) => {
-  throw new Error("Not implemented yet.")
-}
-
-public deleteById =async (id:number) => {
+public async deleteById(id:number) {
+  this.logger.info(`Deleting user with id ${id}.`);
   throw new Error("Not implemented yet.")
 }
 }

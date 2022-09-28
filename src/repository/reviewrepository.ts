@@ -2,31 +2,42 @@ import { ReviewCreateDto } from "../entity/dto/reviewer/review.create.dto"
 import { ReviewUpdateDto } from "../entity/dto/reviewer/review.update.dto"
 import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
+import { Review } from "../entity/review.model";
 
 export class ReviewRepository {
 
 private prisma = new PrismaClient();
 private logger = new Logger();
 
-public findAll = async () => {
+public async findAll() {
   this.logger.info("Getting all reviews");
-  return this.prisma.review.findMany();
+  const reviews = await this.prisma.review.findMany();
+  return reviews;
   
 }
 
-public findById = async (id: number) => {
+public async findById(id: number) {
+  this.logger.info(`Getting review with id ${id}.`);
+  const protentialReview = this.prisma.review.findUniqueOrThrow({
+    where: {
+      id: id,
+    },
+  })
+  return protentialReview;
+}
+
+public async create(dto: ReviewCreateDto) {
+  this.logger.info(`Creating new review.`);
   throw new Error("Not implemented yet.")
 }
 
-public create = async (dto: ReviewCreateDto) => {
+public async updateById(id: number, dto: ReviewUpdateDto) {
+  this.logger.info(`Updating review with id ${id}.`);
   throw new Error("Not implemented yet.")
 }
 
-public updateById = async (Id: number, dto: ReviewUpdateDto) => {
-  throw new Error("Not implemented yet.")
-}
-
-public deleteById =async (id:number) => {
+public async deleteById(id:number) {
+  this.logger.info(`Deleting review with id ${id}.`);
   throw new Error("Not implemented yet.")
 }
 
