@@ -1,12 +1,11 @@
-
-
-const winston = require('winston')
+// const winston = require('winston')
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, printf } = format;
+import * as winston from 'winston'
 
 export class Logger {
 
-logger;
+private logger;
 
 constructor(){
   const formatting = printf(({ level, message, label, timestamp }) => {

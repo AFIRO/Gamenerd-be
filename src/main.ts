@@ -1,6 +1,6 @@
 import { GameRepository } from "./repository/gamerepository";
 import { ReviewRepository } from "./repository/reviewrepository";
-import { Logger } from "./util/logging";
+import { Logger } from "./util/logger";
 
 
 const koa = require('koa');

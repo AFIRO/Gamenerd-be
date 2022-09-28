@@ -1,12 +1,11 @@
 import { GameCreateDto } from "../entity/dto/game/game.create.dto"
 import { GameUpdateDto } from "../entity/dto/game/game.update.dto"
-import { Logger } from "../util/logging";
+import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
 
 export class GameRepository{
 
-private prisma = new PrismaClient()
-
+private prisma = new PrismaClient();
 private logger = new Logger();
 
 public findAll = async () => {
@@ -33,10 +32,3 @@ deleteById =async (id:number) => {
 }
 
 }
-// module.exports = {
-//   findAll,
-//   findById,
-//   create,
-//   updateById,
-//   deleteById,
-// };

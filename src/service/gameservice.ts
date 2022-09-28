@@ -1,6 +1,9 @@
-const ServiceError = require('../core/serviceError');
-const gameRepository = require('../repository/gamerepository');
-import { Logger } from "../util/logging";
-const logger = new Logger();
-export{}
+import { GameRepository } from "../repository/gamerepository";
+import { Logger } from "../util/logger";
+
+export class GameService {
+private logger = new Logger();
+private gameRepository = new GameRepository()
+}
+
 

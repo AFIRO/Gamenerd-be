@@ -1,5 +1,12 @@
-const ServiceError = require('../core/serviceError');
-const reviewRepository = require('../repository/reviewrepository');
-import { Logger } from "../util/logging";
-const logger = new Logger();
-export{}
+import { GameRepository } from "../repository/gamerepository";
+import { ReviewRepository } from "../repository/reviewrepository";
+import { UserRepository } from "../repository/userrepository";
+import { Logger } from "../util/logger";
+
+export class NewsService {
+private logger = new Logger();
+private reviewRepository = new ReviewRepository();
+private gameRepository = new GameRepository();
+private userRepository = new UserRepository();
+
+}

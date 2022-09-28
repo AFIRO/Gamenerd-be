@@ -1,10 +1,12 @@
 import { NewsCreateDto } from "../entity/dto/news/news.create.dto"
 import { NewsUpdateDto } from "../entity/dto/news/news.update.dto"
-import { Logger } from "../util/logging";
+import { Logger } from "../util/logger";
+import { PrismaClient } from '@prisma/client'
 
 export class NewsRepository {
-
-logger = new Logger();
+  
+private prisma = new PrismaClient();
+private logger = new Logger();
 
 findAll = async () => {
   throw new Error("Not implemented yet.")

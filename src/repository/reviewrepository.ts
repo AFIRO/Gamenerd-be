@@ -1,11 +1,11 @@
 import { ReviewCreateDto } from "../entity/dto/reviewer/review.create.dto"
 import { ReviewUpdateDto } from "../entity/dto/reviewer/review.update.dto"
-import { Logger } from "../util/logging";
+import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
 
 export class ReviewRepository {
 
-private prisma = new PrismaClient()
+private prisma = new PrismaClient();
 private logger = new Logger();
 
 findAll = async () => {
@@ -31,10 +31,3 @@ deleteById =async (id:number) => {
 }
 
 }
-// module.exports = {
-//   findAll,
-//   findById,
-//   create,
-//   updateById,
-//   deleteById,
-// };

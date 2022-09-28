@@ -1,10 +1,12 @@
 import { SiteUserCreateDto } from "../entity/dto/siteuser/siteuser.create.dto"
 import { SiteUserUpdateDto } from "../entity/dto/siteuser/siteuser.update.dto"
-import { Logger } from "../util/logging";
+import { Logger } from "../util/logger";
+import { PrismaClient } from '@prisma/client'
 
 export class UserRepository{
 
-logger = new Logger();
+private logger = new Logger();
+private prisma = new PrismaClient();
 
 findAll = async () => {
   throw new Error("Not implemented yet.")
