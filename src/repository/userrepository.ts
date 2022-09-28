@@ -8,24 +8,24 @@ export class UserRepository{
 private logger = new Logger();
 private prisma = new PrismaClient();
 
-findAll = async () => {
+public findAll = async () => {
   throw new Error("Not implemented yet.")
   
 }
 
-findById = async (id: number) => {
+public findById = async (id: number) => {
   throw new Error("Not implemented yet.")
 }
 
-create = async (dto: SiteUserCreateDto) => {
+public create = async (dto: SiteUserCreateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-updateById = async (Id: number, dto: SiteUserUpdateDto) => {
+public updateById = async (Id: number, dto: SiteUserUpdateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-deleteById =async (id:number) => {
+public deleteById =async (id:number) => {
   throw new Error("Not implemented yet.")
 }
 }

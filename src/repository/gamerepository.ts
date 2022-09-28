@@ -15,19 +15,19 @@ public findAll = async () => {
   
 }
 
-findById = async (id: number) => {
+public findById = async (id: number) => {
   throw new Error("Not implemented yet.")
 }
 
-create = async (dto: GameCreateDto) => {
+public create = async (dto: GameCreateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-updateById = async (Id: number, dto: GameUpdateDto) => {
+public updateById = async (Id: number, dto: GameUpdateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-deleteById =async (id:number) => {
+public deleteById =async (id:number) => {
   throw new Error("Not implemented yet.")
 }
 

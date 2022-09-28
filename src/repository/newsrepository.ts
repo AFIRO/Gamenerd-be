@@ -4,28 +4,28 @@ import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
 
 export class NewsRepository {
-  
+
 private prisma = new PrismaClient();
 private logger = new Logger();
 
-findAll = async () => {
+public findAll = async () => {
   throw new Error("Not implemented yet.")
   
 }
 
-findById = async (id: number) => {
+public findById = async (id: number) => {
   throw new Error("Not implemented yet.")
 }
 
-create = async (dto: NewsCreateDto) => {
+public create = async (dto: NewsCreateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-updateById = async (Id: number, dto: NewsUpdateDto) => {
+public updateById = async (Id: number, dto: NewsUpdateDto) => {
   throw new Error("Not implemented yet.")
 }
 
-deleteById =async (id:number) => {
+public deleteById =async (id:number) => {
   throw new Error("Not implemented yet.")
 }
 
