@@ -9,14 +9,14 @@ private logger = new Logger();
 private prisma = new PrismaClient();
 
 public async findAll() {
-  this.logger.info("Getting all users");
+  this.logger.info("Getting all users from repository.");
   const users = await this.prisma.user.findMany();
   return users;
   
 }
 
 public async findById(id: number) {
-  this.logger.info(`Getting user with id ${id}.`);
+  this.logger.info(`Getting user with id ${id} from repository.`);
   const potentialUser = this.prisma.user.findUniqueOrThrow({
     where: {
       id: id,
@@ -26,12 +26,12 @@ public async findById(id: number) {
 }
 
 public async create(dto: SiteUserCreateDto) {
-  this.logger.info(`Creating new user.`);
+  this.logger.info(`Creating new user in repository.`);
   this.prisma.user.create({data:dto});
 }
 
 public async updateById(id: number, dto: SiteUserUpdateDto) {
-  this.logger.info(`Updating user with id ${id}.`);
+  this.logger.info(`Updating user with id ${id} in repository.`);
   this.prisma.user.update({
     where: {id:id},
     data: dto
@@ -39,7 +39,7 @@ public async updateById(id: number, dto: SiteUserUpdateDto) {
 }
 
 public async deleteById(id:number) {
-  this.logger.info(`Deleting user with id ${id}.`);
+  this.logger.info(`Deleting user with id ${id} from repository.`);
   this.prisma.user.delete({where:{id:id}})
 }
 }
