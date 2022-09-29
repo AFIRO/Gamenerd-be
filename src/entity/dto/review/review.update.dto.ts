@@ -1,7 +1,7 @@
 export class ReviewUpdateDto{
   id:number;
   score: number;
-  contents:string;
+  content:string;
   writerId: number;
   gameId: number;
 }

@@ -26,18 +26,41 @@ public async findById(id: number) {
   return potentialNews;
 }
 
+public async findAllByGame(gameId: number) {
+  this.logger.info(`Getting all news for game with id ${gameId}.`);
+  const potentialNewsItemsForSpecificGame = this.prisma.news.findMany({
+    where: {
+      gameId: gameId,
+    },
+  })
+  return potentialNewsItemsForSpecificGame;
+}
+
+public async findAllByWriter(writerId: number) {
+  this.logger.info(`Getting all news written by writer with id ${writerId}.`);
+  const potentialNewsItemsForSpecificWriter = this.prisma.news.findMany({
+    where: {
+      writerId: writerId,
+    },
+  })
+  return potentialNewsItemsForSpecificWriter;
+}
+
 public async create(dto: NewsCreateDto) {
-  this.logger.info(`Creating new news.`);
-  throw new Error("Not implemented yet.")
+  this.logger.info(`Creating new news item.`);
+  this.prisma.news.create({data:dto});
 }
 
 public async updateById(id: number, dto: NewsUpdateDto) {
-  this.logger.info(`Updating news with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.logger.info(`Updating news item with id ${id}.`);
+  this.prisma.news.update({
+    where: {id:id},
+    data: dto
+  })
 }
 
 public async deleteById(id:number) {
-  this.logger.info(`Deleting news with id ${id}.`);
+  this.logger.info(`Deleting news item with id ${id}.`);
   this.prisma.news.delete({where:{id:id}})
 }
 

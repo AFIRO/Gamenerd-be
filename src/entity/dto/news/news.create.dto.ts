@@ -1,5 +1,5 @@
 export class NewsCreateDto {
   writerId: number;
-  contents: string;
-  gameId: string;
+  content: string;
+  gameId: number;
 }

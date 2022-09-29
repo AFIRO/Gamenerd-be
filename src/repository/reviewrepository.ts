@@ -26,14 +26,38 @@ public async findById(id: number) {
   return protentialReview;
 }
 
+public async findAllByGame(gameId: number) {
+  this.logger.info(`Getting all reviews for game with id ${gameId}.`);
+  const potentialReviewsForSpecificGame = this.prisma.review.findMany({
+    where: {
+      gameId: gameId,
+    },
+  })
+  return potentialReviewsForSpecificGame;
+}
+
+public async findAllByWriter(writerId: number) {
+  this.logger.info(`Getting all reviews written by writer with id ${writerId}.`);
+  const potentialReviewsForSpecificWriter = this.prisma.review.findMany({
+    where: {
+      writerId: writerId,
+    },
+  })
+  return potentialReviewsForSpecificWriter;
+}
+
+
 public async create(dto: ReviewCreateDto) {
   this.logger.info(`Creating new review.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.review.create({data:dto});
 }
 
 public async updateById(id: number, dto: ReviewUpdateDto) {
   this.logger.info(`Updating review with id ${id}.`);
-  throw new Error("Not implemented yet.")
+  this.prisma.review.update({
+    where: {id:id},
+    data: dto
+  })
 }
 
 public async deleteById(id:number) {

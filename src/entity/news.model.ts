@@ -3,14 +3,14 @@ import { SiteUser } from "./siteuser.model";
 
 export class News {
   id:number;
-  writer: SiteUser;
   contents: string;
-  game: Game;
+  writerId: string;
+  gameId: string;
 
   constructor(base?: Partial<News>){
     this.id = base.id || this.id;
-    this.writer = base.writer || this.writer;
+    this.writerId = base.writerId || this.writerId;
     this.contents = base.contents || this.contents;
-    this.game = base.game || this.game;
+    this.gameId = base.gameId || this.gameId;
   }
 }
