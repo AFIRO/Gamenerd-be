@@ -4,12 +4,13 @@ import { UserOutputDto } from "../entity/dto/user/user.output.dto";
 import { News } from "../entity/news.model";
 
 
-export class NewsMapper{
-    public static toOutputDto(news: News, writer: UserOutputDto, game: GameOutputDto):NewsOutputDto {
+export class NewsMapper {
+    public static toOutputDto(news: News, writer: UserOutputDto, game: GameOutputDto): NewsOutputDto {
         return new NewsOutputDto({
-            id:news.id,
-            content:news.content,
-            writer:writer,
-            game: game});
+            id: news.id,
+            content: news.content,
+            writer: writer,
+            game: game
+        });
     }
 }

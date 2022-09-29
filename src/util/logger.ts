@@ -5,34 +5,34 @@ import * as winston from 'winston'
 
 export class Logger {
 
-private logger;
+  private logger;
 
-constructor(){
-  const formatting = printf(({ level, message, label, timestamp }) => {
-    return `${level} - ${timestamp}: ${message}`;
-  });
+  constructor() {
+    const formatting = printf(({ level, message, label, timestamp }) => {
+      return `${level} - ${timestamp}: ${message}`;
+    });
 
-  this.logger = winston.createLogger({
-    level:'info',
-    format: combine(timestamp(), format.cli(), formatting),
-    transports:[
-      new winston.transports.File({filename:'info.log',level:'info'}),
-      new winston.transports.File({filename:'error.log',level:'error'}),
-      new winston.transports.File({filename:'all.log'}),
-      new winston.transports.Console()
-    ]
-  });
-}
+    this.logger = winston.createLogger({
+      level: 'info',
+      format: combine(timestamp(), format.cli(), formatting),
+      transports: [
+        new winston.transports.File({ filename: 'info.log', level: 'info' }),
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'all.log' }),
+        new winston.transports.Console()
+      ]
+    });
+  }
 
-public info(message:string) {
-  
-  this.logger.info(message)
-  
-}
+  public info(message: string) {
 
-public error(message:string) {
-  this.logger.error(message)
-  
-}
+    this.logger.info(message)
+
+  }
+
+  public error(message: string) {
+    this.logger.error(message)
+
+  }
 
 }

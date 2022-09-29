@@ -23,12 +23,18 @@ public async findAll() : Promise<News[]>{
 
 public async findById(id: number): Promise<News> {
   this.logger.info(`Getting news with id ${id} from repository.`);
-  const potentialNews = this.prisma.news.findUniqueOrThrow({
+  const potentialNews = this.prisma.news.findUnique({
     where: {
       id: id,
     },
   })
   return potentialNews;
+}
+
+public async existsById(id: number): Promise<boolean> {
+  this.logger.info(`Checking if news with id ${id} exists in repository.`);
+  const answer = await this.prisma.news.count({where:{id:id}})
+  return answer != 0
 }
 
 public async findAllByGame(gameId: number) : Promise<News[]>{
@@ -54,7 +60,7 @@ public async findAllByWriter(writerId: number): Promise<News[]> {
 public async create(dto: NewsCreateDto): Promise<News> {
   this.logger.info(`Creating new news item in repository.`);
   this.prisma.news.create({data:dto});
-  const potentialNewsItem = this.prisma.news.findFirst({
+  const potentialNewsItem = this.prisma.news.findUnique({
     where: {
       content: dto.content
     }
@@ -68,7 +74,7 @@ public async updateById(id: number, dto: NewsUpdateDto): Promise<News>  {
     where: {id:id},
     data: dto
   })
-  const potentialNewsItem = this.prisma.news.findFirst({
+  const potentialNewsItem = this.prisma.news.findUnique({
     where: {
       id: dto.id
     }
@@ -78,7 +84,7 @@ public async updateById(id: number, dto: NewsUpdateDto): Promise<News>  {
 
 public async deleteById(id:number): Promise<News> {
   this.logger.info(`Deleting news item with id ${id} from repository.`);
-  const potentialNewsItem = this.prisma.news.findFirst({
+  const potentialNewsItem = this.prisma.news.findUnique({
     where: {
       id:id
     }

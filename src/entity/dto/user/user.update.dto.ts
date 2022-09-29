@@ -1,6 +1,6 @@
 export class UserUpdateDto {
     id: number;
-    name:string;
+    name: string;
     role: string;
-    password:string
+    password: string
 }

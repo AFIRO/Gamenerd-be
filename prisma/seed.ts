@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { News } from '../src/entity/news.model'
-import { Role } from '../src/entity/role'
-import { SiteUser } from '../src/entity/user.model'
+import { User } from '../src/entity/user.model'
 const prisma = new PrismaClient({ log: ['query', 'info'] })
 
 
@@ -10,9 +9,9 @@ async function seedScript() {
   const user1 = await prisma.user.upsert({
     where: { id: 1 },
     update: {},
-    create: new SiteUser({
+    create: new User({
       name: "admin",
-      role: Role.Admin,
+      role: "ADMIN",
       password: "admin"
     }),
   })
@@ -20,9 +19,9 @@ async function seedScript() {
   const user2 = await prisma.user.upsert({
     where: { id: 2 },
     update: {},
-    create: new SiteUser({
+    create: new User({
       name: "writer",
-      role: Role.Staff,
+      role: "STAFF",
       password: "writer"
     }),
   })
@@ -30,9 +29,9 @@ async function seedScript() {
   const user3 = await prisma.user.upsert({
     where: { id: 3 },
     update: {},
-    create: new SiteUser({
+    create: new User({
       name: "user",
-      role: Role.User,
+      role: "USER",
       password: "user"
     }),
   })
@@ -115,6 +114,7 @@ async function seedScript() {
     create:
     {
       id: 1,
+      score: 9,
       content: "Review van game 1",
       writerId: 1,
       gameId: 1
@@ -127,6 +127,7 @@ async function seedScript() {
     create:
     {
       id: 2,
+      score: 7,
       content: "Review van game 2",
       writerId: 2,
       gameId: 2
@@ -139,6 +140,7 @@ async function seedScript() {
     create:
     {
       id: 3,
+      score: 6,
       content: "Review van game 3",
       writerId: 3,
       gameId: 3

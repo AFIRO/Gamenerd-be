@@ -1,7 +1,7 @@
-export class ReviewUpdateDto{
-  id:number;
+export class ReviewUpdateDto {
+  id: number;
   score: number;
-  content:string;
+  content: string;
   writerId: number;
   gameId: number;
 }

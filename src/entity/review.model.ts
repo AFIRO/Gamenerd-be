@@ -1,11 +1,11 @@
 export class Review {
-  id:number;
+  id: number;
   score: number;
-  content:string;
+  content: string;
   writerId: number;
   gameId: number;
 
-  constructor(base?: Partial<Review>){
+  constructor(base?: Partial<Review>) {
     this.id = base.id || this.id;
     this.score = base.score || this.score;
     this.writerId = base.writerId || this.writerId;

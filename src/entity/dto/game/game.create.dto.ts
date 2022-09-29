@@ -1,4 +1,4 @@
 export class GameCreateDto {
-  name:string;
-  boxart:string;
+  name: string;
+  boxart: string;
 }

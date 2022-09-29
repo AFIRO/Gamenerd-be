@@ -5,6 +5,7 @@ CREATE TABLE `User` (
     `role` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
 
+    UNIQUE INDEX `User_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -15,6 +16,7 @@ CREATE TABLE `News` (
     `writerId` INTEGER NOT NULL,
     `gameId` INTEGER NOT NULL,
 
+    UNIQUE INDEX `News_content_key`(`content`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -22,9 +24,11 @@ CREATE TABLE `News` (
 CREATE TABLE `Review` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `content` VARCHAR(191) NOT NULL,
+    `score` INTEGER NOT NULL,
     `writerId` INTEGER NOT NULL,
     `gameId` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Review_content_key`(`content`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -34,6 +38,8 @@ CREATE TABLE `Game` (
     `name` VARCHAR(255) NOT NULL,
     `boxart` VARCHAR(255) NOT NULL,
 
+    UNIQUE INDEX `Game_name_key`(`name`),
+    UNIQUE INDEX `Game_boxart_key`(`boxart`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

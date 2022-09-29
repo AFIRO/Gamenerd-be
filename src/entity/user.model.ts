@@ -1,10 +1,10 @@
-export class User{
+export class User {
   id: number;
-  name:string;
+  name: string;
   role: string;
-  password:string
+  password: string
 
-  constructor(base?: Partial<User>){
+  constructor(base?: Partial<User>) {
     this.id = base.id || this.id;
     this.name = base.name || this.name;
     this.role = base.role || this.role;

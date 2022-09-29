@@ -1,6 +1,6 @@
-export class ReviewCreateDto{
+export class ReviewCreateDto {
   score: number;
-  content:string;
+  content: string;
   writerId: number;
   gameId: number;
 }
