@@ -6,8 +6,13 @@ import { News } from "../entity/news.model";
 
 export class NewsRepository {
 
-private prisma = new PrismaClient({ log: ['query', 'info'] });
-private logger = new Logger();
+  private prisma: PrismaClient;
+  private logger: Logger;
+  
+  public constructor(){
+    this.prisma = new PrismaClient({ log: ['query', 'info'] });
+    this.logger = new Logger();
+  }
 
 public async findAll() : Promise<News[]>{
   this.logger.info("Getting all news from repository.");

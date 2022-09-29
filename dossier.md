@@ -76,16 +76,18 @@ naar users.
 
 - **datalaag**
 
-  - [ ] voldoende complex (meer dan één tabel)
-  - [ ] één module beheert de connectie + connectie wordt gesloten bij sluiten server
-  - [ ] heeft migraties
-  - [ ] heeft seeds
+  - [x] voldoende complex (meer dan één tabel)
+  - [x] één module beheert de connectie + connectie wordt gesloten bij sluiten server
+  Opmerking Andreeas: connect en disconnect wordt gemanaged door Prisma ORM. Bij het uitvoeren van de eerste query opent hij een connectie en bij eindigen van de Node applicatie sluit hij de connectie. 
+  https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/connection-management
+  - [x] heeft migraties
+  - [x] heeft seeds
 <br />
 
 - **repositorylaag**
 
-  - [ ] definieert één repository per entiteit (niet voor tussentabellen) - indien van toepassing
-  - [ ] mapt OO-rijke data naar relationele tabellen en vice versa
+  - [x] definieert één repository per entiteit (niet voor tussentabellen) - indien van toepassing
+  - [x] mapt OO-rijke data naar relationele tabellen en vice versa
 <br />
 
 - **servicelaag met een zekere complexiteit**
@@ -121,6 +123,18 @@ naar users.
 
 > Hoe heb je jouw applicatie gestructureerd (mappen, design patterns...)?
 
+Voor mijn backend ging ik voor de klassieke structuur van controller - service - repository - datalaag. Gezien het niet nodig was om meer overdreven dingen te doen (integraties, messaging, gateway stuctuur, etc.), wou ik het design niet overcompliceren.
+
+Ik heb besloten om het heel OO te doen gezien, laten we eerlijk zijn, JS binnen de industrie meer en meer marktaandeel verliest tegenover TS. Ik heb al mijn type objecten gegroepeerd.
+
+- controllers
+- services
+- entiteiten met dto's
+- repositories
+- utility
+
+De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Prisma ORM. Mijn filosofie was sowieso om, gezien mijn achtergrond als Java Enterprise developer, zoveel mogelijk de backend te bouwen richting een enterprise standaard en dus zoals volgt mijn structuur min of meer hoe ik een backend zou bouwen in Java Spring voor mijn job.
+
 ## Extra technologie
 
 ### Front-end Web Development
@@ -130,6 +144,11 @@ naar users.
 ### Web Services
 
 > Wat is de extra technologie? Hoe werkt het? Voeg een link naar het npm package toe!
+
+Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. Ik denk dat ik 2022 toch wel type-safety mag eisen van een backend. Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer mooi ORM, data-modelling, migratie en seeding. Objectief gezien is Prisma als framework mogelijk iets te krachtig voor de use case, maar vroege implementatie hiervan heeft dan weer voordelen qua scaling. De queries die het genereert zijn min of meer wat de gemiddelde developer zou schrijven (zeker vergeleken met het soort queries dat Hibernate soms durft te genereren), dus me dunkt zijn de voordelen veel hoger dan eventuele nadelen.
+
+https://www.npmjs.com/package/typescript
+https://www.npmjs.com/package/prisma
 
 ## Testresultaten
 

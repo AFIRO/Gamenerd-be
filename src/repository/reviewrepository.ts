@@ -6,8 +6,13 @@ import { Review } from "../entity/review.model";
 
 export class ReviewRepository {
 
-private prisma = new PrismaClient({ log: ['query', 'info'] });
-private logger = new Logger();
+  private prisma: PrismaClient;
+  private logger: Logger;
+  
+  public constructor(){
+    this.prisma = new PrismaClient({ log: ['query', 'info'] });
+    this.logger = new Logger();
+  }
 
 public async findAll(): Promise<Review[]> {
   this.logger.info("Getting all reviews from repository.");

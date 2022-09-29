@@ -6,8 +6,13 @@ import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
 
 export class UserRepository{
 
-private logger = new Logger();
-private prisma = new PrismaClient({ log: ['query', 'info'] });
+  private prisma: PrismaClient;
+  private logger: Logger;
+  
+  public constructor(){
+    this.prisma = new PrismaClient({ log: ['query', 'info'] });
+    this.logger = new Logger();
+  }
 
 public async findAll(): Promise<User[]>{
   this.logger.info("Getting all users from repository.");

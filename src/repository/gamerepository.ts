@@ -6,8 +6,13 @@ import { Game } from "../entity/game.model";
 
 export class GameRepository{
 
-private prisma = new PrismaClient({ log: ['query', 'info'] });
-private logger = new Logger();
+private prisma: PrismaClient;
+private logger: Logger;
+
+public constructor(){
+  this.prisma = new PrismaClient({ log: ['query', 'info'] });
+  this.logger = new Logger();
+}
 
 public async findAll(): Promise<Game[]> {
   this.logger.info("Getting all games from repository.");
