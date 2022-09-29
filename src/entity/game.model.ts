@@ -1,6 +1,3 @@
-import { News } from "./news.model";
-import { Review } from "./review.model";
-
 export class Game {
   id:number;
   name:string;

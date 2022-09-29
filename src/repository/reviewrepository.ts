@@ -1,21 +1,22 @@
-import { ReviewCreateDto } from "../entity/dto/review/review.create.dto"
-import { ReviewUpdateDto } from "../entity/dto/review/review.update.dto"
+import { ReviewCreateDto } from "../entity/dto/reviewer/review.create.dto"
+import { ReviewUpdateDto } from "../entity/dto/reviewer/review.update.dto"
 import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
+import { Review } from "../entity/review.model";
 
 export class ReviewRepository {
 
-private prisma = new PrismaClient();
+private prisma = new PrismaClient({ log: ['query', 'info'] });
 private logger = new Logger();
 
-public async findAll() {
+public async findAll(): Promise<Review[]> {
   this.logger.info("Getting all reviews from repository.");
   const reviews = await this.prisma.review.findMany();
   return reviews;
   
 }
 
-public async findById(id: number) {
+public async findById(id: number): Promise<Review> {
   this.logger.info(`Getting review with id ${id} from repository.`);
   const protentialReview = this.prisma.review.findUniqueOrThrow({
     where: {
@@ -25,7 +26,7 @@ public async findById(id: number) {
   return protentialReview;
 }
 
-public async findAllByGame(gameId: number) {
+public async findAllByGame(gameId: number): Promise<Review[]> {
   this.logger.info(`Getting all reviews for game with id ${gameId} from repository.`);
   const potentialReviewsForSpecificGame = this.prisma.review.findMany({
     where: {
@@ -35,33 +36,51 @@ public async findAllByGame(gameId: number) {
   return potentialReviewsForSpecificGame;
 }
 
-public async findAllByWriter(writerId: number) {
+public async findAllByWriter(writerId: number): Promise<Review[]> {
   this.logger.info(`Getting all reviews written by writer with id ${writerId} from repository.`);
   const potentialReviewsForSpecificWriter = this.prisma.review.findMany({
     where: {
       writerId: writerId,
     },
-  })
+  });
   return potentialReviewsForSpecificWriter;
 }
 
 
-public async create(dto: ReviewCreateDto) {
+public async create(dto: ReviewCreateDto): Promise<Review> {
   this.logger.info(`Creating new review in repository.`);
   this.prisma.review.create({data:dto});
+  const protentialReview = this.prisma.review.findUniqueOrThrow({
+    where: {
+      content: dto.content,
+    },
+  });
+  return protentialReview;
 }
 
-public async updateById(id: number, dto: ReviewUpdateDto) {
+public async updateById(id: number, dto: ReviewUpdateDto): Promise<Review> {
   this.logger.info(`Updating review with id ${id} in repository.`);
   this.prisma.review.update({
     where: {id:id},
     data: dto
-  })
+  });
+  const protentialReview = this.prisma.review.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return protentialReview;
 }
 
-public async deleteById(id:number) {
+public async deleteById(id:number): Promise<Review> {
   this.logger.info(`Deleting review with id ${id} from repository.`);
+  const protentialReview = this.prisma.review.findUniqueOrThrow({
+    where: {
+      id: id,
+    },
+  });
   this.prisma.review.delete({where:{id:id}})
+  return protentialReview;
 }
 
 }

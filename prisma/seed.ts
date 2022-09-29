@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import { News } from '../src/entity/news.model'
 import { Role } from '../src/entity/role'
-import { SiteUser } from '../src/entity/siteuser.model'
-const prisma = new PrismaClient()
+import { SiteUser } from '../src/entity/user.model'
+const prisma = new PrismaClient({ log: ['query', 'info'] })
 
 
 async function seedScript() {
@@ -139,12 +139,11 @@ async function seedScript() {
     create:
     {
       id: 3,
-      content: "Review van game 1",
+      content: "Review van game 3",
       writerId: 3,
       gameId: 3
     },
   })
-  console.log(game1, game2, game3);
 }
 
 seedScript()

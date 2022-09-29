@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id  Int @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @db.VarChar(255) @unique
   role String @db.VarChar(255)
   password String @db.VarChar(255)
   reviewsWritten Review[]
@@ -21,7 +21,7 @@ model User {
 
 model News {
   id  Int @id @default(autoincrement())
-  content String
+  content String @unique
   writer User @relation(fields: [writerId],references: [id])
   writerId Int 
   game Game @relation(fields: [gameId],references: [id])
@@ -30,7 +30,8 @@ model News {
 
 model Review {
   id  Int @id @default(autoincrement())
-  content String
+  content String @unique
+  score Int
   writer User @relation(fields: [writerId],references: [id])
   writerId Int
   game Game @relation(fields: [gameId],references: [id])
@@ -40,8 +41,8 @@ model Review {
 
 model Game {
   id  Int @id @default(autoincrement())
-  name String @db.VarChar(255)
-  boxart String @db.VarChar(255)
+  name String @db.VarChar(255) @unique
+  boxart String @db.VarChar(255) @unique
   reviews Review[]
   news News[]
 }

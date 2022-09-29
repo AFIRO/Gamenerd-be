@@ -1,12 +1,10 @@
-import { Role } from "./role";
-
-export class SiteUser{
+export class User{
   id: number;
   name:string;
-  role: Role;
+  role: string;
   password:string
 
-  constructor(base?: Partial<SiteUser>){
+  constructor(base?: Partial<User>){
     this.id = base.id || this.id;
     this.name = base.name || this.name;
     this.role = base.role || this.role;
