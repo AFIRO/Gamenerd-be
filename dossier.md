@@ -92,8 +92,8 @@ naar users.
 
 - **servicelaag met een zekere complexiteit**
 
-  - [ ] bevat alle domeinlogica
-  - [ ] bevat geen SQL-queries of databank-gerelateerde code
+  - [x] bevat alle domeinlogica
+  - [x] bevat geen SQL-queries of databank-gerelateerde code
 <br />
 
 - **REST-laag**
@@ -107,7 +107,7 @@ naar users.
 
 - **varia**
   - [ ] een aantal niet-triviale testen (min. 1 controller >=80% coverage)
-  - [ ] minstens één extra technologie
+  - [x] minstens één extra technologie
   - [ ] duidelijke en volledige `README.md`
   - [ ] maakt gebruik van de laatste ES6-features (object destructuring, spread operator...)
   - [ ] volledig en tijdig ingediend dossier
@@ -129,6 +129,7 @@ Ik heb besloten om het heel OO te doen gezien, laten we eerlijk zijn, JS binnen 
 
 - controllers
 - services
+- mappers
 - entiteiten met dto's
 - repositories
 - utility
