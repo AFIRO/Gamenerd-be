@@ -4,7 +4,7 @@ export class UserOutputDto {
   role: string;
   password: string
 
-  constructor(base?: Partial<UserOutputDto>) {
+  public constructor(base?: Partial<UserOutputDto>) {
     this.id = base.id || this.id;
     this.name = base.name || this.name;
     this.role = base.role || this.role;

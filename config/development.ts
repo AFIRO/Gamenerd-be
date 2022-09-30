@@ -7,5 +7,6 @@ module.exports = {
 		origins: ['http://localhost:3000'],
 		maxAge: 3 * 60 * 60,
 	},
-  environment: 'development'
+  environment: 'development',
+  port:9000
 }

@@ -7,7 +7,7 @@ export class NewsOutputDto {
   writer: UserOutputDto;
   game: GameOutputDto;
 
-  constructor(base?: Partial<NewsOutputDto>) {
+  public constructor(base?: Partial<NewsOutputDto>) {
     this.id = base.id || this.id;
     this.writer = base.writer || this.writer;
     this.content = base.content || this.content;

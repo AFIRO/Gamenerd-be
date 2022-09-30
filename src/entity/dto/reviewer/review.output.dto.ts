@@ -8,7 +8,7 @@ export class ReviewOutputDto {
   writer: UserOutputDto;
   game: GameOutputDto;
 
-  constructor(base?: Partial<ReviewOutputDto>) {
+  public constructor(base?: Partial<ReviewOutputDto>) {
     this.id = base.id || this.id;
     this.score = base.score || this.score;
     this.writer = base.writer || this.writer;

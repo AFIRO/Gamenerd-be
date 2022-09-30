@@ -1,8 +1,8 @@
 import { UserCreateDto } from "../entity/dto/user/user.create.dto";
 import { UserOutputDto } from "../entity/dto/user/user.output.dto";
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
-import { UserMapper } from "../mapper/usermapper";
-import { UserRepository } from "../repository/userrepository";
+import { UserMapper } from "../mapper/user.mapper";
+import { UserRepository } from "../repository/user.repository";
 import { Logger } from "../util/logger";
 import { ServiceError } from "../util/serviceError";
 

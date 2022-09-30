@@ -4,12 +4,12 @@ import { NewsUpdateDto } from "../entity/dto/news/news.update.dto";
 import { Game } from "../entity/game.model";
 import { News } from "../entity/news.model";
 import { User } from "../entity/user.model";
-import { GameMapper } from "../mapper/gamemapper";
-import { NewsMapper } from "../mapper/newsmapper";
-import { UserMapper } from "../mapper/usermapper";
-import { GameRepository } from "../repository/gamerepository";
-import { NewsRepository } from "../repository/newsrepository";
-import { UserRepository } from "../repository/userrepository";
+import { GameMapper } from "../mapper/game.mapper";
+import { NewsMapper } from "../mapper/news.mapper";
+import { UserMapper } from "../mapper/user.mapper";
+import { GameRepository } from "../repository/game.repository";
+import { NewsRepository } from "../repository/news.repository";
+import { UserRepository } from "../repository/user.repository";
 import { Logger } from "../util/logger";
 import { ServiceError } from "../util/serviceError";
 

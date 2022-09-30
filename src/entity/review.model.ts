@@ -5,7 +5,7 @@ export class Review {
   writerId: number;
   gameId: number;
 
-  constructor(base?: Partial<Review>) {
+  public constructor(base?: Partial<Review>) {
     this.id = base.id || this.id;
     this.score = base.score || this.score;
     this.writerId = base.writerId || this.writerId;

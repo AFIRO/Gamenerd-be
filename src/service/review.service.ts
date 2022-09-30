@@ -4,12 +4,12 @@ import { ReviewUpdateDto } from "../entity/dto/reviewer/review.update.dto";
 import { Game } from "../entity/game.model";
 import { Review } from "../entity/review.model";
 import { User } from "../entity/user.model";
-import { GameMapper } from "../mapper/gamemapper";
-import { ReviewMapper } from "../mapper/reviewmapper";
-import { UserMapper } from "../mapper/usermapper";
-import { GameRepository } from "../repository/gamerepository";
-import { ReviewRepository } from "../repository/reviewrepository";
-import { UserRepository } from "../repository/userrepository";
+import { GameMapper } from "../mapper/game.mapper";
+import { ReviewMapper } from "../mapper/review.mapper";
+import { UserMapper } from "../mapper/user.mapper";
+import { GameRepository } from "../repository/game.repository";
+import { ReviewRepository } from "../repository/review.repository";
+import { UserRepository } from "../repository/user.repository";
 import { Logger } from "../util/logger";
 import { ServiceError } from "../util/serviceError";
 

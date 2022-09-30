@@ -3,4 +3,11 @@ export class ReviewCreateDto {
   content: string;
   writerId: number;
   gameId: number;
+
+  public constructor(base?: Partial<ReviewCreateDto>) {
+    this.score = base.score || this.score;
+    this.content = base.content || this.content;
+    this.writerId = base.writerId || this.writerId;
+    this.gameId = base.gameId || this.gameId;
+  }
 }

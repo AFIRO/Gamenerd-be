@@ -4,7 +4,7 @@ export class User {
   role: string;
   password: string
 
-  constructor(base?: Partial<User>) {
+  public constructor(base?: Partial<User>) {
     this.id = base.id || this.id;
     this.name = base.name || this.name;
     this.role = base.role || this.role;

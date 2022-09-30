@@ -1,8 +1,8 @@
 import { GameCreateDto } from "../entity/dto/game/game.create.dto";
 import { GameOutputDto } from "../entity/dto/game/game.output.dto";
 import { GameUpdateDto } from "../entity/dto/game/game.update.dto";
-import { GameMapper } from "../mapper/gamemapper";
-import { GameRepository } from "../repository/gamerepository";
+import { GameMapper } from "../mapper/game.mapper";
+import { GameRepository } from "../repository/game.repository";
 import { Logger } from "../util/logger";
 import { ServiceError } from "../util/serviceError";
 
