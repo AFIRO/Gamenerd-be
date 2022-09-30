@@ -1,6 +1,14 @@
+import {IsInt, IsNotEmpty, IsPositive, IsString} from 'class-validator';
 export class GameUpdateDto {
+  @IsInt()
+  @IsNotEmpty()
+  @IsPositive()
   id: number;
+  @IsString()
+  @IsNotEmpty()
   name: string;
+  @IsString()
+  @IsNotEmpty()
   boxart: string;
 
   public constructor(base?: Partial<GameUpdateDto>) {

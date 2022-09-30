@@ -1,7 +1,20 @@
+import { IsInt, IsNotEmpty, IsPositive, IsString } from "class-validator";
+
 export class ReviewCreateDto {
+  @IsInt()
+  @IsNotEmpty()
+  @IsPositive()
   score: number;
+  @IsString()
+  @IsNotEmpty()
   content: string;
+  @IsInt()
+  @IsNotEmpty()
+  @IsPositive()
   writerId: number;
+  @IsInt()
+  @IsNotEmpty()
+  @IsPositive()
   gameId: number;
 
   public constructor(base?: Partial<ReviewCreateDto>) {

@@ -5,15 +5,24 @@ import { GameService } from '../service/game.service';
 import { Logger } from '../util/logger';
 import { GameUpdateDto } from '../entity/dto/game/game.update.dto';
 import { GameCreateDto } from '../entity/dto/game/game.create.dto';
+import { validate, ValidatorOptions } from 'class-validator'
 
 export class GameController {
   private readonly PREFIX: string = '/games'
   private router: Router;
   private gameService: GameService;
   private logger: Logger;
+  private readonly ValidatorOptions: ValidatorOptions =
+    {
+      forbidUnknownValues: true,
+      stopAtFirstError: true,
+      validationError: {
+        target: false
+      }
+    }
 
   public constructor() {
-    this.router = new Router({ prefix: '/games' })
+    this.router = new Router({ prefix: this.PREFIX})
     this.gameService = new GameService();
     this.logger = new Logger;
     //route definitions
@@ -35,9 +44,17 @@ export class GameController {
     //create
     this.router.post('/', async (ctx: Koa.Context) => {
       this.logger.info(`POST request for game with data ${ctx.request.body} made.`)
-      const dto = new GameCreateDto(ctx.request.body)
-      const data = await this.gameService.create(dto);
-      ctx.body = { data }
+      validate(ctx.request.body, this.ValidatorOptions).then(async errors => {
+        if (errors.length > 0) {
+          console.log('validation failed. errors: ', errors);
+          ctx.body = JSON.stringify(errors)
+        } else {
+          console.log('validation succeed');
+          const dto = new GameCreateDto(ctx.request.body)
+          const data = await this.gameService.create(dto);
+          ctx.body = { data }
+        }
+      });
     })
 
     //update
