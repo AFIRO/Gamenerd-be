@@ -7,8 +7,6 @@ import BodyParser from 'koa-bodyparser';
 import config from "config";
 import { Logger } from "./util/logger";
 import { ControllerInstaller } from "./controller/controller.installer";
-const app = new Koa();
-
 export class Server {
 
   private readonly CURRENT_ENV = config.get('env');
@@ -64,7 +62,7 @@ export class Server {
   public async start(): Promise<void>{
     return new Promise((resolve) => {
       const port = this.PORT || 9000;
-      app.listen(port);
+      this.application.listen(port);
       this.logger.info(`🚀 Server listening on http://localhost:${port}`);
       resolve();
     });
