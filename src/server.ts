@@ -25,13 +25,8 @@ export class Server {
     this.logger.info("Setting cors configuration.")
     this.application.use(
       cors({
-        origin: (ctx: Koa.Context) => {
-          if (this.CORS_ORIGINS.indexOf(ctx.request.header.origin) !== -1) {
-            return ctx.request.header.origin;
-          }
-          return this.CORS_ORIGINS[0];
-        },
-        allowHeaders: ['Accept', 'Content-Type', 'Authorization'],
+        origin: this.CORS_ORIGINS,
+        headers: ['Accept', 'Content-Type', 'Authorization'],
         maxAge: this.CORS_MAX_AGE,
       }),
     );

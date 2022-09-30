@@ -112,6 +112,3 @@ export class ValidationService {
 
 }
 
-function cleanupJoiError(queryErrors: any): any {
-  throw new Error('Function not implemented.');
-}
