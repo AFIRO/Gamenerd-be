@@ -39,6 +39,7 @@ export class UserRepository {
 
   public async create(dto: UserCreateDto): Promise<User> {
     this.logger.info(`Creating new user in repository.`);
+    try {
     await this.prisma.user.create({ data: dto });
     const potentialUser = await this.prisma.user.findUnique({
       where: {
@@ -46,10 +47,15 @@ export class UserRepository {
       },
     })
     return potentialUser;
+  } catch (error) {
+    this.logger.error(`Error in create: ${error}`)
+    throw new Error("Error while creating: data already present in other user entity.");
+  }
   }
 
   public async updateById(id: string, dto: UserUpdateDto): Promise<User> {
     this.logger.info(`Updating user with id ${id} in repository.`);
+    try {
     await this.prisma.user.update({
       where: { id: id },
       data: dto
@@ -60,6 +66,10 @@ export class UserRepository {
       },
     })
     return potentialUser;
+  } catch (error) {
+    this.logger.error(`Error in create: ${error}`)
+    throw new Error("Error while updating: data already present in other user entity.");
+  }
   }
 
   public async deleteById(id: string): Promise<User> {

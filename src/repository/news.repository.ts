@@ -59,6 +59,7 @@ public async findAllByWriter(writerId: string): Promise<News[]> {
 
 public async create(dto: NewsCreateDto): Promise<News> {
   this.logger.info(`Creating new news item in repository.`);
+  try {
   await this.prisma.news.create({data:dto});
   const potentialNewsItem = this.prisma.news.findUnique({
     where: {
@@ -66,10 +67,15 @@ public async create(dto: NewsCreateDto): Promise<News> {
     }
   })
   return potentialNewsItem;
+} catch (error) {
+  this.logger.error(`Error in create: ${error}`)
+  throw new Error("Error while creating: data already present in other news entity.");
+}
 }
 
 public async updateById(id: string, dto: NewsUpdateDto): Promise<News>  {
   this.logger.info(`Updating news item with id ${id} in repository.`);
+  try {
   await this.prisma.news.update({
     where: {id:id},
     data: dto
@@ -80,6 +86,10 @@ public async updateById(id: string, dto: NewsUpdateDto): Promise<News>  {
     }
   })
   return potentialNewsItem;
+} catch (error) {
+  this.logger.error(`Error in update: ${error}`)
+  throw new Error("Error while updating: data already present in other game entity.");
+}
 }
 
 public async deleteById(id:string): Promise<News> {
