@@ -32,6 +32,7 @@ export class NewsController {
       try {
         const data = await this.newsService.findAll();
         ctx.body = { data }
+        this.logger.info(`GET for all news succesful.`)
       } catch (error) {
         ctx.throw(404, error)
       }
@@ -44,6 +45,7 @@ export class NewsController {
         const writerId: string = ctx.query.writerId.toString();
         const data = await this.newsService.findAllByWriter(writerId);
         ctx.body = { data }
+        this.logger.info(`GET for all news by writer with id ${ctx.query.writerId}  succesful.`)
       } catch (error) {
         ctx.throw(404, error)
       }
@@ -56,6 +58,7 @@ export class NewsController {
         const gameId: string = ctx.query.writerId.toString();
         const data = await this.newsService.findAllByGame(gameId);
         ctx.body = { data }
+        this.logger.info(`GET for all news by game with id ${ctx.query.gameId}  succesful.`)
       } catch (error) {
         ctx.throw(404, error)
       }
@@ -67,6 +70,7 @@ export class NewsController {
       try {
         const data = await this.newsService.findById(ctx.params.id);
         ctx.body = { data }
+        this.logger.info(`GET for news with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(404, error)
       }
@@ -86,6 +90,7 @@ export class NewsController {
             try {
               const data = await this.newsService.create(dto);
               ctx.body = { data }
+              this.logger.info(`CREATE for news with id ${data.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
             }
@@ -107,6 +112,7 @@ export class NewsController {
             try {
               const data = await this.newsService.update(ctx.params.id, dto);
               ctx.body = { data }
+              this.logger.info(`UPDATE for news with id ${ctx.params.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
             }
@@ -120,6 +126,7 @@ export class NewsController {
       try {
         const data = await this.newsService.delete(ctx.params.id);
         ctx.body = { data }
+        this.logger.info(`DELETE for news with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(404, error)
       }
