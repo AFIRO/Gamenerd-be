@@ -98,10 +98,10 @@ naar users.
 
 - **REST-laag**
 
-  - [ ] meerdere routes met invoervalidatie
-  - [ ] degelijke foutboodschappen
-  - [ ] volgt de conventies van een RESTful API
-  - [ ] bevat geen domeinlogica
+  - [x] meerdere routes met invoervalidatie
+  - [x] degelijke foutboodschappen
+  - [x] volgt de conventies van een RESTful API
+  - [x] bevat geen domeinlogica
   - [ ] degelijke authorisatie/authenticatie op alle routes
 <br />
 
@@ -109,8 +109,8 @@ naar users.
   - [ ] een aantal niet-triviale testen (min. 1 controller >=80% coverage)
   - [x] minstens één extra technologie
   - [ ] duidelijke en volledige `README.md`
-  - [ ] maakt gebruik van de laatste ES6-features (object destructuring, spread operator...)
-  - [ ] volledig en tijdig ingediend dossier
+  - [x] maakt gebruik van de laatste ES6-features (object destructuring, spread operator...)
+  - [x] volledig en tijdig ingediend dossier
 
 
 ## Projectstructuur
@@ -125,7 +125,7 @@ naar users.
 
 Voor mijn backend ging ik voor de klassieke structuur van controller - service - repository - datalaag. Gezien het niet nodig was om meer overdreven dingen te doen (integraties, messaging, gateway stuctuur, etc.), wou ik het design niet overcompliceren.
 
-Ik heb besloten om het heel OO te doen gezien, laten we eerlijk zijn, JS binnen de industrie meer en meer marktaandeel verliest tegenover TS. Ik heb al mijn type objecten gegroepeerd.
+Ik heb besloten om het heel OO te doen gezien, laten we eerlijk zijn, JS binnen de industrie meer en meer marktaandeel verliest tegenover TS. Ik heb al mijn type objecten gegroepeerd in een logische ordening.
 
 - controllers
 - services
@@ -134,7 +134,7 @@ Ik heb besloten om het heel OO te doen gezien, laten we eerlijk zijn, JS binnen 
 - repositories
 - utility
 
-De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Prisma ORM. Mijn filosofie was sowieso om, gezien mijn achtergrond als Java Enterprise developer, zoveel mogelijk de backend te bouwen richting een enterprise standaard en dus zoals volgt mijn structuur min of meer hoe ik een backend zou bouwen in Java Spring voor mijn job.
+De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Prisma ORM. Mijn filosofie was sowieso om, gezien mijn achtergrond als Java Enterprise developer, zoveel mogelijk de backend te bouwen richting een enterprise standaard en dus zoals volgt mijn structuur min of meer hoe ik een backend zou bouwen in Java Spring voor mijn job. Het leuke aan dit project was dan weer dat ik kon rondkijken binnen het NPM landschap voor modules die doen wat ik nodig heb een manier waar ik mee akkoord kan gaan. Dit is een verademing vergeleken met Spring waar alles vaak op 1 en enkel 1 juiste manier wordt gedaan.
 
 ## Extra technologie
 
@@ -146,10 +146,19 @@ De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Pris
 
 > Wat is de extra technologie? Hoe werkt het? Voeg een link naar het npm package toe!
 
-Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. Ik denk dat ik 2022 toch wel type-safety mag eisen van een backend. Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer mooi ORM, data-modelling, migratie en seeding. Objectief gezien is Prisma als framework mogelijk iets te krachtig voor de use case, maar vroege implementatie hiervan heeft dan weer voordelen qua scaling. De queries die het genereert zijn min of meer wat de gemiddelde developer zou schrijven (zeker vergeleken met het soort queries dat Hibernate soms durft te genereren), dus me dunkt zijn de voordelen veel hoger dan eventuele nadelen.
+Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. Ik denk dat ik in 2022 toch wel type-safety mag eisen van een backend. Functioneel programmeren is leuk voor kleine applicaties, maar is problematisch voor scaling en communicatie tussen teamleden. Nuances in complexere data gaat zo verloren. 
+
+Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer mooi een ORM, data-modelling, migratie en seeding. Objectief gezien is Prisma als framework mogelijk iets te krachtig voor de use case, maar vroege implementatie hiervan heeft dan weer voordelen qua scaling. De queries die het genereert zijn min of meer wat de gemiddelde developer zou schrijven (zeker vergeleken met het soort queries dat Hibernate soms durft te genereren), dus me dunkt zijn de voordelen veel hoger dan eventuele nadelen.
+
+Gezien ik toch al full TypeScript ben gegaan, vond ik class-validator goed passen in het geheel. Joi's implementatie was niet echt mijn ding en gezien ik al Dto's had gemaakt voor al mijn entiteiten, was ze decoreren met constraints veel logischer dan de builder interface van Joi. Het zou gewoon dubbel werk zijn geweest.
+
+Een laatste is een unsubtiel genaamd "koa-better-error-handler". Deze vervangt de standaard error handler door een leukere met built-in support status codes, status messages en mooie formatting van de error richting de gebruiker.
+Het pakt deze dan op gebruiksvriendelijke manier onder de ctx.throw. Ik heb ook zitten zoeken naar een meer globalere oplossing, maar ik kon direct eentje vinden waarmee ik een error handler kon definieren die, op basis van opties in een error object, een flow kon volgen analoog aan de Global Advisor van Spring. Helaas. Dat had de implementatie veel cleaner gemaakt.
 
 https://www.npmjs.com/package/typescript
 https://www.npmjs.com/package/prisma
+https://www.npmjs.com/package/class-validator
+https://www.npmjs.com/package/koa-better-error-handler
 
 ## Testresultaten
 

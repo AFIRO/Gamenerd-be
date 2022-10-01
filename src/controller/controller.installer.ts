@@ -1,4 +1,3 @@
-import { Logger } from "../util/logger";
 import { GameController } from "./game.controller";
 import { HealthController } from "./health.controller";
 import { NewsController } from "./news.controller";

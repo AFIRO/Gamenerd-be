@@ -1,10 +1,6 @@
 import * as Koa from 'koa';
 import Router from 'koa-router';
 import { Logger } from '../util/logger';
-import { validate, ValidatorOptions } from 'class-validator'
-import { NewsService } from '../service/news.service';
-import { NewsCreateDto } from '../entity/dto/news/news.create.dto';
-import { NewsUpdateDto } from '../entity/dto/news/news.update.dto';
 import { HealthService } from '../service/health.service';
 
 export class HealthController {

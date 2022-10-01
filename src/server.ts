@@ -1,5 +1,4 @@
 import Koa from "koa";
-import * as HttpStatus from 'http-status-codes'
 import cors from "koa-cors";
 import json from "koa-json";
 import bodyParser from 'koa-bodyparser';

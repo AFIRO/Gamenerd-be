@@ -1,5 +1,4 @@
-// const winston = require('winston')
-const { createLogger, format, transports } = require('winston');
+import { format } from 'winston';
 const { combine, timestamp, label, printf } = format;
 import * as winston from 'winston'
 
