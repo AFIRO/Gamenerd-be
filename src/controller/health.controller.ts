@@ -21,7 +21,8 @@ export class HealthController {
     //ping
     this.router.get('/ping', (ctx: Koa.Context) => {
       this.logger.info(`PING request made by IP adress ${ctx.request.ip}`)
-      ctx.body = this.healthService.ping();}
+      ctx.body = this.healthService.ping()
+    }
     )
     
      //read version info

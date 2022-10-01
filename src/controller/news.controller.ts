@@ -39,9 +39,10 @@ export class NewsController {
 
     //read all by writer
     this.router.get('/', async (ctx: Koa.Context) => {
-      this.logger.info(`GET request for all news by writer with id ${ctx.queryParams.writerId} made.`)
+      this.logger.info(`GET request for all news by writer with id ${ctx.query.writerId} made.`)
       try {
-        const data = await this.newsService.findAllByWriter(ctx.queryParams.writerId);
+        const writerId: string = ctx.query.writerId.toString();
+        const data = await this.newsService.findAllByWriter(writerId);
         ctx.body = { data }
       } catch (error) {
         ctx.throw(404, error)
@@ -50,9 +51,10 @@ export class NewsController {
 
     //read all by game
     this.router.get('/', async (ctx: Koa.Context) => {
-      this.logger.info(`GET request for all news by game with id ${ctx.queryParams.gameId} made.`)
+      this.logger.info(`GET request for all news by game with id ${ctx.query.gameId} made.`)
       try {
-        const data = await this.newsService.findAllByGame(ctx.queryParams.gameId);
+        const gameId: string = ctx.query.writerId.toString();
+        const data = await this.newsService.findAllByGame(gameId);
         ctx.body = { data }
       } catch (error) {
         ctx.throw(404, error)

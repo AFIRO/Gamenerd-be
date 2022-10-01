@@ -40,9 +40,10 @@ export class ReviewController {
 
     //read all by writer
     this.router.get('/', async (ctx: Koa.Context) => {
-      this.logger.info(`GET request for all reviews by writer with id ${ctx.queryParams.writerId} made.`)
+      this.logger.info(`GET request for all reviews by writer with id ${ctx.query.writerId} made.`)
       try {
-        const data = await this.reviewService.findAllByWriter(ctx.queryParams.writerId);
+        const writerId: string = ctx.query.writerId.toString();
+        const data = await this.reviewService.findAllByWriter(writerId);
         ctx.body = { data }
       } catch (error) {
         ctx.throw(404, error)
@@ -51,9 +52,10 @@ export class ReviewController {
 
     //read all by game
     this.router.get('/', async (ctx: Koa.Context) => {
-      this.logger.info(`GET request for all reviews by game with id ${ctx.queryParams.gameId} made.`)
+      this.logger.info(`GET request for all reviews by game with id ${ctx.query.gameId} made.`)
       try {
-        const data = await this.reviewService.findAllByGame(ctx.queryParams.gameId);
+        const gameId: string = ctx.query.gameId.toString();
+        const data = await this.reviewService.findAllByGame(gameId);
         ctx.body = { data }
       } catch (error) {
         ctx.throw(404, error)
