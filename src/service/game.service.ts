@@ -23,18 +23,18 @@ export class GameService {
         }
         else {
             this.logger.error(`No games in database`)
-            throw ServiceError.notFound(`No games in database`, { Error: "No data" })
+            throw Error(`No games in database`)
         }
     }
 
-    public async findById(id: number): Promise<GameOutputDto> {
+    public async findById(id: string): Promise<GameOutputDto> {
         this.logger.info(`GameService getting game with id ${id}.`)
         const potentialGame = await this.gameRepository.findById(id)
         if (potentialGame) {
             return GameMapper.toOutputDto(potentialGame);
         } else {
             this.logger.error(`Game with id ${id} not found in repository.`);
-            throw ServiceError.notFound(`Game with id ${id} not found`, { id })
+            throw Error(`Game with id ${id} not found`)
         }
     }
 
@@ -43,21 +43,21 @@ export class GameService {
         return GameMapper.toOutputDto(await this.gameRepository.create(dto));
     }
 
-    public async update(id: number, dto: GameUpdateDto): Promise<GameOutputDto> {
+    public async update(id: string, dto: GameUpdateDto): Promise<GameOutputDto> {
         this.logger.info(`GameService updating game with id ${id}.`)
         if (id != dto.id) {
             this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
-            throw ServiceError.validationFailed(`Id ${id} in request does not match the Id ${dto.id} in body.`, { id })
+            throw Error(`Id ${id} in request does not match the Id ${dto.id} in body.`)
         }
         return GameMapper.toOutputDto(await this.gameRepository.updateById(id, dto));
     }
 
-    public async delete(id: number): Promise<GameOutputDto> {
+    public async delete(id: string): Promise<GameOutputDto> {
         if (await this.gameRepository.existsById(id)) {
             return GameMapper.toOutputDto(await this.gameRepository.deleteById(id))
         } else {
             this.logger.error(`Game with id ${id} not found in repository.`);
-            throw ServiceError.notFound(`Game with ${id} not found in database`, { id })
+            throw Error(`Game with id ${id} not found in database`)
         }
     }
 }

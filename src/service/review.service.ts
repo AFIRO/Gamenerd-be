@@ -42,7 +42,7 @@ export class ReviewService {
         }
     }
 
-    public async findById(id: number): Promise<ReviewOutputDto> {
+    public async findById(id: string): Promise<ReviewOutputDto> {
         this.logger.info(`ReviewService getting game with id ${id}.`)
         const reviewEntity: Review = await this.reviewRepository.findById(id);
         if (reviewEntity) {
@@ -59,7 +59,7 @@ export class ReviewService {
         return await this.retrieveEntitiesToBeMappedAndMapToOutputDto(reviewEntity)
     }
 
-    public async update(id: number, dto: ReviewUpdateDto): Promise<ReviewOutputDto> {
+    public async update(id: string, dto: ReviewUpdateDto): Promise<ReviewOutputDto> {
         this.logger.info(`ReviewService updating review with id ${id}.`)
         if (id != dto.id) {
             this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
@@ -69,7 +69,7 @@ export class ReviewService {
         return await this.retrieveEntitiesToBeMappedAndMapToOutputDto(reviewEntity)
     }
 
-    public async delete(id: number): Promise<ReviewOutputDto> {
+    public async delete(id: string): Promise<ReviewOutputDto> {
         this.logger.info(`NewsService deleting user with id ${id}.`)
         if (await this.reviewRepository.existsById(id)) {
             const reviewEntity: Review = await this.reviewRepository.deleteById(id);

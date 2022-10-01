@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id  Int @id @default(autoincrement())
+  id  String @id @default(uuid())
   name String @db.VarChar(255) @unique
   role String @db.VarChar(255)
   password String @db.VarChar(255)
@@ -20,27 +20,27 @@ model User {
 }
 
 model News {
-  id  Int @id @default(autoincrement())
+  id  String @id @default(uuid())
   content String @unique
   writer User @relation(fields: [writerId],references: [id])
-  writerId Int 
+  writerId String 
   game Game @relation(fields: [gameId],references: [id])
-  gameId Int
+  gameId String
 }
 
 model Review {
-  id  Int @id @default(autoincrement())
+  id  String @id @default(uuid())
   content String @unique
   score Int
   writer User @relation(fields: [writerId],references: [id])
-  writerId Int
+  writerId String
   game Game @relation(fields: [gameId],references: [id])
-  gameId Int
+  gameId String
 }
 
 
 model Game {
-  id  Int @id @default(autoincrement())
+  id  String @id @default(uuid())
   name String @db.VarChar(255) @unique
   boxart String @db.VarChar(255) @unique
   reviews Review[]

@@ -1,12 +1,14 @@
 import Koa from "koa";
 import * as HttpStatus from 'http-status-codes'
-import Router from "koa-router"
 import cors from "koa-cors";
 import json from "koa-json";
-import BodyParser from 'koa-bodyparser';
+import bodyParser from 'koa-bodyparser';
+import formidable from 'koa2-formidable';
 import config from "config";
 import { Logger } from "./util/logger";
 import { ControllerInstaller } from "./controller/controller.installer";
+import errorHandler from 'koa-better-error-handler';
+import koa404Handler from 'koa-404-handler';
 export class Server {
 
   private readonly CURRENT_ENV = config.get('env');
@@ -32,22 +34,15 @@ export class Server {
     );
     this.logger.info("Setting up middleware.")
     this.application.use(json());
+    this.application.use(formidable());
+    this.application.use(bodyParser())
+    this.logger.info("Setting up error handling.");
+    this.application.context.onerror = errorHandler();
+    this.application.context.api = true;
+    this.application.use(koa404Handler);
     this.logger.info("Setting up routing.")
     this.controllerInstaller = new ControllerInstaller();
     this.controllerInstaller.installRoutes(this.application);
-    this.logger.info("Setting up error handler.")
-    this.application.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
-      try {
-        await next();
-      } catch (error) {
-        ctx.status = error.statusCode || error.status || HttpStatus.StatusCodes.INTERNAL_SERVER_ERROR;
-        error.status = ctx.status;
-        ctx.body = { error };
-        this.logger.error(`${ctx.status}: ${ctx.body}`)
-        ctx.app.emit('error', error, ctx);
-      }
-    });
-
   }
 
   public getApplicationContext(): Koa {

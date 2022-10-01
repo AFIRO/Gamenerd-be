@@ -21,9 +21,9 @@ export class ReviewRepository {
 
   }
 
-  public async findById(id: number): Promise<Review> {
+  public async findById(id: string): Promise<Review> {
     this.logger.info(`Getting review with id ${id} from repository.`);
-    const protentialReview = this.prisma.review.findUniqueOrThrow({
+    const protentialReview = await this.prisma.review.findUniqueOrThrow({
       where: {
         id: id,
       },
@@ -31,15 +31,15 @@ export class ReviewRepository {
     return protentialReview;
   }
 
-  public async existsById(id: number): Promise<boolean> {
+  public async existsById(id: string): Promise<boolean> {
     this.logger.info(`Checking if review with id ${id} exists in repository.`);
     const answer = await this.prisma.review.count({ where: { id: id } })
     return answer != 0
   }
 
-  public async findAllByGame(gameId: number): Promise<Review[]> {
+  public async findAllByGame(gameId: string): Promise<Review[]> {
     this.logger.info(`Getting all reviews for game with id ${gameId} from repository.`);
-    const potentialReviewsForSpecificGame = this.prisma.review.findMany({
+    const potentialReviewsForSpecificGame = await this.prisma.review.findMany({
       where: {
         gameId: gameId,
       },
@@ -47,9 +47,9 @@ export class ReviewRepository {
     return potentialReviewsForSpecificGame;
   }
 
-  public async findAllByWriter(writerId: number): Promise<Review[]> {
+  public async findAllByWriter(writerId: string): Promise<Review[]> {
     this.logger.info(`Getting all reviews written by writer with id ${writerId} from repository.`);
-    const potentialReviewsForSpecificWriter = this.prisma.review.findMany({
+    const potentialReviewsForSpecificWriter = await this.prisma.review.findMany({
       where: {
         writerId: writerId,
       },
@@ -60,8 +60,8 @@ export class ReviewRepository {
 
   public async create(dto: ReviewCreateDto): Promise<Review> {
     this.logger.info(`Creating new review in repository.`);
-    this.prisma.review.create({ data: dto });
-    const protentialReview = this.prisma.review.findUniqueOrThrow({
+    await this.prisma.review.create({ data: dto });
+    const protentialReview = await this.prisma.review.findUniqueOrThrow({
       where: {
         content: dto.content,
       },
@@ -69,13 +69,13 @@ export class ReviewRepository {
     return protentialReview;
   }
 
-  public async updateById(id: number, dto: ReviewUpdateDto): Promise<Review> {
+  public async updateById(id: string, dto: ReviewUpdateDto): Promise<Review> {
     this.logger.info(`Updating review with id ${id} in repository.`);
-    this.prisma.review.update({
+    await this.prisma.review.update({
       where: { id: id },
       data: dto
     });
-    const protentialReview = this.prisma.review.findUnique({
+    const protentialReview = await this.prisma.review.findUnique({
       where: {
         id: id,
       },
@@ -83,14 +83,14 @@ export class ReviewRepository {
     return protentialReview;
   }
 
-  public async deleteById(id: number): Promise<Review> {
+  public async deleteById(id: string): Promise<Review> {
     this.logger.info(`Deleting review with id ${id} from repository.`);
     const protentialReview = this.prisma.review.findUniqueOrThrow({
       where: {
         id: id,
       },
     });
-    this.prisma.review.delete({ where: { id: id } })
+    await this.prisma.review.delete({ where: { id: id } })
     return protentialReview;
   }
 

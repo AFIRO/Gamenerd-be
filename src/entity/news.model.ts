@@ -1,8 +1,8 @@
 export class News {
-  id: number;
+  id: string;
   content: string;
-  writerId: number;
-  gameId: number;
+  writerId: string;
+  gameId: string;
 
   public constructor(base?: Partial<News>) {
     this.id = base.id || this.id;

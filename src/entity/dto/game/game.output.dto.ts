@@ -1,5 +1,5 @@
 export class GameOutputDto {
-  id: number;
+  id: string;
   name: string;
   boxart: string;
 

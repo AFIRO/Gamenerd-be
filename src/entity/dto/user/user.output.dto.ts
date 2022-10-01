@@ -1,5 +1,5 @@
 export class UserOutputDto {
-  id: number;
+  id: string;
   name: string;
   role: string;
   password: string

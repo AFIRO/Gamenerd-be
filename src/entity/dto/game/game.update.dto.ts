@@ -1,9 +1,8 @@
 import {IsInt, IsNotEmpty, IsPositive, IsString} from 'class-validator';
 export class GameUpdateDto {
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  id: number;
+  id: string;
   @IsString()
   @IsNotEmpty()
   name: string;

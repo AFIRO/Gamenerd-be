@@ -22,8 +22,9 @@ export class GameRepository {
 
   }
 
-  public async findById(id: number): Promise<Game> {
+  public async findById(id: string): Promise<Game> {
     this.logger.info(`Getting game with id ${id} from repository.`);
+    
     const potentialGame = await this.prisma.game.findUnique({
       where: {
         id: id,
@@ -32,7 +33,7 @@ export class GameRepository {
     return potentialGame;
   }
 
-  public async existsById(id: number): Promise<boolean> {
+  public async existsById(id: string): Promise<boolean> {
     this.logger.info(`Checking if game with id ${id} exists in repository.`);
     const answer = await this.prisma.game.count({ where: { id: id } })
     return answer != 0
@@ -40,30 +41,40 @@ export class GameRepository {
 
   public async create(dto: GameCreateDto): Promise<Game> {
     this.logger.info(`Creating new game in repository.`);
-    this.prisma.game.create({ data: dto });
-    const potentialGame = await this.prisma.game.findUnique({
-      where: {
-        name: dto.name,
-      },
-    })
-    return potentialGame;
+    try {
+      await this.prisma.game.create({ data: dto });
+      const potentialGame = await this.prisma.game.findUnique({
+        where: {
+          name: dto.name,
+        },
+      })
+      return potentialGame;
+    } catch (error) {
+      this.logger.error(`Error in create: ${error}`)
+      throw new Error("Error while creating: data already present in other game entity.");
+    }
   }
 
-  public async updateById(id: number, dto: GameUpdateDto): Promise<Game> {
+  public async updateById(id: string, dto: GameUpdateDto): Promise<Game> {
     this.logger.info(`Updating game with id ${id} in repository.`);
-    await this.prisma.game.update({
-      where: { id: id },
-      data: dto
-    })
-    const potentialGame = await this.prisma.game.findUnique({
-      where: {
-        name: dto.name,
-      },
-    })
-    return potentialGame;
+    try {
+      await this.prisma.game.update({
+        where: { id: id },
+        data: dto
+      })
+      const potentialGame = await this.prisma.game.findUnique({
+        where: {
+          name: dto.name,
+        },
+      })
+      return potentialGame;
+    } catch (error) {
+      this.logger.error(`Error in update: ${error}`)
+      throw new Error("Error while updating: data already present in other game entity.");
+    }
   }
 
-  public async deleteById(id: number): Promise<Game> {
+  public async deleteById(id: string): Promise<Game> {
     this.logger.info(`Deleting game with id ${id} from repository.`);
     const potentialGame = await this.prisma.game.findUnique({
       where: {

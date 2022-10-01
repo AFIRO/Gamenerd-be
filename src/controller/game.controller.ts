@@ -22,7 +22,7 @@ export class GameController {
     }
 
   public constructor() {
-    this.router = new Router({ prefix: this.PREFIX})
+    this.router = new Router({ prefix: this.PREFIX })
     this.gameService = new GameService();
     this.logger = new Logger;
     //route definitions
@@ -30,46 +30,76 @@ export class GameController {
     //read all
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all games made.")
-      const data = await this.gameService.findAll();
-      ctx.body = { data }
+      try {
+        const data = await this.gameService.findAll();
+        ctx.body = { data }
+      } catch (error) {
+        ctx.throw(404, error)
+      }
     })
 
     //read specific
     this.router.get('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for game ${ctx.params.id} made.`)
-      const data = await this.gameService.findById(ctx.params.id);
-      ctx.body = { data }
+      try {
+        const data = await this.gameService.findById(ctx.params.id);
+        ctx.body = { data }
+      } catch (error) {
+        ctx.throw(404, error)
+      }
     })
 
     //create
     this.router.post('/', async (ctx: Koa.Context) => {
-      this.logger.info(`POST request for game with data ${ctx.request.body} made.`)
-      validate(ctx.request.body, this.ValidatorOptions).then(async errors => {
-        if (errors.length > 0) {
-          console.log('validation failed. errors: ', errors);
-          ctx.body = JSON.stringify(errors)
-        } else {
-          console.log('validation succeed');
-          const dto = new GameCreateDto(ctx.request.body)
-          const data = await this.gameService.create(dto);
-          ctx.body = { data }
-        }
-      });
+      this.logger.info(`POST request for game with data ${JSON.stringify(ctx.request.body)} made.`)
+      const dto = new GameCreateDto(ctx.request.body)
+      await validate(dto, this.ValidatorOptions)
+        .then(async errors => {
+          if (errors.length > 0) {
+            this.logger.error(`validation failed. errors: ${errors}`);
+            ctx.throw(400, new Error(errors.toString()))
+          } else {
+            this.logger.info('validation successful.');
+            try {
+              const data = await this.gameService.create(dto);
+              ctx.body = { data }
+            } catch (error) {
+              ctx.throw(400, error)
+            }
+          }
+        });
     })
 
     //update
     this.router.put('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`PUT request for game ${ctx.params.id} and data ${ctx.request.body} made.`)
       const dto = new GameUpdateDto(ctx.request.body)
-      const data = await this.gameService.update(ctx.params.id, dto);
-      ctx.body = { data }
+      await validate(dto, this.ValidatorOptions)
+        .then(async errors => {
+          if (errors.length > 0) {
+            this.logger.error(`validation failed. errors: ${errors}`);
+            ctx.throw(400, new Error(errors.toString()))
+          } else {
+            this.logger.info('validation successful.');
+            try {
+            const data = await this.gameService.update(ctx.params.id, dto);
+            ctx.body = { data }
+          } catch (error) {
+            ctx.throw(400, error)
+          }
+          }
+        });
     })
 
     //delete
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for game ${ctx.params.id} made.`)
+      try {
       const data = await this.gameService.delete(ctx.params.id);
       ctx.body = { data }
+    } catch (error) {
+      ctx.throw(404, error)
+    }
     })
   }
 

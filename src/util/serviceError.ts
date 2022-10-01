@@ -1,5 +1,5 @@
 export class ServiceError extends Error {
-  private static readonly NOT_FOUND: string = 'NOT_FOUND';
+  private static readonly NOT_FOUND: string = '404';
   private static readonly VALIDATION_FAILED: string = 'VALIDATION_FAILED';
   private static readonly UNAUTHORIZED: string = 'UNAUTHORIZED';
   private static readonly FORBIDDEN: string = 'FORBIDDEN';

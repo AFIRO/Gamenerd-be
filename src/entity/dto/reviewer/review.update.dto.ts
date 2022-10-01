@@ -1,25 +1,23 @@
-import { IsInt, IsNotEmpty, IsPositive, IsString } from "class-validator";
+import { IsInt, IsNotEmpty, IsPositive, IsString, Max, Min } from "class-validator";
 
 export class ReviewUpdateDto {
+  @IsString()
+  @IsNotEmpty()
+  id: string;
   @IsInt()
   @IsNotEmpty()
-  @IsPositive()
-  id: number;
-  @IsInt()
-  @IsNotEmpty()
-  @IsPositive()
+  @Min(0)
+  @Max(10)
   score: number;
   @IsString()
   @IsNotEmpty()
   content: string;
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  writerId: number;
-  @IsInt()
+  writerId: string;
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  gameId: number;
+  gameId: string;
 
   
   public constructor(base?: Partial<ReviewUpdateDto>) {

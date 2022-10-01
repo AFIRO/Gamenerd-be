@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE `User` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `role` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
@@ -11,10 +11,10 @@ CREATE TABLE `User` (
 
 -- CreateTable
 CREATE TABLE `News` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `content` VARCHAR(191) NOT NULL,
-    `writerId` INTEGER NOT NULL,
-    `gameId` INTEGER NOT NULL,
+    `writerId` VARCHAR(191) NOT NULL,
+    `gameId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `News_content_key`(`content`),
     PRIMARY KEY (`id`)
@@ -22,11 +22,11 @@ CREATE TABLE `News` (
 
 -- CreateTable
 CREATE TABLE `Review` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `content` VARCHAR(191) NOT NULL,
     `score` INTEGER NOT NULL,
-    `writerId` INTEGER NOT NULL,
-    `gameId` INTEGER NOT NULL,
+    `writerId` VARCHAR(191) NOT NULL,
+    `gameId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Review_content_key`(`content`),
     PRIMARY KEY (`id`)
@@ -34,7 +34,7 @@ CREATE TABLE `Review` (
 
 -- CreateTable
 CREATE TABLE `Game` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `boxart` VARCHAR(255) NOT NULL,
 

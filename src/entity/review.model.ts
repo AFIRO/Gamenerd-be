@@ -1,9 +1,9 @@
 export class Review {
-  id: number;
+  id: string;
   score: number;
   content: string;
-  writerId: number;
-  gameId: number;
+  writerId: string;
+  gameId: string;
 
   public constructor(base?: Partial<Review>) {
     this.id = base.id || this.id;

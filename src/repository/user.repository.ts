@@ -21,7 +21,7 @@ export class UserRepository {
 
   }
 
-  public async findById(id: number): Promise<User> {
+  public async findById(id: string): Promise<User> {
     this.logger.info(`Getting user with id ${id} from repository.`);
     const potentialUser = await this.prisma.user.findUniqueOrThrow({
       where: {
@@ -31,7 +31,7 @@ export class UserRepository {
     return potentialUser;
   }
 
-  public async existsById(id: number): Promise<boolean> {
+  public async existsById(id: string): Promise<boolean> {
     this.logger.info(`Checking if user with id ${id} exists in repository.`);
     const answer = await this.prisma.user.count({ where: { id: id } })
     return answer != 0
@@ -48,7 +48,7 @@ export class UserRepository {
     return potentialUser;
   }
 
-  public async updateById(id: number, dto: UserUpdateDto): Promise<User> {
+  public async updateById(id: string, dto: UserUpdateDto): Promise<User> {
     this.logger.info(`Updating user with id ${id} in repository.`);
     await this.prisma.user.update({
       where: { id: id },
@@ -62,7 +62,7 @@ export class UserRepository {
     return potentialUser;
   }
 
-  public async deleteById(id: number): Promise<User> {
+  public async deleteById(id: string): Promise<User> {
     this.logger.info(`Deleting user with id ${id} from repository.`);
     const potentialUser = await this.prisma.user.findUniqueOrThrow({
       where: {

@@ -1,10 +1,9 @@
 import { IsIn, IsInt, IsNotEmpty, IsPositive, IsString } from "class-validator";
 
 export class UserUpdateDto {
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  id: number;
+  id: string;
   @IsString()
   @IsNotEmpty()
   name: string;

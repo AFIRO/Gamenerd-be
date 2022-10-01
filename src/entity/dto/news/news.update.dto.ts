@@ -1,21 +1,18 @@
 import { IsInt, IsNotEmpty, IsPositive, IsString } from "class-validator";
 
 export class NewsUpdateDto {
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  id: number;
-  @IsInt()
+  id: string;
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  writerId: number;
+  writerId: string;
   @IsString()
   @IsNotEmpty()
   content: string;
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  @IsPositive()
-  gameId: number;
+  gameId: string;
 
   public constructor(base?: Partial<NewsUpdateDto>) {
     this.id = base.id || this.id;

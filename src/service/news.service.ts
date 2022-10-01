@@ -42,7 +42,7 @@ export class NewsService {
         }
     }
 
-    public async findById(id: number): Promise<NewsOutputDto> {
+    public async findById(id: string): Promise<NewsOutputDto> {
         this.logger.info(`NewsService getting game with id ${id}.`)
         const newsEntity: News = await this.newsRepository.findById(id);
         if (newsEntity) {
@@ -59,7 +59,7 @@ export class NewsService {
         return await this.retrieveEntitiesToBeMappedAndMapToOutputDto(newsEntity)
     }
 
-    public async update(id: number, dto: NewsUpdateDto): Promise<NewsOutputDto> {
+    public async update(id: string, dto: NewsUpdateDto): Promise<NewsOutputDto> {
         this.logger.info(`NewsService updating news with id ${id}.`)
         if (id != dto.id) {
             this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
@@ -69,7 +69,7 @@ export class NewsService {
         return await this.retrieveEntitiesToBeMappedAndMapToOutputDto(newsEntity)
     }
 
-    public async delete(id: number): Promise<NewsOutputDto> {
+    public async delete(id: string): Promise<NewsOutputDto> {
         this.logger.info(`NewsService deleting user with id ${id}.`)
         if (await this.newsRepository.existsById(id)) {
             const newsEntity: News = await this.newsRepository.deleteById(id);

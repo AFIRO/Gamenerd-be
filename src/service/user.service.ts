@@ -25,7 +25,7 @@ export class UserService {
       throw ServiceError.notFound(`No users in database`, { Error: "No data" })
   }
 
-  public async findById(id: number): Promise<UserOutputDto> {
+  public async findById(id: string): Promise<UserOutputDto> {
     this.logger.info(`UserService getting user with id ${id}.`)
     const potentialGame = await this.userRepository.findById(id)
     if (!potentialGame) {
@@ -40,7 +40,7 @@ export class UserService {
     return UserMapper.toOutputDto(await this.userRepository.create(dto));
   }
 
-  public async update(id: number, dto: UserUpdateDto): Promise<UserOutputDto> {
+  public async update(id: string, dto: UserUpdateDto): Promise<UserOutputDto> {
     this.logger.info(`UserService updating user with id ${id}.`)
     if (id != dto.id) {
       this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
@@ -49,7 +49,7 @@ export class UserService {
     return UserMapper.toOutputDto(await this.userRepository.updateById(id, dto));
   }
 
-  public async delete(id: number): Promise<UserOutputDto> {
+  public async delete(id: string): Promise<UserOutputDto> {
     if (await this.userRepository.existsById(id)) {
       return UserMapper.toOutputDto(await this.userRepository.deleteById(id))
     } else {

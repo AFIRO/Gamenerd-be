@@ -2,7 +2,7 @@ import { GameOutputDto } from "../game/game.output.dto";
 import { UserOutputDto } from "../user/user.output.dto";
 
 export class ReviewOutputDto {
-  id: number;
+  id: string;
   score: number;
   content: string;
   writer: UserOutputDto;
