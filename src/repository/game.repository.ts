@@ -3,7 +3,6 @@ import { GameUpdateDto } from "../entity/dto/game/game.update.dto"
 import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
 import { Game } from "../entity/game.model";
-import { ServiceError } from "../util/serviceError";
 
 export class GameRepository {
 

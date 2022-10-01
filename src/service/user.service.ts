@@ -4,8 +4,6 @@ import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
 import { UserMapper } from "../mapper/user.mapper";
 import { UserRepository } from "../repository/user.repository";
 import { Logger } from "../util/logger";
-import { ServiceError } from "../util/serviceError";
-
 export class UserService {
   private logger: Logger;
   private userRepository: UserRepository
@@ -22,7 +20,7 @@ export class UserService {
       return data.map(UserMapper.toOutputDto);
     }
     else
-      throw ServiceError.notFound(`No users in database`, { Error: "No data" })
+      throw Error(`No users in database`)
   }
 
   public async findById(id: string): Promise<UserOutputDto> {
@@ -30,7 +28,7 @@ export class UserService {
     const potentialGame = await this.userRepository.findById(id)
     if (!potentialGame) {
       this.logger.error(`User with id ${id} not found in repository.`);
-      throw ServiceError.notFound(`User with id ${id} not found`, { id })
+      throw Error(`User with id ${id} not found`)
     }
     return UserMapper.toOutputDto(potentialGame);
   }
@@ -44,7 +42,7 @@ export class UserService {
     this.logger.info(`UserService updating user with id ${id}.`)
     if (id != dto.id) {
       this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
-      throw ServiceError.validationFailed(`Id ${id} in request does not match the Id ${dto.id} in body.`, { id })
+      throw Error(`Id ${id} in request does not match the Id ${dto.id} in body.`)
     }
     return UserMapper.toOutputDto(await this.userRepository.updateById(id, dto));
   }
@@ -54,7 +52,7 @@ export class UserService {
       return UserMapper.toOutputDto(await this.userRepository.deleteById(id))
     } else {
       this.logger.error(`User with id ${id} not found in repository.`);
-      throw ServiceError.notFound(`User with ${id} not found in database`, { id })
+      throw Error(`User with ${id} not found in database`)
     }
   }
 }

@@ -4,7 +4,6 @@ import { GameUpdateDto } from "../entity/dto/game/game.update.dto";
 import { GameMapper } from "../mapper/game.mapper";
 import { GameRepository } from "../repository/game.repository";
 import { Logger } from "../util/logger";
-import { ServiceError } from "../util/serviceError";
 
 export class GameService {
     private logger: Logger;
