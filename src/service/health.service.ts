@@ -4,9 +4,11 @@ import { Logger } from "../util/logger";
 export class HealthService {
   private logger = new Logger();
 
-  public ping = () => ({ pong: true });
+  public ping() {
+    this.logger.info("Resolving ping")
+    return { pong: true }};
 
-  public getVersion = () => {
+  public getVersion() {
     this.logger.info("Getting version info");
     return ({
       env: process.env.NODE_ENV,

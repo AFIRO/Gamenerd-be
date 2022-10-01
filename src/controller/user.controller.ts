@@ -1,10 +1,8 @@
 import * as Koa from 'koa';
 import Router from 'koa-router';
-import * as HttpStatus from 'http-status-codes';
 import { UserService } from '../service/user.service';
 import { Logger } from '../util/logger';
-import { GameUpdateDto } from '../entity/dto/game/game.update.dto';
-import { GameCreateDto } from '../entity/dto/game/game.create.dto';
+import { validate, ValidatorOptions } from 'class-validator'
 import { UserCreateDto } from '../entity/dto/user/user.create.dto';
 import { UserUpdateDto } from '../entity/dto/user/user.update.dto';
 
@@ -13,52 +11,98 @@ export class UserController {
   private router: Router;
   private userService: UserService;
   private logger: Logger;
+  private readonly ValidatorOptions: ValidatorOptions =
+    {
+      forbidUnknownValues: true,
+      stopAtFirstError: true,
+      validationError: {
+        target: false
+      }
+    }
 
-  public constructor(){
-    this.router = new Router({prefix: this.PREFIX})
+  public constructor() {
+    this.router = new Router({ prefix: this.PREFIX })
     this.userService = new UserService();
     this.logger = new Logger;
     //route definitions
 
     //read all
-    this.router.get('/',async (ctx:Koa.Context) => {
+    this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all users made.")
-      const data = await this.userService.findAll();
-      ctx.body = {data}
+      try {
+        const data = await this.userService.findAll();
+        ctx.body = { data }
+      } catch (error) {
+        ctx.throw(404, error)
+      }
     })
 
     //read specific
-    this.router.get('/:id',async (ctx:Koa.Context) => {
-      this.logger.info(`GET request for user ${ctx.params.id} made.`)
-      const data = await this.userService.findById(ctx.params.id);
-      ctx.body = {data}
+    this.router.get('/:id', async (ctx: Koa.Context) => {
+      this.logger.info(`GET request for user with id  ${ctx.params.id} made.`)
+      try {
+        const data = await this.userService.findById(ctx.params.id);
+        ctx.body = { data }
+      } catch (error) {
+        ctx.throw(404, error)
+      }
     })
 
     //create
-    this.router.post('/',async (ctx:Koa.Context) => {
-      this.logger.info(`POST request for user with data ${ctx.request.body} made.`)
+    this.router.post('/', async (ctx: Koa.Context) => {
+      this.logger.info(`POST request for user with data ${JSON.stringify(ctx.request.body)} made.`)
       const dto = new UserCreateDto(ctx.request.body)
-      const data = await this.userService.create(dto);
-      ctx.body = {data}
+      await validate(dto, this.ValidatorOptions)
+        .then(async errors => {
+          if (errors.length > 0) {
+            this.logger.error(`validation failed. errors: ${errors}`);
+            ctx.throw(400, new Error(errors.toString()))
+          } else {
+            this.logger.info('validation successful.');
+            try {
+              const data = await this.userService.create(dto);
+              ctx.body = { data }
+            } catch (error) {
+              ctx.throw(400, error)
+            }
+          }
+        });
     })
 
     //update
-    this.router.put('/:id',async (ctx:Koa.Context) => {
-      this.logger.info(`PUT request for user ${ctx.params.id} and data ${ctx.request.body} made.`)
+    this.router.put('/:id', async (ctx: Koa.Context) => {
+      this.logger.info(`PUT request for user with id  ${ctx.params.id} and data ${ctx.request.body} made.`)
       const dto = new UserUpdateDto(ctx.request.body)
-      const data = await this.userService.update(ctx.params.id, dto);
-      ctx.body = {data}
+      await validate(dto, this.ValidatorOptions)
+        .then(async errors => {
+          if (errors.length > 0) {
+            this.logger.error(`validation failed. errors: ${errors}`);
+            ctx.throw(400, new Error(errors.toString()))
+          } else {
+            this.logger.info('validation successful.');
+            try {
+            const data = await this.userService.update(ctx.params.id, dto);
+            ctx.body = { data }
+          } catch (error) {
+            ctx.throw(400, error)
+          }
+          }
+        });
     })
 
     //delete
-    this.router.delete('/:id',async (ctx:Koa.Context) => {
-      this.logger.info(`DELETE request for user ${ctx.params.id} made.`)
+    this.router.delete('/:id', async (ctx: Koa.Context) => {
+      this.logger.info(`DELETE request for user with id  ${ctx.params.id} made.`)
+      try {
       const data = await this.userService.delete(ctx.params.id);
-      ctx.body = {data}
+      ctx.body = { data }
+    } catch (error) {
+      ctx.throw(404, error)
+    }
     })
   }
 
-  public installRoutesInParentRouter(parentRouter: Router){
+  public installRoutesInParentRouter(parentRouter: Router) {
     this.logger.info("Installing user routing into main application router")
     parentRouter.use(this.router.routes()).use(this.router.allowedMethods());
   }

@@ -4,6 +4,7 @@ import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
 import { Game } from "../entity/game.model";
 
+
 export class GameRepository {
 
   private prisma: PrismaClient;

@@ -14,10 +14,10 @@ export class ControllerInstaller {
   public constructor() {
     this.applicationRouter = new Router({ prefix: '/api', });
     this.controllers = [
-      // new HealthController(),
+      new HealthController(),
       new GameController(),
-      // new NewsController(),
-      // new ReviewController(),
+      new NewsController(),
+      new ReviewController(),
       new UserController()];
   }
 

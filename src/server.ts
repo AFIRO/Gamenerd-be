@@ -9,6 +9,7 @@ import { Logger } from "./util/logger";
 import { ControllerInstaller } from "./controller/controller.installer";
 import errorHandler from 'koa-better-error-handler';
 import koa404Handler from 'koa-404-handler';
+import queryParams from "koa-queryparams";
 export class Server {
 
   private readonly CURRENT_ENV = config.get('env');
@@ -40,6 +41,7 @@ export class Server {
     this.application.context.onerror = errorHandler();
     this.application.context.api = true;
     this.application.use(koa404Handler);
+    this.application.use(queryParams)
     this.logger.info("Setting up routing.")
     this.controllerInstaller = new ControllerInstaller();
     this.controllerInstaller.installRoutes(this.application);

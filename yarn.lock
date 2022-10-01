@@ -1348,6 +1348,11 @@
     "koa-is-json" "1"
     "streaming-json-stringify" "3"
 
+"koa-queryparams@^1.0.3":
+  "integrity" "sha512-aAIsQ2Yj6Z79zGfkGYXSPuNinva/h3gPe97vJ6u+iltRzjDXd/VP8zD7PeWVg7XRyhVRmhXVbeROSTrBKY9LUw=="
+  "resolved" "https://registry.npmjs.org/koa-queryparams/-/koa-queryparams-1.0.3.tgz"
+  "version" "1.0.3"
+
 "koa-router@^12.0.0":
   "integrity" "sha512-zGrdiXygGYW8WvrzeGsHZvKnHs4DzyGoqJ9a8iHlRkiwuEAOAPyI27//OlhoWdgFAEIM3qbUgr0KCuRaP/TCag=="
   "resolved" "https://registry.npmjs.org/koa-router/-/koa-router-12.0.0.tgz"
