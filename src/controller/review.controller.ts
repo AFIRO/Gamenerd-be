@@ -3,8 +3,8 @@ import Router from 'koa-router';
 import { Logger } from '../util/logger';
 import { validate, ValidatorOptions } from 'class-validator'
 import { ReviewService } from '../service/review.service';
-import { ReviewCreateDto } from '../entity/dto/reviewer/review.create.dto';
-import { ReviewUpdateDto } from '../entity/dto/reviewer/review.update.dto';
+import { ReviewCreateDto } from '../entity/dto/review/review.create.dto';
+import { ReviewUpdateDto } from '../entity/dto/review/review.update.dto';
 
 
 export class ReviewController {

@@ -1,5 +1,5 @@
-import { ReviewCreateDto } from "../entity/dto/reviewer/review.create.dto"
-import { ReviewUpdateDto } from "../entity/dto/reviewer/review.update.dto"
+import { ReviewCreateDto } from "../entity/dto/review/review.create.dto"
+import { ReviewUpdateDto } from "../entity/dto/review/review.update.dto"
 import { Logger } from "../util/logger";
 import { Review } from "../entity/review.model";
 import { PrismaClient } from "@prisma/client";

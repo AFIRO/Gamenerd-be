@@ -1,10 +1,10 @@
 import { GameOutputDto } from "../game/game.output.dto";
-import { UserOutputDto } from "../user/user.output.dto";
+import { UserOutputDtoShort } from "../user/user.output.dto.short";
 
 export class NewsOutputDto {
   id: string;
   content: string;
-  writer: UserOutputDto;
+  writer: UserOutputDtoShort;
   game: GameOutputDto;
 
   public constructor(base?: Partial<NewsOutputDto>) {

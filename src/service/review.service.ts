@@ -1,6 +1,6 @@
-import { ReviewCreateDto } from "../entity/dto/reviewer/review.create.dto";
-import { ReviewOutputDto } from "../entity/dto/reviewer/review.output.dto";
-import { ReviewUpdateDto } from "../entity/dto/reviewer/review.update.dto";
+import { ReviewCreateDto } from "../entity/dto/review/review.create.dto";
+import { ReviewOutputDto } from "../entity/dto/review/review.output.dto";
+import { ReviewUpdateDto } from "../entity/dto/review/review.update.dto";
 import { Game } from "../entity/game.model";
 import { Review } from "../entity/review.model";
 import { User } from "../entity/user.model";
@@ -137,7 +137,7 @@ export class ReviewService {
     private async retrieveEntitiesToBeMappedAndMapToOutputDto(reviewEntity: Review): Promise<ReviewOutputDto> {
         let game: Game = await this.gameRepository.findById(reviewEntity.gameId);
         let writer: User = await this.userRepositoy.findById(reviewEntity.writerId);
-        return ReviewMapper.toOutputDto(reviewEntity, UserMapper.toOutputDto(writer), GameMapper.toOutputDto(game));
+        return ReviewMapper.toOutputDto(reviewEntity, UserMapper.toOutputDtoShort(writer), GameMapper.toOutputDto(game));
     }
 
 }

@@ -1,10 +1,26 @@
 import { PrismaClient } from '@prisma/client'
-import { News } from '../src/entity/news.model'
-import { User } from '../src/entity/user.model'
 const prisma = new PrismaClient({ log: ['query', 'info'] })
 
 
 async function seedScript() {
+  //genereer role seeds
+  const role1 = await prisma.role.create({
+    data: {
+      name: "ADMIN"
+    } });
+
+    const role2 = await prisma.role.create({
+      data: {
+        name: "WRITER"
+      } });
+
+      
+      const role3 = await prisma.role.create({
+        data: {
+          name: "USER"
+        } });
+    
+
   //genereer user seeds
   const user1 = await prisma.user.upsert({
     where: { id: "1" },
@@ -12,7 +28,9 @@ async function seedScript() {
     create: {
       id: "1",
       name: "admin",
-      role: "ADMIN",
+      roles: {
+        connect: [{name: "ADMIN"}, {name: "WRITER" }]
+      },
       password: "admin"
     },
   })
@@ -23,7 +41,9 @@ async function seedScript() {
     create: {
       id: "2",
       name: "writer",
-      role: "STAFF",
+      roles: {
+        connect: [{name: "WRITER"}]
+      },
       password: "writer"
     },
   })
@@ -34,7 +54,9 @@ async function seedScript() {
     create: {
       id: "3", 
       name: "user",
-      role: "USER",
+      roles: {
+        connect: [{name: "USER" }]
+      },
       password: "user"
     },
   })

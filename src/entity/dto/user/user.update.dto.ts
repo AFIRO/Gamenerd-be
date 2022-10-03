@@ -9,8 +9,8 @@ export class UserUpdateDto {
   name: string;
   @IsString()
   @IsNotEmpty()
-  @IsIn(["ADMIN","WRITER","USER"])
-  role: string;
+  @IsIn(["ADMIN","WRITER","USER"], {each: true})
+  roles: string[];
   @IsString()
   @IsNotEmpty()
   password: string
@@ -18,7 +18,7 @@ export class UserUpdateDto {
   public constructor(base?: Partial<UserUpdateDto>) {
     this.id = base.id || this.id;
     this.name = base.name || this.name;
-    this.role = base.role || this.role;
+    this.roles = base.roles || this.roles;
     this.password = base.password || this.password;
   }
 }

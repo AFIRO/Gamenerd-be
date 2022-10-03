@@ -13,8 +13,8 @@ datasource db {
 model User {
   id  String @id @default(uuid())
   name String @db.VarChar(255) @unique
-  role String @db.VarChar(255)
   password String @db.VarChar(255)
+  roles Role[]
   reviewsWritten Review[]
   newspostsWritten News[]
 }
@@ -46,4 +46,11 @@ model Game {
   reviews Review[]
   news News[]
 }
+
+model Role {
+  name String @unique @id
+  users User[]
+}
+
+
 

@@ -136,7 +136,7 @@ export class NewsService {
     private async retrieveEntitiesToBeMappedAndMapToOutputDto(newsEntity: News): Promise<NewsOutputDto> {
         let game: Game = await this.gameRepository.findById(newsEntity.gameId);
         let writer: User = await this.userRepositoy.findById(newsEntity.writerId);
-        return NewsMapper.toOutputDto(newsEntity, UserMapper.toOutputDto(writer), GameMapper.toOutputDto(game));
+        return NewsMapper.toOutputDto(newsEntity, UserMapper.toOutputDtoShort(writer), GameMapper.toOutputDto(game));
     }
 
 }

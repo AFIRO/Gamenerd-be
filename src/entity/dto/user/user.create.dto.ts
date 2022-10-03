@@ -6,15 +6,15 @@ export class UserCreateDto {
     name: string;
     @IsString()
     @IsNotEmpty()
-    @IsIn(["ADMIN","WRITER","USER"])
-    role: string;
+    @IsIn(["ADMIN","WRITER","USER"], {each: true})
+    roles: string[];
     @IsString()
     @IsNotEmpty()
     password: string
 
     public constructor(base?: Partial<UserCreateDto>) {
         this.name = base.name || this.name;
-        this.role = base.role || this.role;
+        this.roles = base.roles || this.roles;
         this.password = base.password || this.password;
     }
 }

@@ -30,7 +30,17 @@ export class UserService {
       this.logger.error(`User with id ${id} not found in repository.`);
       throw Error(`User with id ${id} not found`)
     }
-    return UserMapper.toOutputDto(potentialGame);
+    return UserMapper.toOutputDto((potentialGame));
+  }
+
+  public async findByIdWithRoles(id: string): Promise<UserOutputDto> {
+    this.logger.info(`UserService getting user with id ${id}.`)
+    const potentialGame = await this.userRepository.findById(id)
+    if (!potentialGame) {
+      this.logger.error(`User with id ${id} not found in repository.`);
+      throw Error(`User with id ${id} not found`)
+    }
+    return UserMapper.toOutputDto((potentialGame));
   }
 
   public async create(dto: UserCreateDto): Promise<UserOutputDto> {
@@ -44,7 +54,7 @@ export class UserService {
       this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
       throw Error(`Id ${id} in request does not match the Id ${dto.id} in body.`)
     }
-    return UserMapper.toOutputDto(await this.userRepository.updateById(id, dto));
+    return UserMapper.toOutputDto((await this.userRepository.updateById(id, dto)));
   }
 
   public async delete(id: string): Promise<UserOutputDto> {

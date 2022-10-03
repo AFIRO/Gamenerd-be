@@ -1,10 +1,10 @@
 import { GameOutputDto } from "../entity/dto/game/game.output.dto";
-import { ReviewOutputDto } from "../entity/dto/reviewer/review.output.dto";
-import { UserOutputDto } from "../entity/dto/user/user.output.dto";
+import { ReviewOutputDto } from "../entity/dto/review/review.output.dto";
+import { UserOutputDtoShort } from "../entity/dto/user/user.output.dto.short";
 import { Review } from "../entity/review.model";
 
 export class ReviewMapper {
-    public static toOutputDto(review: Review, writer: UserOutputDto, game: GameOutputDto): ReviewOutputDto {
+    public static toOutputDto(review: Review, writer: UserOutputDtoShort, game: GameOutputDto): ReviewOutputDto {
         return new ReviewOutputDto({
             id: review.id,
             content: review.content,
