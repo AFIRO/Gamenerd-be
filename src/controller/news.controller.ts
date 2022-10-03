@@ -40,12 +40,12 @@ export class NewsController {
 
     //read all by writer
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
-      this.logger.info(`GET request for all news by writer with id ${ctx.param.writerId} made.`)
+      this.logger.info(`GET request for all news by writer with id ${ctx.params.writerId} made.`)
       try {
-        const writerId: string = ctx.param.writerId.toString();
+        const writerId: string = ctx.params.writerId.toString();
         const data = await this.newsService.findAllByWriter(writerId);
         ctx.body = { data }
-        this.logger.info(`GET for all news by writer with id ${ctx.param.writerId}  succesful.`)
+        this.logger.info(`GET for all news by writer with id ${ctx.params.writerId}  succesful.`)
       } catch (error) {
         ctx.throw(404, error)
       }
@@ -53,12 +53,12 @@ export class NewsController {
 
     //read all by game
     this.router.get('/byGame/:gameId', async (ctx: Koa.Context) => {
-      this.logger.info(`GET request for all news by game with id ${ctx.param.gameId} made.`)
+      this.logger.info(`GET request for all news by game with id ${ctx.params.gameId} made.`)
       try {
-        const gameId: string = ctx.param.writerId.toString();
+        const gameId: string = ctx.params.gameId.toString();
         const data = await this.newsService.findAllByGame(gameId);
         ctx.body = { data }
-        this.logger.info(`GET for all news by game with id ${ctx.param.gameId}  succesful.`)
+        this.logger.info(`GET for all news by game with id ${ctx.params.gameId}  succesful.`)
       } catch (error) {
         ctx.throw(404, error)
       }
