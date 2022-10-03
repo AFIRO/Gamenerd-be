@@ -8,6 +8,7 @@ export class UserRepository {
 
   private prisma: PrismaClient;
   private logger: Logger;
+  private readonly ALL_ROLES: Role[] = [{name: "ADMIN"},{name:"WRITER"}, {name: "USER"}];
 
   public constructor() {
     this.prisma = new PrismaClient({ log: ['query', 'info'] });
@@ -78,7 +79,7 @@ export class UserRepository {
         name:dto.name,
         password: dto.password,
         roles: {
-          disconnect: [{name: "ADMIN"},{name:"WRITER"}, {name: "USER"}],
+          disconnect: this.ALL_ROLES,
           connect: mappedRoles}
         }
     })
