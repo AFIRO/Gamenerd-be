@@ -1,4 +1,4 @@
-import { IsIn, IsInt, IsNotEmpty, IsPositive, IsString } from "class-validator";
+import { IsArray, IsIn, IsInt, IsNotEmpty, IsPositive, IsString } from "class-validator";
 
 export class UserUpdateDto {
   @IsString()
@@ -7,7 +7,7 @@ export class UserUpdateDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
   @IsIn(["ADMIN","WRITER","USER"], {each: true})
   roles: string[];

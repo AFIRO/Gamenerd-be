@@ -1,11 +1,11 @@
-import { IsIn, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsEnum, IsIn, IsNotEmpty, isString, IsString } from "class-validator";
 
 export class UserCreateDto {
     @IsString()
     @IsNotEmpty()
     name: string;
-    @IsString()
     @IsNotEmpty()
+    @IsArray()
     @IsIn(["ADMIN","WRITER","USER"], {each: true})
     roles: string[];
     @IsString()

@@ -1,5 +1,5 @@
 import { Logger } from "../util/logger";
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Role } from '@prisma/client'
 import { User } from "../entity/user.model";
 import { UserCreateDto } from "../entity/dto/user/user.create.dto";
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
@@ -42,8 +42,18 @@ export class UserRepository {
 
   public async create(dto: UserCreateDto): Promise<User> {
     this.logger.info(`Creating new user in repository.`);
+    const mappedRoles: Role[] = []
+    dto.roles.forEach(roles => mappedRoles.push({name: roles}))
     try {
-    await this.prisma.user.create({ data: dto });
+    await this.prisma.user.create(
+      { data: {
+        name: dto.name,
+        roles: {
+          connect: mappedRoles
+        },
+        password: dto.password
+      }
+       });
     const data = await this.prisma.user.findUnique({
       where: {
         name: dto.name,
@@ -59,10 +69,18 @@ export class UserRepository {
 
   public async updateById(id: string, dto: UserUpdateDto): Promise<User> {
     this.logger.info(`Updating user with id ${id} in repository.`);
+    const mappedRoles: Role[] = []
+    dto.roles.forEach(roles => mappedRoles.push({name: roles}))
     try {
     await this.prisma.user.update({
       where: { id: id },
-      data: dto
+      data: {
+        name:dto.name,
+        password: dto.password,
+        roles: {
+          disconnect: [{name: "ADMIN"},{name:"WRITER"}, {name: "USER"}],
+          connect: mappedRoles}
+        }
     })
     const data = await this.prisma.user.findUnique({
       where: {
