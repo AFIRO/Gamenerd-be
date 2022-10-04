@@ -102,7 +102,7 @@ naar users.
   - [x] degelijke foutboodschappen
   - [x] volgt de conventies van een RESTful API
   - [x] bevat geen domeinlogica
-  - [ ] degelijke authorisatie/authenticatie op alle routes
+  - [x] degelijke authorisatie/authenticatie op alle routes
 <br />
 
 - **varia**
@@ -152,7 +152,7 @@ Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer m
 
 Gezien ik toch al full TypeScript ben gegaan, vond ik class-validator goed passen in het geheel. Joi's implementatie was niet echt mijn ding en gezien ik al Dto's had gemaakt voor al mijn entiteiten, was ze decoreren met constraints veel logischer dan de builder interface van Joi. Het zou gewoon dubbel werk zijn geweest.
 
-Een laatste is een unsubtiel genaamd "koa-better-error-handler". Deze vervangt de standaard error handler door een leukere met built-in support status codes, status messages en mooie formatting van de error richting de gebruiker.
+Een laatste is de unsubtiel genaamd "koa-better-error-handler". Deze vervangt de standaard error handler door een leukere met built-in support status codes, status messages en mooie formatting van de error richting de gebruiker.
 Het pakt deze dan op gebruiksvriendelijke manier onder de ctx.throw. Ik heb ook zitten zoeken naar een meer globalere oplossing, maar ik kon direct eentje vinden waarmee ik een error handler kon definieren die, op basis van opties in een error object, een flow kon volgen analoog aan de Global Advisor van Spring. Helaas. Dat had de implementatie veel cleaner gemaakt.
 
 https://www.npmjs.com/package/typescript
