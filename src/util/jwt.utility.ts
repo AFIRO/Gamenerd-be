@@ -10,7 +10,7 @@ export class JwtHelper {
     private static readonly JWT_EXPIRATION_INTERVAL = config.get('auth.jwt.expirationInterval');
     private static readonly logger: Logger = new Logger();
 
-    public static generateJWT(user: User){
+    public static generateJWT(user: User): Promise<string> {
         const tokenData = {
             userId: user.id,
             roles: user.roles,
@@ -37,7 +37,7 @@ export class JwtHelper {
         });
     }
 
-    public static verifyJWT(authToken: string) {
+    public static verifyJWT(authToken: string): Promise<{userId: string, roles:string[]}> {
         const verifyOptions = {
             audience: this.JWT_AUDIENCE,
             issuer: this.JWT_ISSUER,
@@ -52,7 +52,8 @@ export class JwtHelper {
                         return reject(err || new Error('Token could not be parsed'));
                     }
                     this.logger.info(`JWT token ${decodedToken} verified succesfully.`)
-                    return resolve(decodedToken);
+                    const returnValue = decodedToken as {userId: string, roles:string[]}
+                    return resolve(returnValue);
                 },
             );
         });

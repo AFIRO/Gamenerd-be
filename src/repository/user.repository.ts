@@ -26,9 +26,20 @@ export class UserRepository {
 
   public async findById(id: string): Promise<User> {
     this.logger.info(`Getting user with id ${id} from repository.`);
-    const data = await this.prisma.user.findUniqueOrThrow({
+    const data = await this.prisma.user.findUnique({
       where: {
         id: id,
+      },
+      include: {roles: true}
+    })
+    return {id: data.id, name: data.name, password: data.password, roles: data.roles.map((role)=> role.name)};
+  }
+
+  public async findByName(name: string): Promise<User> {
+    this.logger.info(`Getting user with name ${name} from repository.`);
+    const data = await this.prisma.user.findUnique({
+      where: {
+        name: name,
       },
       include: {roles: true}
     })
@@ -98,7 +109,7 @@ export class UserRepository {
 
   public async deleteById(id: string): Promise<User> {
     this.logger.info(`Deleting user with id ${id} from repository.`);
-    const data = await this.prisma.user.findUniqueOrThrow({
+    const data = await this.prisma.user.findUnique({
       where: {
         id: id,
       },

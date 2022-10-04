@@ -5,6 +5,8 @@ import { validate, ValidatorOptions } from 'class-validator'
 import { ReviewService } from '../service/review.service';
 import { ReviewCreateDto } from '../entity/dto/review/review.create.dto';
 import { ReviewUpdateDto } from '../entity/dto/review/review.update.dto';
+import { AuthenticationService } from '../service/authentification.service';
+import { Role } from '../entity/Role';
 
 
 export class ReviewController {
@@ -12,6 +14,7 @@ export class ReviewController {
   private router: Router;
   private reviewService: ReviewService;
   private logger: Logger;
+  private authenticationService: AuthenticationService
   private readonly ValidatorOptions: ValidatorOptions =
     {
       forbidUnknownValues: true,
@@ -24,13 +27,16 @@ export class ReviewController {
   public constructor() {
     this.router = new Router({ prefix: this.PREFIX })
     this.reviewService = new ReviewService();
-    this.logger = new Logger;
+    this.logger = new Logger();
+    this.authenticationService = new AuthenticationService();
     //route definitions
 
     //read all
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all reviews made.")
       try {
+        this.authenticationService.authentificateToken(ctx);
+        this.authenticationService.checkClearance(Role.ADMIN, ctx)
         const data = await this.reviewService.findAll();
         ctx.body = { data }
         this.logger.info(`GET for all reviews succesful.`)
@@ -43,6 +49,8 @@ export class ReviewController {
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by writer with id ${ctx.params.writerId} made.`)
       try {
+        this.authenticationService.authentificateToken(ctx);
+        this.authenticationService.checkClearance(Role.ADMIN, ctx)
         const writerId: string = ctx.params.writerId.toString();
         const data = await this.reviewService.findAllByWriter(writerId);
         ctx.body = { data }
@@ -56,6 +64,8 @@ export class ReviewController {
     this.router.get('/byGame/:gameId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by game with id ${ctx.params.gameId} made.`)
       try {
+        this.authenticationService.authentificateToken(ctx);
+        this.authenticationService.checkClearance(Role.ADMIN, ctx)
         const gameId: string = ctx.params.gameId.toString();
         const data = await this.reviewService.findAllByGame(gameId);
         ctx.body = { data }
@@ -69,6 +79,7 @@ export class ReviewController {
     this.router.get('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for review with id ${ctx.params.id} made.`)
       try {
+        this.authenticationService.authentificateToken(ctx)
         const data = await this.reviewService.findById(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`GET for review with id ${ctx.params.id} succesful.`)
@@ -89,6 +100,8 @@ export class ReviewController {
           } else {
             this.logger.info('validation successful.');
             try {
+              this.authenticationService.authentificateToken(ctx);
+              this.authenticationService.checkClearance(Role.WRITER, ctx)
               const data = await this.reviewService.create(dto);
               ctx.body = { data }
               this.logger.info(`CREATE for review with id ${data.id} succesful.`)
@@ -111,6 +124,8 @@ export class ReviewController {
           } else {
             this.logger.info('validation successful.');
             try {
+              this.authenticationService.authentificateToken(ctx);
+              this.authenticationService.checkClearance(Role.WRITER, ctx)
               const data = await this.reviewService.update(ctx.params.id, dto);
               ctx.body = { data }
               this.logger.info(`UPDATE for review with id ${ctx.params.id} succesful.`)
@@ -125,6 +140,8 @@ export class ReviewController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for game with id ${ctx.params.id} made.`)
       try {
+        this.authenticationService.authentificateToken(ctx);
+        this.authenticationService.checkClearance(Role.ADMIN, ctx)
         const data = await this.reviewService.delete(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`DELETE for review with id ${ctx.params.id} succesful.`)

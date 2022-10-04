@@ -5,11 +5,14 @@ import { Logger } from '../util/logger';
 import { validate, ValidatorOptions } from 'class-validator'
 import { UserCreateDto } from '../entity/dto/user/user.create.dto';
 import { UserUpdateDto } from '../entity/dto/user/user.update.dto';
+import { AuthenticationService } from '../service/authentification.service';
+import { Role } from '../entity/Role';
 
 export class UserController {
   private readonly PREFIX: string = '/users'
   private router: Router;
   private userService: UserService;
+  private authenticationService: AuthenticationService
   private logger: Logger;
   private readonly ValidatorOptions: ValidatorOptions =
     {
@@ -24,12 +27,15 @@ export class UserController {
     this.router = new Router({ prefix: this.PREFIX })
     this.userService = new UserService();
     this.logger = new Logger;
+    this.authenticationService = new AuthenticationService();
     //route definitions
 
     //read all
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all users made.")
       try {
+        this.authenticationService.authentificateToken(ctx);
+        this.authenticationService.checkClearance(Role.ADMIN, ctx)
         const data = await this.userService.findAll();
         ctx.body = { data }
         this.logger.info(`GET for all users.`)
@@ -42,6 +48,7 @@ export class UserController {
     this.router.get('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for user with id  ${ctx.params.id} made.`)
       try {
+        this.authenticationService.authentificateToken(ctx);
         const data = await this.userService.findById(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`GET for user with id ${ctx.params.id} succesful.`)
@@ -50,7 +57,7 @@ export class UserController {
       }
     })
 
-    //create
+    //create - Register
     this.router.post('/', async (ctx: Koa.Context) => {
       this.logger.info(`POST request for user with data ${JSON.stringify(ctx.request.body)} made.`)
       const dto = new UserCreateDto(ctx.request.body)
@@ -64,7 +71,7 @@ export class UserController {
             try {
               const data = await this.userService.create(dto);
               ctx.body = { data }
-              this.logger.info(`CREATE for user with id ${data.id} succesful.`)
+              this.logger.info(`CREATE for user with id ${data.user.name} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
             }
@@ -84,6 +91,7 @@ export class UserController {
           } else {
             this.logger.info('validation successful.');
             try {
+            this.authenticationService.authentificateToken(ctx);
             const data = await this.userService.update(ctx.params.id, dto);
             ctx.body = { data }
             this.logger.info(`UPDATE for user with id ${ctx.params.id} succesful.`)
@@ -98,6 +106,8 @@ export class UserController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for user with id  ${ctx.params.id} made.`)
       try {
+      this.authenticationService.authentificateToken(ctx);
+      this.authenticationService.checkClearance(Role.ADMIN, ctx)
       const data = await this.userService.delete(ctx.params.id);
       ctx.body = { data }
       this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)

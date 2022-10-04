@@ -23,7 +23,7 @@ export class ReviewRepository {
 
   public async findById(id: string): Promise<Review> {
     this.logger.info(`Getting review with id ${id} from repository.`);
-    const protentialReview = await this.prisma.review.findUniqueOrThrow({
+    const protentialReview = await this.prisma.review.findUnique({
       where: {
         id: id,
       },
@@ -95,7 +95,7 @@ export class ReviewRepository {
 
   public async deleteById(id: string): Promise<Review> {
     this.logger.info(`Deleting review with id ${id} from repository.`);
-    const protentialReview = this.prisma.review.findUniqueOrThrow({
+    const protentialReview = this.prisma.review.findUnique({
       where: {
         id: id,
       },

@@ -5,6 +5,7 @@ import { ReviewController } from "./review.controller";
 import { UserController } from "./user.controller";
 import Koa from "koa";
 import Router from "koa-router";
+import { LoginController } from "./login.controller";
 
 export class ControllerInstaller {
   private applicationRouter: Router;
@@ -17,7 +18,8 @@ export class ControllerInstaller {
       new GameController(),
       new NewsController(),
       new ReviewController(),
-      new UserController()];
+      new UserController(),
+      new LoginController()];
   }
 
   public installRoutes(applicationContext: Koa) {
