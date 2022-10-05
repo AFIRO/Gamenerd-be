@@ -6,7 +6,7 @@ import { News } from "../entity/news.model";
 
 export class NewsRepository {
 
-  private prisma: PrismaClient;
+  public prisma: PrismaClient;
   private logger: Logger;
   
   public constructor(){
@@ -23,7 +23,7 @@ public async findAll() : Promise<News[]>{
 
 public async findById(id: string): Promise<News> {
   this.logger.info(`Getting news with id ${id} from repository.`);
-  const potentialNews = await this.prisma.news.findUnique({
+  const potentialNews = await this.prisma.news.findUniqueOrThrow({
     where: {
       id: id,
     },
@@ -61,7 +61,7 @@ public async create(dto: NewsCreateDto): Promise<News> {
   this.logger.info(`Creating new news item in repository.`);
   try {
   await this.prisma.news.create({data:dto});
-  const potentialNewsItem = this.prisma.news.findUnique({
+  const potentialNewsItem = this.prisma.news.findUniqueOrThrow({
     where: {
       content: dto.content
     }
@@ -80,7 +80,7 @@ public async updateById(id: string, dto: NewsUpdateDto): Promise<News>  {
     where: {id:id},
     data: dto
   })
-  const potentialNewsItem = await this.prisma.news.findUnique({
+  const potentialNewsItem = await this.prisma.news.findUniqueOrThrow({
     where: {
       id: dto.id
     }
@@ -94,7 +94,7 @@ public async updateById(id: string, dto: NewsUpdateDto): Promise<News>  {
 
 public async deleteById(id:string): Promise<News> {
   this.logger.info(`Deleting news item with id ${id} from repository.`);
-  const potentialNewsItem = await this.prisma.news.findUnique({
+  const potentialNewsItem = await this.prisma.news.findUniqueOrThrow({
     where: {
       id:id
     }

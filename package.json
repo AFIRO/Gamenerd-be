@@ -51,6 +51,7 @@
     "@types/koa-router": "^7.4.4",
     "@types/node": "^18.7.23",
     "eslint": "^8.24.0",
+    "jest-mock-extended": "^3.0.1",
     "nodemon": "^2.0.20",
     "prisma": "^4.4.0",
     "ts-jest": "^29.0.3"

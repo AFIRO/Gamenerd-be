@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 
 export class ReviewRepository {
 
-  private prisma: PrismaClient;
+  public prisma: PrismaClient;
   private logger: Logger;
 
   public constructor() {
@@ -23,7 +23,7 @@ export class ReviewRepository {
 
   public async findById(id: string): Promise<Review> {
     this.logger.info(`Getting review with id ${id} from repository.`);
-    const protentialReview = await this.prisma.review.findUnique({
+    const protentialReview = await this.prisma.review.findUniqueOrThrow({
       where: {
         id: id,
       },
@@ -62,7 +62,7 @@ export class ReviewRepository {
     this.logger.info(`Creating new review in repository.`);
     try{
     await this.prisma.review.create({ data: dto });
-    const protentialReview = await this.prisma.review.findUnique({
+    const protentialReview = await this.prisma.review.findUniqueOrThrow({
       where: {
         content: dto.content,
       },
@@ -81,7 +81,7 @@ export class ReviewRepository {
       where: { id: id },
       data: dto
     });
-    const protentialReview = await this.prisma.review.findUnique({
+    const protentialReview = await this.prisma.review.findUniqueOrThrow({
       where: {
         id: id,
       },
@@ -95,7 +95,7 @@ export class ReviewRepository {
 
   public async deleteById(id: string): Promise<Review> {
     this.logger.info(`Deleting review with id ${id} from repository.`);
-    const protentialReview = this.prisma.review.findUnique({
+    const protentialReview = this.prisma.review.findUniqueOrThrow({
       where: {
         id: id,
       },

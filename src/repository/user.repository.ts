@@ -6,7 +6,7 @@ import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
 
 export class UserRepository {
 
-  private prisma: PrismaClient;
+  public prisma: PrismaClient;
   private logger: Logger;
   private readonly ALL_ROLES: Role[] = [{name: "ADMIN"},{name:"WRITER"}, {name: "USER"}];
 
@@ -26,7 +26,7 @@ export class UserRepository {
 
   public async findById(id: string): Promise<User> {
     this.logger.info(`Getting user with id ${id} from repository.`);
-    const data = await this.prisma.user.findUnique({
+    const data = await this.prisma.user.findUniqueOrThrow({
       where: {
         id: id,
       },
@@ -37,7 +37,7 @@ export class UserRepository {
 
   public async findByName(name: string): Promise<User> {
     this.logger.info(`Getting user with name ${name} from repository.`);
-    const data = await this.prisma.user.findUnique({
+    const data = await this.prisma.user.findUniqueOrThrow({
       where: {
         name: name,
       },
@@ -66,7 +66,7 @@ export class UserRepository {
         password: dto.password
       }
        });
-    const data = await this.prisma.user.findUnique({
+    const data = await this.prisma.user.findUniqueOrThrow({
       where: {
         name: dto.name,
       },
@@ -94,7 +94,7 @@ export class UserRepository {
           connect: mappedRoles}
         }
     })
-    const data = await this.prisma.user.findUnique({
+    const data = await this.prisma.user.findUniqueOrThrow({
       where: {
         id: id,
       },
@@ -109,7 +109,7 @@ export class UserRepository {
 
   public async deleteById(id: string): Promise<User> {
     this.logger.info(`Deleting user with id ${id} from repository.`);
-    const data = await this.prisma.user.findUnique({
+    const data = await this.prisma.user.findUniqueOrThrow({
       where: {
         id: id,
       },

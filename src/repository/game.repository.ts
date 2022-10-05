@@ -6,7 +6,7 @@ import { Game } from "../entity/game.model";
 
 export class GameRepository {
 
-  private prisma: PrismaClient;
+  public prisma: PrismaClient;
   private logger: Logger;
 
   public constructor() {
@@ -24,7 +24,7 @@ export class GameRepository {
   public async findById(id: string): Promise<Game> {
     this.logger.info(`Getting game with id ${id} from repository.`);
     
-    const potentialGame = await this.prisma.game.findUnique({
+    const potentialGame = await this.prisma.game.findUniqueOrThrow({
       where: {
         id: id,
       },
@@ -42,7 +42,7 @@ export class GameRepository {
     this.logger.info(`Creating new game in repository.`);
     try {
       await this.prisma.game.create({ data: dto });
-      const potentialGame = await this.prisma.game.findUnique({
+      const potentialGame = await this.prisma.game.findUniqueOrThrow({
         where: {
           name: dto.name,
         },
@@ -61,7 +61,7 @@ export class GameRepository {
         where: { id: id },
         data: dto
       })
-      const potentialGame = await this.prisma.game.findUnique({
+      const potentialGame = await this.prisma.game.findUniqueOrThrow({
         where: {
           name: dto.name,
         },
@@ -75,7 +75,7 @@ export class GameRepository {
 
   public async deleteById(id: string): Promise<Game> {
     this.logger.info(`Deleting game with id ${id} from repository.`);
-    const potentialGame = await this.prisma.game.findUnique({
+    const potentialGame = await this.prisma.game.findUniqueOrThrow({
       where: {
         id: id,
       },

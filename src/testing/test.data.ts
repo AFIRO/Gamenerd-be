@@ -1,5 +1,7 @@
 import { GameOutputDto } from "../entity/dto/game/game.output.dto"
+import { UserCreateDto } from "../entity/dto/user/user.create.dto"
 import { UserOutputDtoShort } from "../entity/dto/user/user.output.dto.short"
+import { UserUpdateDto } from "../entity/dto/user/user.update.dto"
 import { Game } from "../entity/game.model"
 import { News } from "../entity/news.model"
 import { Review } from "../entity/review.model"
@@ -24,6 +26,8 @@ public static readonly CONTENT = "testContents"
 public static readonly TEST_GAME = new Game({id: TestData.ID, name: TestData.NAME, boxart: TestData.BOXART})
 public static readonly TEST_GAME_OUTPUT_DTO = new GameOutputDto({id: TestData.ID, name: TestData.NAME, boxart: TestData.BOXART})
 public static readonly TEST_USER = new User({id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES})
+public static readonly TEST_USER_UPDATE_DTO = new UserUpdateDto({id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES})
+public static readonly TEST_USER_CREATE_DTO = new UserCreateDto({name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES})
 public static readonly TEST_USER_SHORT_DTO = new UserOutputDtoShort({id: TestData.ID, name: TestData.NAME})
 public static readonly TEST_NEWS = new News({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID})
 public static readonly TEST_REVIEW = new Review({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID, score: TestData.SCORE})
