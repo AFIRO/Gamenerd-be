@@ -170,6 +170,9 @@ https://www.npmjs.com/package/koa-better-error-handler
 
 > Schrijf hier een korte oplijsting en beschrijving van de geschreven testen + voeg een screenshot van de coverage en uitvoering toe
 
+Zoals good practice stipuleert bevatten de entities en dto's geen logica en dus valt er niets te testen.
+Om de testen neutraal te houden en menselijke fouten te mijden, heb ik als good practice mijn test data in een eigen bestand gestoken zodat die data statisch kan worden opgeroepen.
+
 ## Gekende bugs
 
 ### Front-end Web Development

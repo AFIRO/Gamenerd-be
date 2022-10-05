@@ -9,7 +9,8 @@ export class ReviewMapper {
             id: review.id,
             content: review.content,
             writer: writer,
-            game: game
+            game: game,
+            score: review.score
         });
     }
 }
