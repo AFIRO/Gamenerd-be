@@ -5,7 +5,7 @@ import { ReviewController } from "./review.controller";
 import { UserController } from "./user.controller";
 import Koa from "koa";
 import Router from "koa-router";
-import { LoginController } from "./login.controller";
+import { LoginAndRegistrationController } from "./login.register.controller";
 
 export class ControllerInstaller {
   private applicationRouter: Router;
@@ -19,7 +19,7 @@ export class ControllerInstaller {
       new NewsController(),
       new ReviewController(),
       new UserController(),
-      new LoginController()];
+      new LoginAndRegistrationController()];
   }
 
   public installRoutes(applicationContext: Koa) {

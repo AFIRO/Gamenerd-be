@@ -57,7 +57,7 @@ export class UserController {
       }
     })
 
-    //create - Register
+    //create
     this.router.post('/', async (ctx: Koa.Context) => {
       this.logger.info(`POST request for user with data ${JSON.stringify(ctx.request.body)} made.`)
       const dto = new UserCreateDto(ctx.request.body)
@@ -69,9 +69,10 @@ export class UserController {
           } else {
             this.logger.info('validation successful.');
             try {
+              this.authenticationService.authentificateToken(ctx);
               const data = await this.userService.create(dto);
               ctx.body = { data }
-              this.logger.info(`CREATE for user with id ${data.user.name} succesful.`)
+              this.logger.info(`CREATE for user with id ${data.name} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
             }
