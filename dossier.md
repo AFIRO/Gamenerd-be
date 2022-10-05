@@ -170,7 +170,7 @@ https://www.npmjs.com/package/koa-better-error-handler
 
 > Schrijf hier een korte oplijsting en beschrijving van de geschreven testen + voeg een screenshot van de coverage en uitvoering toe
 
-Zoals good practice stipuleert bevatten de entities en dto's geen logica en dus valt er niets te testen.
+Zoals good practice stipuleert bevatten de entities en dto's geen logica en dus valt er niets te testen. De logger testen we ook niet daar dit louter een wrapper is voor de Winston logger.
 Om de testen neutraal te houden en menselijke fouten te mijden, heb ik als good practice mijn test data in een eigen bestand gestoken zodat die data statisch kan worden opgeroepen.
 
 Uiteraard gaan we niet rechtstreeks testen op onze databasis, want dat is een enorme bad practice. Prisma heeft echter als voordeel dat we een centraal object hebben dat de connectie managed tussen ons en onze databasis. We kunnen deze met jest-mock mocken, verregaande checks uitvoeren en onze unit tests uitvoeren. Het nadeel is dat we dit object publiek moeten zetten opdat we onze mock kunnen injecteren. Een min-puntje qua encapsulatie, maar een noodzakelijk kwaad. Ik heb een eigen implementatie proberen schrijven met deep-mocking, maar die liep tegen circulaire dependencies aan. Blijkbaar een vaak voorkomend probleem in kader van Prisma en mocking.
