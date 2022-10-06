@@ -6,7 +6,9 @@ import { NewsUpdateDto } from "../entity/dto/news/news.update.dto"
 import { ReviewCreateDto } from "../entity/dto/review/review.create.dto"
 import { ReviewUpdateDto } from "../entity/dto/review/review.update.dto"
 import { UserCreateDto } from "../entity/dto/user/user.create.dto"
+import { UserOutputDto } from "../entity/dto/user/user.output.dto"
 import { UserOutputDtoShort } from "../entity/dto/user/user.output.dto.short"
+import { UserOutputDtoToken } from "../entity/dto/user/user.output.dto.token"
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto"
 import { Game } from "../entity/game.model"
 import { News } from "../entity/news.model"
@@ -34,9 +36,11 @@ public static readonly TEST_GAME_CREATE_DTO = new GameCreateDto({name: TestData.
 public static readonly TEST_GAME_UPDATE_DTO = new GameUpdateDto({id: TestData.ID, name: TestData.NAME, boxart: TestData.BOXART})
 public static readonly TEST_GAME_OUTPUT_DTO = new GameOutputDto({id: TestData.ID, name: TestData.NAME, boxart: TestData.BOXART})
 public static readonly TEST_USER = new User({id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES})
+public static readonly TEST_USER_OUTPUT_DTO = new UserOutputDto({id: TestData.ID, name: TestData.NAME, roles: TestData.ROLES})
 public static readonly TEST_USER_UPDATE_DTO = new UserUpdateDto({id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES})
 public static readonly TEST_USER_CREATE_DTO = new UserCreateDto({name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES})
 public static readonly TEST_USER_SHORT_DTO = new UserOutputDtoShort({id: TestData.ID, name: TestData.NAME})
+public static readonly TEST_USER_TOKEN_DTO = new UserOutputDtoToken({user: TestData.TEST_USER_OUTPUT_DTO, token: TestData.TOKEN})
 public static readonly TEST_NEWS = new News({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID})
 public static readonly TEST_NEWS_CREATE_DTO = new NewsCreateDto({content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID})
 public static readonly TEST_NEWS_UPDATE_DTO = new NewsUpdateDto({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID})

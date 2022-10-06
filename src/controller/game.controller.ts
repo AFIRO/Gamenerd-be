@@ -34,8 +34,7 @@ export class GameController {
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all games made.")
       try {
-        this.authenticationService.authentificateToken(ctx);
-        this.authenticationService.checkClearance(Role.ADMIN, ctx)
+        this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.gameService.findAll();
         ctx.body = { data }
         this.logger.info(`GET for all games.`)
@@ -48,7 +47,7 @@ export class GameController {
     this.router.get('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for game with id ${ctx.params.id} made.`)
       try {
-        this.authenticationService.authentificateToken(ctx);
+        this.authenticationService.authentificate(ctx);
         const data = await this.gameService.findById(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`GET for game with id ${ctx.params.id} succesful.`)
@@ -69,8 +68,7 @@ export class GameController {
           } else {
             this.logger.info('validation successful.');
             try {
-              this.authenticationService.authentificateToken(ctx);
-              this.authenticationService.checkClearance(Role.ADMIN, ctx)
+              this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.gameService.create(dto);
               ctx.body = { data }
               this.logger.info(`CREATE for game with id ${data.id} succesful.`)
@@ -93,8 +91,7 @@ export class GameController {
           } else {
             this.logger.info('validation successful.');
             try {
-            this.authenticationService.authentificateToken(ctx);
-             this.authenticationService.checkClearance(Role.ADMIN, ctx)
+            this.authenticationService.authentificate(ctx, Role.ADMIN);
             const data = await this.gameService.update(ctx.params.id, dto);
             ctx.body = { data }
             this.logger.info(`UPDATE for game with id ${ctx.params.id} succesful.`)
@@ -109,8 +106,7 @@ export class GameController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for game with id  ${ctx.params.id} made.`)
       try {
-      this.authenticationService.authentificateToken(ctx);
-      this.authenticationService.checkClearance(Role.ADMIN, ctx)
+      this.authenticationService.authentificate(ctx, Role.ADMIN);
       const data = await this.gameService.delete(ctx.params.id);
       ctx.body = { data }
       this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)

@@ -1,5 +1,6 @@
 import { UserCreateDto } from "../entity/dto/user/user.create.dto";
 import { UserOutputDto } from "../entity/dto/user/user.output.dto";
+import { UserOutputDtoShort } from "../entity/dto/user/user.output.dto.short";
 import { UserOutputDtoToken } from "../entity/dto/user/user.output.dto.token";
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
 import { User } from "../entity/user.model";
@@ -11,8 +12,8 @@ import { PasswordHasher } from "../util/password.hasher";
 import { AuthenticationService } from "./authentification.service";
 export class UserService {
   private logger: Logger;
-  private userRepository: UserRepository
-  private authentificationService: AuthenticationService
+  public userRepository: UserRepository
+  public authentificationService: AuthenticationService
 
   public constructor() {
     this.logger = new Logger();
@@ -30,14 +31,14 @@ export class UserService {
       throw Error(`No users in database`)
   }
 
-  public async findById(id: string): Promise<UserOutputDto> {
+  public async findById(id: string): Promise<UserOutputDtoShort> {
     this.logger.info(`UserService getting user with id ${id}.`)
     const user = await this.userRepository.findById(id)
     if (!user) {
       this.logger.error(`User with id ${id} not found in repository.`);
       throw Error(`User with id ${id} not found`)
     }
-    return UserMapper.toOutputDto((user));
+    return UserMapper.toOutputDtoShort((user));
   }
 
   public async findByIdWithRoles(id: string): Promise<UserOutputDto> {
@@ -52,7 +53,7 @@ export class UserService {
 
   //public method for new user to register themselves
   public async register(dto: UserCreateDto): Promise<UserOutputDtoToken> {
-    this.logger.info(`UserService creating new user.`)
+    this.logger.info(`UserService registering new user.`)
     dto.password = await PasswordHasher.hashPassword(dto.password);
     const user = await this.userRepository.create(dto)
     return this.authentificationService.makeLoginData(user) ;

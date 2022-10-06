@@ -22,7 +22,7 @@ export class PasswordHasher {
 
     public static async verifyPassword(password: string, passwordHash: string){
         this.logger.info(`verifying passwordHash ${passwordHash}.`)
-        return await argon2.verify(password, passwordHash, {
+        return await argon2.verify(passwordHash, password, {
             type: argon2.argon2id,
             saltLength: this.ARGON_SALT_LENGTH,
             hashLength: this.ARGON_HASH_LENGTH,

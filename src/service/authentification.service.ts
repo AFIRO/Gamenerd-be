@@ -42,9 +42,13 @@ export class AuthenticationService {
     return UserMapper.toOutputDtoToken(user, token);
   };
 
-  public checkClearance(roleRequired: string, ctx: Koa.Context){
-    const userRoles: [] = ctx.state.session.roles || [];
-    this.checkifUserHasCorrectRoles(roleRequired, userRoles)
+  public async authentificate(ctx: Koa.Context, roleRequired?: string){
+    const authHeader = ctx.headers.authorization
+    const {roles} = await this.checkAndParseSession(authHeader)
+    
+    if (roleRequired){
+      this.checkifUserHasCorrectRoles(roleRequired, roles)
+    }
   }
 
   private checkifUserHasCorrectRoles(roleRequired: string, userRoles: string[]): void{
@@ -52,13 +56,6 @@ export class AuthenticationService {
       this.logger.error("Insufficient security clearance");
       throw new Error("You are not allowed to view this application.")
     }
-  }
-
-  public async authentificateToken(ctx: Koa.Context){
-    const authHeader = ctx.headers.authorization
-    const {authToken,...session} = await this.checkAndParseSession(authHeader)
-    ctx.state.session = session;
-	  ctx.state.authToken = authToken;
   }
 
   private async checkAndParseSession(authHeader){

@@ -7,12 +7,12 @@ const userRepository = new UserRepository();
 userRepository.prisma = prisma
 
 describe('user repository tests', () => {
-  it('get all to return objects correctly', () => {
+  it('get all to return objects correctly', async () => {
     const valueToBeReturnedByPrisma: User & {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.findMany = jest.fn().mockResolvedValue([valueToBeReturnedByPrisma]);
-    expect(userRepository.findAll()).resolves.toEqual(expect.arrayContaining([TestData.TEST_USER]))
+    expect(await userRepository.findAll()).toEqual(expect.arrayContaining([TestData.TEST_USER]))
     expect(userRepository.prisma.user.findMany).toHaveBeenCalled()
   }
   )
@@ -22,7 +22,7 @@ describe('user repository tests', () => {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
-    expect(userRepository.findById(TestData.ID)).resolves.toEqual(TestData.TEST_USER)
+    expect(await userRepository.findById(TestData.ID)).toEqual(TestData.TEST_USER)
     expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
   }
   )
@@ -32,14 +32,14 @@ describe('user repository tests', () => {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
-    expect(userRepository.findById(TestData.NAME)).resolves.toEqual(TestData.TEST_USER)
+    expect(await userRepository.findById(TestData.NAME)).toEqual(TestData.TEST_USER)
     expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
   }
   )
 
   it('exist by id to return correct boolean',async () => {
     prisma.user.count = jest.fn().mockResolvedValue(1);
-    expect(userRepository.existsById(TestData.NAME)).resolves.toBe(true)
+    expect(await userRepository.existsById(TestData.NAME)).toBe(true)
     expect(userRepository.prisma.user.count).toHaveBeenCalled()
   }
   )
@@ -50,8 +50,9 @@ describe('user repository tests', () => {
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.create = jest.fn();
     prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
-    expect(userRepository.create(TestData.TEST_USER_CREATE_DTO)).resolves.toEqual(TestData.TEST_USER)
+    expect(await userRepository.create(TestData.TEST_USER_CREATE_DTO)).toEqual(TestData.TEST_USER)
     expect(userRepository.prisma.user.create).toHaveBeenCalled();
+    expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
   }
   )
 
@@ -61,8 +62,9 @@ describe('user repository tests', () => {
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.update = jest.fn();
     prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
-    expect(userRepository.updateById(TestData.ID,TestData.TEST_USER_UPDATE_DTO)).resolves.toEqual(TestData.TEST_USER)
+    expect(await userRepository.updateById(TestData.ID,TestData.TEST_USER_UPDATE_DTO)).toEqual(TestData.TEST_USER)
     expect(userRepository.prisma.user.update).toHaveBeenCalled();
+    expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
   }
   )
 
@@ -72,7 +74,9 @@ describe('user repository tests', () => {
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.delete = jest.fn();
     prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
-    expect(userRepository.deleteById(TestData.ID)).resolves.toEqual(TestData.TEST_USER)
+    expect(await userRepository.deleteById(TestData.ID)).toEqual(TestData.TEST_USER)
+    expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
+    expect(userRepository.prisma.user.delete).toHaveBeenCalled()
   }
   )
 

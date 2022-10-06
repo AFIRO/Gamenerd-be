@@ -6,7 +6,10 @@
   "scripts": {
     "start": "npx env-cmd nodemon src/main.ts",
     "test": "jest",
-    "test:coverage": "yarn test --coverage"
+    "test:coverage": "yarn test --coverage",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev --name init",
+    "prisma:seed": "npx prisma db seed"
   },
   "repository": {
     "type": "git",

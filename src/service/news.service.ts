@@ -14,9 +14,9 @@ import { Logger } from "../util/logger";
 
 export class NewsService {
     private logger: Logger;
-    private gameRepository: GameRepository;
-    private userRepositoy: UserRepository;
-    private newsRepository: NewsRepository;
+    public gameRepository: GameRepository;
+    public userRepositoy: UserRepository;
+    public newsRepository: NewsRepository;
 
     public constructor() {
         this.logger = new Logger();

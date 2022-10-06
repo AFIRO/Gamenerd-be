@@ -14,9 +14,9 @@ import { Logger } from "../util/logger";
 
 export class ReviewService {
     private logger: Logger;
-    private gameRepository: GameRepository;
-    private userRepositoy: UserRepository;
-    private reviewRepository: ReviewRepository;
+    public gameRepository: GameRepository;
+    public userRepositoy: UserRepository;
+    public reviewRepository: ReviewRepository;
 
     public constructor() {
         this.logger = new Logger();

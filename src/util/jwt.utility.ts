@@ -11,6 +11,7 @@ export class JwtHelper {
     private static readonly logger: Logger = new Logger();
 
     public static generateJWT(user: User): Promise<string> {
+            
         const tokenData = {
             userId: user.id,
             roles: user.roles,
@@ -51,7 +52,7 @@ export class JwtHelper {
                         this.logger.error(`Error while verifyinf new token: ${err.message}`)
                         return reject(err || new Error('Token could not be parsed'));
                     }
-                    this.logger.info(`JWT token ${decodedToken} verified succesfully.`)
+                    this.logger.info(`JWT token containing ${JSON.stringify(decodedToken)} verified succesfully.`)
                     const returnValue = decodedToken as {userId: string, roles:string[]}
                     return resolve(returnValue);
                 },
