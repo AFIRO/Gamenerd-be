@@ -7,7 +7,7 @@ import { Logger } from "../util/logger";
 
 export class GameService {
     private logger: Logger;
-    private gameRepository: GameRepository
+    public gameRepository: GameRepository
 
     public constructor() {
         this.logger = new Logger();
