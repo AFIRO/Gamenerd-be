@@ -4,13 +4,21 @@ import { User } from "../entity/user.model";
 import { Logger } from "./logger";
 
 export class JwtHelper {
-    private static readonly JWT_AUDIENCE = config.get('auth.jwt.audience');
-    private static readonly JWT_SECRET = config.get('auth.jwt.secret');
-    private static readonly JWT_ISSUER = config.get('auth.jwt.issuer');
-    private static readonly JWT_EXPIRATION_INTERVAL = config.get('auth.jwt.expirationInterval');
-    private static readonly logger: Logger = new Logger();
+    private JWT_AUDIENCE 
+    private JWT_SECRET
+    private JWT_ISSUER
+    private JWT_EXPIRATION_INTERVAL
+    private logger: Logger
 
-    public static generateJWT(user: User): Promise<string> {
+    public constructor(){
+        this.JWT_AUDIENCE = config.get('auth.jwt.audience');
+        this.JWT_SECRET = config.get('auth.jwt.secret');
+        this.JWT_ISSUER = config.get('auth.jwt.issuer');
+        this.JWT_EXPIRATION_INTERVAL = config.get('auth.jwt.expirationInterval');
+        this.logger = new Logger();
+    }
+
+    public generateJWT(user: User): Promise<string> {
             
         const tokenData = {
             userId: user.id,
@@ -38,7 +46,7 @@ export class JwtHelper {
         });
     }
 
-    public static verifyJWT(authToken: string): Promise<{userId: string, roles:string[]}> {
+    public verifyJWT(authToken: string): Promise<{userId: string, roles:string[]}> {
         const verifyOptions = {
             audience: this.JWT_AUDIENCE,
             issuer: this.JWT_ISSUER,

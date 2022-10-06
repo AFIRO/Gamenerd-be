@@ -10,15 +10,19 @@ import { PasswordHasher } from "../util/password.hasher";
 import * as Koa from 'koa';
 
 export class AuthenticationService {
-  private userRepository: UserRepository;
+  public userRepository: UserRepository;
   private logger: Logger
+  public passwordHasher: PasswordHasher
+  public JwtHelper: JwtHelper
 
   public constructor(){
     this.userRepository = new UserRepository();
     this.logger = new Logger();
+    this.passwordHasher = new PasswordHasher()
+    this.JwtHelper = new JwtHelper()
   }
 
-  public async login(dto: LoginDataDto) {
+  public async login(dto: LoginDataDto): Promise<UserOutputDtoToken> {
     this.logger.info(`Attempting to login user with name ${dto.name}`);
     const user = await this.userRepository.findByName(dto.name);
     if (!user) {
@@ -26,7 +30,7 @@ export class AuthenticationService {
       throw new Error('The given name and password do not match');
     }
 
-    const passwordValid = await PasswordHasher.verifyPassword(dto.password, user.password);
+    const passwordValid = await this.passwordHasher.verifyPassword(dto.password, user.password);
 
     if (!passwordValid) {
       this.logger.error(`Login error: Password given for User with name ${dto.name} does not match with saved PasswordHash.`)
@@ -38,14 +42,13 @@ export class AuthenticationService {
 
   public async makeLoginData(user: User): Promise<UserOutputDtoToken> {
     this.logger.info(`Generating new JWT token for user with name ${user.name}.`);
-    const token = await JwtHelper.generateJWT(user);
+    const token = await this.JwtHelper.generateJWT(user);
     return UserMapper.toOutputDtoToken(user, token);
   };
 
   public async authentificate(ctx: Koa.Context, roleRequired?: string){
     const authHeader = ctx.headers.authorization
     const {roles} = await this.checkAndParseSession(authHeader)
-    
     if (roleRequired){
       this.checkifUserHasCorrectRoles(roleRequired, roles)
     }
@@ -70,8 +73,7 @@ export class AuthenticationService {
     }
     const authToken = authHeader.substr(7);
 	try {
-    const {userId, roles} = await JwtHelper.verifyJWT(authToken);
-		
+    const {userId, roles} = await this.JwtHelper.verifyJWT(authToken);
 		return {
       userId,
       roles,

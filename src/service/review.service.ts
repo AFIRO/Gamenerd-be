@@ -60,7 +60,7 @@ export class ReviewService {
 
     public async findAllByWriter(writerId: string): Promise<ReviewOutputDto[]> {
         this.logger.info(`ReviewService getting all reviews.`)
-        const data: Review[] = await this.reviewRepository.findAllByGame(writerId);
+        const data: Review[] = await this.reviewRepository.findAllByWriter(writerId);
         if (data.length != 0) {
             const mappedData: ReviewOutputDto[] = []
             for (let review of data) {

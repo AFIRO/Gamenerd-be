@@ -1,9 +1,12 @@
 import { GameCreateDto } from "../entity/dto/game/game.create.dto"
 import { GameOutputDto } from "../entity/dto/game/game.output.dto"
 import { GameUpdateDto } from "../entity/dto/game/game.update.dto"
+import { LoginDataDto } from "../entity/dto/login/login.data.dto"
 import { NewsCreateDto } from "../entity/dto/news/news.create.dto"
+import { NewsOutputDto } from "../entity/dto/news/news.output.dto"
 import { NewsUpdateDto } from "../entity/dto/news/news.update.dto"
 import { ReviewCreateDto } from "../entity/dto/review/review.create.dto"
+import { ReviewOutputDto } from "../entity/dto/review/review.output.dto"
 import { ReviewUpdateDto } from "../entity/dto/review/review.update.dto"
 import { UserCreateDto } from "../entity/dto/user/user.create.dto"
 import { UserOutputDto } from "../entity/dto/user/user.output.dto"
@@ -29,6 +32,7 @@ public static readonly ROLES = ["ADMIN"]
 public static readonly PASSWORD = "testPassword"
 public static readonly TOKEN = "testToken"
 public static readonly CONTENT = "testContents"
+public static readonly AUTH_HEADER = "Bearer THIS_IS_A_TEST_HEADER"
 
 //objects
 public static readonly TEST_GAME = new Game({id: TestData.ID, name: TestData.NAME, boxart: TestData.BOXART})
@@ -42,9 +46,12 @@ public static readonly TEST_USER_CREATE_DTO = new UserCreateDto({name: TestData.
 public static readonly TEST_USER_SHORT_DTO = new UserOutputDtoShort({id: TestData.ID, name: TestData.NAME})
 public static readonly TEST_USER_TOKEN_DTO = new UserOutputDtoToken({user: TestData.TEST_USER_OUTPUT_DTO, token: TestData.TOKEN})
 public static readonly TEST_NEWS = new News({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID})
+public static readonly TEST_NEWS_OUTPUT_DTO = new NewsOutputDto({id: TestData.ID, content: TestData.CONTENT, game: TestData.TEST_GAME_OUTPUT_DTO, writer: TestData.TEST_USER_SHORT_DTO})
 public static readonly TEST_NEWS_CREATE_DTO = new NewsCreateDto({content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID})
 public static readonly TEST_NEWS_UPDATE_DTO = new NewsUpdateDto({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID})
 public static readonly TEST_REVIEW = new Review({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID, score: TestData.SCORE})
+public static readonly TEST_REVIEW_OUTPUT_DTO = new ReviewOutputDto({id: TestData.ID, content: TestData.CONTENT, score: TestData.SCORE, game: TestData.TEST_GAME_OUTPUT_DTO, writer: TestData.TEST_USER_SHORT_DTO})
 public static readonly TEST_REVIEW_CREATE_DTO = new ReviewCreateDto({content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID, score: TestData.SCORE})
 public static readonly TEST_REVIEW_UPDATE_DTO = new ReviewUpdateDto({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID, score: TestData.SCORE})
+public static readonly TEST_LOGIN_DATA_DTO = new LoginDataDto({name: TestData.NAME, password: TestData.PASSWORD}) 
 } 

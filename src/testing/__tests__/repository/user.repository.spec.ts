@@ -32,7 +32,7 @@ describe('user repository tests', () => {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
-    expect(await userRepository.findById(TestData.NAME)).toEqual(TestData.TEST_USER)
+    expect(await userRepository.findByName(TestData.NAME)).toEqual(TestData.TEST_USER)
     expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
   }
   )
@@ -79,6 +79,5 @@ describe('user repository tests', () => {
     expect(userRepository.prisma.user.delete).toHaveBeenCalled()
   }
   )
-
 }
 )  

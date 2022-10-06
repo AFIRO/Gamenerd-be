@@ -49,7 +49,28 @@ describe('game service tests',()=>{
     expect(mockRepository.existsById).toHaveBeenCalledWith(TestData.ID)
   })
 
-  
+  it('get all throws error when no data', async () => {
+    mockRepository.findAll = jest.fn().mockResolvedValue([]);
+    expect(gameService.findAll()).rejects.toThrow();
+    expect(mockRepository.findAll).toBeCalled()
+  })
+
+  it('get by id throws error when no data', async () => {
+    mockRepository.findById = jest.fn().mockResolvedValue(null);
+    expect(gameService.findById(TestData.ID)).rejects.toThrow();
+    expect(mockRepository.findById).toBeCalledWith(TestData.ID)
+  })
+
+  it('update throws when id and dto id are not same', async () => {
+    expect(gameService.update("WRONG", TestData.TEST_GAME_UPDATE_DTO)).rejects.toThrow();
+    
+  })
+
+  it('delete by id throws error when no data', async () => {
+    mockRepository.existsById = jest.fn().mockResolvedValue(null);
+    expect(gameService.delete(TestData.ID)).rejects.toThrow();
+    expect(mockRepository.existsById).toBeCalledWith(TestData.ID)
+  })
   
 
 })
