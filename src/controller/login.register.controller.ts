@@ -63,6 +63,7 @@ export class LoginAndRegistrationController {
                 try {
                   const data = await this.userService.register(dto);
                   ctx.body = { data }
+                  ctx.status = 201
                   this.logger.info(`REGISTER for user with id ${data.user.name} succesful.`)
                 } catch (error) {
                   ctx.throw(400, error)

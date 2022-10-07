@@ -99,6 +99,7 @@ export class NewsController {
               this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.newsService.create(dto);
               ctx.body = { data }
+              ctx.status = 201
               this.logger.info(`CREATE for news with id ${data.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)

@@ -100,6 +100,7 @@ export class ReviewController {
               this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.reviewService.create(dto);
               ctx.body = { data }
+              ctx.status = 201
               this.logger.info(`CREATE for review with id ${data.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)

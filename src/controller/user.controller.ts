@@ -71,6 +71,7 @@ export class UserController {
               this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.userService.create(dto);
               ctx.body = { data }
+              ctx.status = 201
               this.logger.info(`CREATE for user with id ${data.name} succesful.`)
             } catch (error) {
               ctx.throw(400, error)

@@ -71,6 +71,7 @@ export class GameController {
               this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.gameService.create(dto);
               ctx.body = { data }
+              ctx.status = 201
               this.logger.info(`CREATE for game with id ${data.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
