@@ -57,7 +57,7 @@ export class JwtHelper {
             jwt.verify(
                 authToken, this.JWT_SECRET, verifyOptions, (err, decodedToken) => {
                     if (err || !decodedToken) {
-                        this.logger.error(`Error while verifyinf new token: ${err.message}`)
+                        this.logger.error(`Error while verifying new token: ${err.message}`)
                         return reject(err || new Error('Token could not be parsed'));
                     }
                     this.logger.info(`JWT token containing ${JSON.stringify(decodedToken)} verified succesfully.`)

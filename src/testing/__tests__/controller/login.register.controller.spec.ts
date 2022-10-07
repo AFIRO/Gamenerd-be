@@ -1,27 +1,17 @@
-import { Server } from "../../../server";
 import supertest from 'supertest';
 import { PrismaClient } from "@prisma/client";
 import { TestData } from "../../test.data";
+const { withServer } = require('../../../../config/test/supertest.setup');
 
 describe('login and registration controller tests',()=>{
-    let server: Server;
     let request: supertest.SuperTest<supertest.Test>
-    let prisma: PrismaClient 
+    let prisma: PrismaClient
+
+    withServer(({ prisma: p, supertest:s }) => {
+        prisma = p;
+        request = s;
+      });
     
-     beforeAll(async () => {
-        server = new Server()
-        await server.start()
-        request = supertest(server.getApplicationContext().callback())
-        prisma = new PrismaClient()
-        await prisma.user.create({data: TestData.TEST_USER_CREATE_DTO})
-
-    })
-
-    afterAll(async () => {
-        await prisma.user.delete({where: {id: TestData.ID}})
-		await server.stop();
-	});
-
     it('POST returns 200 and user info with token', async () => {
       const response = await request.post("/login").send(TestData.TEST_LOGIN_DATA_DTO);
       expect(response.status).toBe(200);

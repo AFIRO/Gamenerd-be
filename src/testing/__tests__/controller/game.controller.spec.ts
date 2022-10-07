@@ -1,27 +1,23 @@
-import { Server } from "../../../server";
 import supertest from 'supertest';
 import { PrismaClient } from "@prisma/client";
 import { TestData } from "../../test.data";
+import { TestHelpers } from '../../../../config/test/test.helpers';
+const { withServer} = require('../../../../config/test/supertest.setup');
 
 describe('game controller tests',()=>{
-    let server: Server;
     let request: supertest.SuperTest<supertest.Test>
-    let prisma: PrismaClient 
+    let prisma: PrismaClient
+    let loginHeader: string
     const url = '/api/games';
 
-     beforeAll(async () => {
-        server = new Server()
-        await server.start()
-        request = supertest(server.getApplicationContext().callback())
-        prisma = new PrismaClient()
-        await prisma.game.create({data: TestData.TEST_GAME_CREATE_DTO})
+    withServer(({ prisma: p, supertest:request, server:server }) => {
+      prisma = p;
+      request = request;
+    });
 
+     beforeAll(async () =>  {
+        loginHeader = await TestHelpers.loginAdmin(request)
     })
-
-    afterAll(async () => {
-        await prisma.game.delete({where: {id: TestData.ID}})
-		await server.stop();
-	});
 
     it('GET returns 200 and all items', async () => {
       const response = await request.get(url);
@@ -62,7 +58,7 @@ describe('game controller tests',()=>{
         expect(response.body.data).toContain(gewijzigdeData);
         //rest test item voor volgende test
         await prisma.game.delete({where: {id: TestData.ID}})
-        await prisma.game.create({data: TestData.TEST_GAME_CREATE_DTO})
+        await prisma.game.create({data: TestData.TEST_GAME})
       }) 
 
       it('DELETE by id returns 200 and specific item', async () => {
@@ -72,7 +68,7 @@ describe('game controller tests',()=>{
         expect(response.body.offset).toBe(0);
         expect(response.body.data.length).toBe(1);
         expect(response.body.data).toContain(TestData.TEST_GAME_OUTPUT_DTO)
-        //rest test item voor volgende test
-        await prisma.game.create({data: TestData.TEST_GAME_CREATE_DTO})
+        //reset test item voor volgende test
+        await prisma.game.create({data: TestData.TEST_GAME})
       }) 
   })

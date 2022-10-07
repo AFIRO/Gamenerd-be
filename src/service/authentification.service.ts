@@ -1,4 +1,3 @@
-import koaCors from "koa-cors";
 import { LoginDataDto } from "../entity/dto/login/login.data.dto";
 import { UserOutputDtoToken } from "../entity/dto/user/user.output.dto.token";
 import { User } from "../entity/user.model";
@@ -62,7 +61,7 @@ export class AuthenticationService {
   }
 
   private async checkAndParseSession(authHeader){
-    if (!authHeader) {
+  if (!authHeader) {
       this.logger.error("User not signed in.");
       throw new Error('You need to be signed in');
     }
@@ -72,17 +71,12 @@ export class AuthenticationService {
       throw new Error('Invalid authentication token');
     }
     const authToken = authHeader.substr(7);
-	try {
     const {userId, roles} = await this.JwtHelper.verifyJWT(authToken);
 		return {
       userId,
       roles,
 			authToken,
 		};
-	} catch (error) {
-		this.logger.error(`JWT error: ${error}`);
-		throw new Error(error.message);
-	}
 };
 }
 

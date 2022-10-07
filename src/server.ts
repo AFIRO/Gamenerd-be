@@ -59,8 +59,8 @@ export class Server {
   }
 
   public async stop(): Promise<void>{
+    this.logger.info(`Closing server post ${this.PORT}`)
     this.application.removeAllListeners();
-    process.exit(0)
   }
 }
 

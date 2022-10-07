@@ -5,7 +5,8 @@ const config: Config = {
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
-  modulePathIgnorePatterns: ["src", "node_modules","config"]
-  };
-
+  modulePathIgnorePatterns: ["config"],
+  globalSetup: "<rootDir>/config/test/global.setup.ts",
+  globalTeardown:  "<rootDir>/config/test/global.teardown.ts"
+}
 export default config;

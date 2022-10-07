@@ -1,32 +1,24 @@
-import { Server } from "../../../server";
 import supertest from 'supertest';
 import { PrismaClient } from "@prisma/client";
 import { TestData } from "../../test.data";
+import { TestHelpers } from '../../../../config/test/test.helpers';
+const { withServer, LoginAdmin } = require('../../../../config/test/supertest.setup');
 
 describe('review controller tests',()=>{
-    let server: Server;
     let request: supertest.SuperTest<supertest.Test>
     let prisma: PrismaClient 
     const url = '/api/reviews';
     const testReview = {id: TestData.ID, content: TestData.CONTENT, writerId:TestData.ID, gameId:TestData.ID, score: TestData.SCORE}
+    let loginHeader: string
 
-     beforeAll(async () => {
-        server = new Server()
-        await server.start()
-        request = supertest(server.getApplicationContext().callback())
-        prisma = new PrismaClient()
-        await prisma.game.create({data: TestData.TEST_GAME_CREATE_DTO})
-        await prisma.user.create({data: TestData.TEST_USER_CREATE_DTO})
-        await prisma.review.create({data: testReview})
+    withServer(({ prisma: p, supertest:s }) => {
+      prisma = p;
+      request = s;
+    });
 
-    })
-
-    afterAll(async () => {
-        await prisma.review.delete({where: {id: TestData.ID}})
-        await prisma.game.delete({where: {id: TestData.ID}})
-        await prisma.user.delete({where: {id: TestData.ID}})
-		await server.stop();
-	});
+    beforeAll(async () =>  {
+      loginHeader = await TestHelpers.loginAdmin(request)
+  })
 
     it('GET returns 200 and all items', async () => {
       const response = await request.get(url);

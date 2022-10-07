@@ -34,7 +34,7 @@ export class NewsController {
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all news made.")
       try {
-        this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.newsService.findAll();
         ctx.body = { data }
         this.logger.info(`GET for all news succesful.`)
@@ -47,7 +47,7 @@ export class NewsController {
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all news by writer with id ${ctx.params.writerId} made.`)
       try {
-        this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const writerId: string = ctx.params.writerId.toString();
         const data = await this.newsService.findAllByWriter(writerId);
         ctx.body = { data }
@@ -61,7 +61,7 @@ export class NewsController {
     this.router.get('/byGame/:gameId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all news by game with id ${ctx.params.gameId} made.`)
       try {
-        this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const gameId: string = ctx.params.gameId.toString();
         const data = await this.newsService.findAllByGame(gameId);
         ctx.body = { data }
@@ -75,7 +75,7 @@ export class NewsController {
     this.router.get('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for news with id ${ctx.params.id} made.`)
       try {
-        this.authenticationService.authentificate(ctx);
+        await this.authenticationService.authentificate(ctx);
         const data = await this.newsService.findById(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`GET for news with id ${ctx.params.id} succesful.`)
@@ -96,7 +96,7 @@ export class NewsController {
           } else {
             this.logger.info('validation successful.');
             try {
-              this.authenticationService.authentificate(ctx, Role.WRITER);
+              await this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.newsService.create(dto);
               ctx.body = { data }
               ctx.status = 201
@@ -120,7 +120,7 @@ export class NewsController {
           } else {
             this.logger.info('validation successful.');
             try {
-              this.authenticationService.authentificate(ctx, Role.WRITER);
+              await this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.newsService.update(ctx.params.id, dto);
               ctx.body = { data }
               this.logger.info(`UPDATE for news with id ${ctx.params.id} succesful.`)
@@ -135,7 +135,7 @@ export class NewsController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for game with id ${ctx.params.id} made.`)
       try {
-        this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.newsService.delete(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`DELETE for news with id ${ctx.params.id} succesful.`)

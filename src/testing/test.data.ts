@@ -53,5 +53,26 @@ public static readonly TEST_REVIEW = new Review({id: TestData.ID, content: TestD
 public static readonly TEST_REVIEW_OUTPUT_DTO = new ReviewOutputDto({id: TestData.ID, content: TestData.CONTENT, score: TestData.SCORE, game: TestData.TEST_GAME_OUTPUT_DTO, writer: TestData.TEST_USER_SHORT_DTO})
 public static readonly TEST_REVIEW_CREATE_DTO = new ReviewCreateDto({content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID, score: TestData.SCORE})
 public static readonly TEST_REVIEW_UPDATE_DTO = new ReviewUpdateDto({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID, score: TestData.SCORE})
-public static readonly TEST_LOGIN_DATA_DTO = new LoginDataDto({name: TestData.NAME, password: TestData.PASSWORD}) 
-} 
+public static readonly TEST_LOGIN_DATA_DTO = new LoginDataDto({name: TestData.NAME, password: TestData.PASSWORD})
+
+//prisma inputs
+public static readonly PRISMA_USER =
+{ id: TestData.ID,
+  name: TestData.NAME,
+  roles: {
+    connect: [{name: "ADMIN"}]
+  },
+  password: "$argon2id$v=19$m=2048,t=2,p=1$NF6PFLTgSYpDSex0iFeFQQ$Rz5ouoM9q3EH40hrq67BC3Ajsu/ohaHnkKBLunELLzU"
+}
+ 
+
+ public static readonly PRISMA_USER_WRITER =
+ { id: "TestWriter",
+   name: "TestWriter",
+   roles: {
+     connect: [{name: "WRITER"}]
+   },
+   password: "$argon2id$v=19$m=2048,t=2,p=1$NF6PFLTgSYpDSex0iFeFQQ$Rz5ouoM9q3EH40hrq67BC3Ajsu/ohaHnkKBLunELLzU"
+ }
+
+}

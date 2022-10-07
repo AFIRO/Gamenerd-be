@@ -34,7 +34,7 @@ export class UserController {
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all users made.")
       try {
-        this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.userService.findAll();
         ctx.body = { data }
         this.logger.info(`GET for all users.`)
@@ -47,7 +47,7 @@ export class UserController {
     this.router.get('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for user with id  ${ctx.params.id} made.`)
       try {
-        this.authenticationService.authentificate(ctx);
+        await this.authenticationService.authentificate(ctx);
         const data = await this.userService.findById(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`GET for user with id ${ctx.params.id} succesful.`)
@@ -68,7 +68,7 @@ export class UserController {
           } else {
             this.logger.info('validation successful.');
             try {
-              this.authenticationService.authentificate(ctx, Role.ADMIN);
+              await this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.userService.create(dto);
               ctx.body = { data }
               ctx.status = 201
@@ -92,7 +92,7 @@ export class UserController {
           } else {
             this.logger.info('validation successful.');
             try {
-              this.authenticationService.authentificate(ctx);
+            await this.authenticationService.authentificate(ctx);
             const data = await this.userService.update(ctx.params.id, dto);
             ctx.body = { data }
             this.logger.info(`UPDATE for user with id ${ctx.params.id} succesful.`)
@@ -107,7 +107,7 @@ export class UserController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for user with id  ${ctx.params.id} made.`)
       try {
-        this.authenticationService.authentificate(ctx, Role.ADMIN);
+      await this.authenticationService.authentificate(ctx, Role.ADMIN);
       const data = await this.userService.delete(ctx.params.id);
       ctx.body = { data }
       this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)

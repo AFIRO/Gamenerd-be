@@ -1,21 +1,14 @@
 import supertest from "supertest";
-import { Server } from "../../../server";
-const packageJson = require('../../package.json');
+const packageJson = require('../../../../package.json');
+const { withServer, LoginAdmin } = require('../../../../config/test/supertest.setup');
 
 describe('game controller tests',()=>{
-    let server: Server;
     let request: supertest.SuperTest<supertest.Test>
     const url = '/api/health';
 
-    beforeAll(async () => {
-        server = new Server()
-        await server.start()
-        request = supertest(server.getApplicationContext().callback())
-    })
-
-    afterAll(async () => {
-        await server.stop();
-	});
+    withServer(({ prisma: p, supertest:s }) => {
+        request = s;
+      });
 
     it('GET returns 200 and PONG', async () => {
         const response = await request.get(url+"/ping");
