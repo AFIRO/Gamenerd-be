@@ -6,7 +6,7 @@ import { GameUpdateDto } from '../entity/dto/game/game.update.dto';
 import { GameCreateDto } from '../entity/dto/game/game.create.dto';
 import { validate, ValidatorOptions } from 'class-validator'
 import { AuthenticationService } from '../service/authentification.service';
-import { Role } from '../entity/Role';
+import { Role } from '../entity/role.model';
 
 export class GameController {
   private readonly PREFIX: string = '/games'

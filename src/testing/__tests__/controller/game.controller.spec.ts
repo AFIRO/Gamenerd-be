@@ -43,7 +43,7 @@ describe('game controller tests',()=>{
 
       it('POST returns 201 and created item', async () => {
         prisma.game.delete({where: {id: TestData.ID}})
-        const response = await request.post(url).send(TestData.TEST_USER_CREATE_DTO);
+        const response = await request.post(url).send(TestData.TEST_GAME_CREATE_DTO);
         expect(response.status).toBe(201);
         expect(response.body.limit).toBe(100);
         expect(response.body.offset).toBe(0);

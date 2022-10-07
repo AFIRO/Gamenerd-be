@@ -6,7 +6,7 @@ import { NewsService } from '../service/news.service';
 import { NewsCreateDto } from '../entity/dto/news/news.create.dto';
 import { NewsUpdateDto } from '../entity/dto/news/news.update.dto';
 import { AuthenticationService } from '../service/authentification.service';
-import { Role } from '../entity/Role';
+import { Role } from '../entity/role.model';
 
 export class NewsController {
   private readonly PREFIX: string = '/news'

@@ -6,7 +6,7 @@ import { validate, ValidatorOptions } from 'class-validator'
 import { UserCreateDto } from '../entity/dto/user/user.create.dto';
 import { UserUpdateDto } from '../entity/dto/user/user.update.dto';
 import { AuthenticationService } from '../service/authentification.service';
-import { Role } from '../entity/Role';
+import { Role } from '../entity/role.model';
 
 export class UserController {
   private readonly PREFIX: string = '/users'

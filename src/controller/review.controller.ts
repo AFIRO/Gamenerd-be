@@ -6,7 +6,7 @@ import { ReviewService } from '../service/review.service';
 import { ReviewCreateDto } from '../entity/dto/review/review.create.dto';
 import { ReviewUpdateDto } from '../entity/dto/review/review.update.dto';
 import { AuthenticationService } from '../service/authentification.service';
-import { Role } from '../entity/Role';
+import { Role } from '../entity/role.model';
 
 
 export class ReviewController {
