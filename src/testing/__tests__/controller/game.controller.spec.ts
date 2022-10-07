@@ -3,8 +3,6 @@ import supertest from 'supertest';
 import { PrismaClient } from "@prisma/client";
 import { TestData } from "../../test.data";
 
-
-
 describe('game controller tests',()=>{
     let server: Server;
     let request: supertest.SuperTest<supertest.Test>
@@ -13,6 +11,7 @@ describe('game controller tests',()=>{
 
      beforeAll(async () => {
         server = new Server()
+        await server.start()
         request = supertest(server.getApplicationContext().callback())
         prisma = new PrismaClient()
         await prisma.game.create({data: TestData.TEST_GAME_CREATE_DTO})
@@ -20,6 +19,7 @@ describe('game controller tests',()=>{
     })
 
     afterAll(async () => {
+        await prisma.game.delete({where: {id: TestData.ID}})
 		await server.stop();
 	});
 
