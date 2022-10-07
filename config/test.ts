@@ -7,7 +7,7 @@ module.exports = {
 		origins: ['http://localhost:3000'],
 		maxAge: 3 * 60 * 60,
 	},
-	environment: 'production',
+	environment: 'test',
 	port:9000,
 	auth: {
 		argon: {

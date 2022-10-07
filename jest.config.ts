@@ -5,7 +5,7 @@ const config: Config = {
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
-  modulePathIgnorePatterns: ["config"]
+  modulePathIgnorePatterns: ["src", "node_modules","config"]
   };
 
 export default config;

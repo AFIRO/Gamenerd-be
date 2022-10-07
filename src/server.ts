@@ -20,6 +20,7 @@ export class Server {
 
   public constructor() {
     this.logger = new Logger();
+    this.logger.info("Starting Server")
     this.logger.info(`Current environment = ${this.CURRENT_ENV}`)
     this.logger.info("Creating application context.")
     this.application = new Koa({env: this.CURRENT_ENV});
@@ -59,6 +60,7 @@ export class Server {
 
   public async stop(): Promise<void>{
     this.application.removeAllListeners();
+    process.exit(0)
   }
 }
 
