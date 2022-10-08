@@ -39,7 +39,7 @@ export class UserController {
         ctx.body = { data }
         this.logger.info(`GET for all users.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -52,7 +52,7 @@ export class UserController {
         ctx.body = { data }
         this.logger.info(`GET for user with id ${ctx.params.id} succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -112,7 +112,7 @@ export class UserController {
       ctx.body = { data }
       this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)
     } catch (error) {
-      ctx.throw(404, error)
+      ctx.throw(400, error)
     }
     })
   }

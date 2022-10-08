@@ -39,7 +39,7 @@ export class NewsController {
         ctx.body = { data }
         this.logger.info(`GET for all news succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -53,7 +53,7 @@ export class NewsController {
         ctx.body = { data }
         this.logger.info(`GET for all news by writer with id ${ctx.params.writerId}  succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -67,7 +67,7 @@ export class NewsController {
         ctx.body = { data }
         this.logger.info(`GET for all news by game with id ${ctx.params.gameId}  succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -80,7 +80,7 @@ export class NewsController {
         ctx.body = { data }
         this.logger.info(`GET for news with id ${ctx.params.id} succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -140,7 +140,7 @@ export class NewsController {
         ctx.body = { data }
         this.logger.info(`DELETE for news with id ${ctx.params.id} succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
   }

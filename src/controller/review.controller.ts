@@ -40,7 +40,7 @@ export class ReviewController {
         ctx.body = { data }
         this.logger.info(`GET for all reviews succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -54,7 +54,7 @@ export class ReviewController {
         ctx.body = { data }
         this.logger.info(`GET for all reviews by writer with id ${ctx.params.writerId}  succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -68,7 +68,7 @@ export class ReviewController {
         ctx.body = { data }
         this.logger.info(`GET for all reviews by game with id ${ctx.params.gameId}  succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -81,7 +81,7 @@ export class ReviewController {
         ctx.body = { data }
         this.logger.info(`GET for review with id ${ctx.params.id} succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
 
@@ -141,7 +141,7 @@ export class ReviewController {
         ctx.body = { data }
         this.logger.info(`DELETE for review with id ${ctx.params.id} succesful.`)
       } catch (error) {
-        ctx.throw(404, error)
+        ctx.throw(400, error)
       }
     })
   }
