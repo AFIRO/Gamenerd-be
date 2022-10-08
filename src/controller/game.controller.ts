@@ -8,6 +8,12 @@ import { validate, ValidatorOptions } from 'class-validator'
 import { AuthenticationService } from '../service/authentification.service';
 import { Role } from '../entity/role.model';
 
+/**
+ * @swagger
+ * tags:
+ *   name: Games
+ *   description: Represents the database of games
+ */
 export class GameController {
   private readonly PREFIX: string = '/games'
   private router: Router;
@@ -28,9 +34,6 @@ export class GameController {
     this.gameService = new GameService();
     this.logger = new Logger;
     this.authenticationService = new AuthenticationService();
-    //route definitions
-
-    //read all
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all games made.")
       try {
@@ -92,13 +95,13 @@ export class GameController {
           } else {
             this.logger.info('validation successful.');
             try {
-            await this.authenticationService.authentificate(ctx, Role.ADMIN);
-            const data = await this.gameService.update(ctx.params.id, dto);
-            ctx.body = { data }
-            this.logger.info(`UPDATE for game with id ${ctx.params.id} succesful.`)
-          } catch (error) {
-            ctx.throw(400, error)
-          }
+              await this.authenticationService.authentificate(ctx, Role.ADMIN);
+              const data = await this.gameService.update(ctx.params.id, dto);
+              ctx.body = { data }
+              this.logger.info(`UPDATE for game with id ${ctx.params.id} succesful.`)
+            } catch (error) {
+              ctx.throw(400, error)
+            }
           }
         });
     })
@@ -107,13 +110,13 @@ export class GameController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for game with id  ${ctx.params.id} made.`)
       try {
-      await this.authenticationService.authentificate(ctx, Role.ADMIN);
-      const data = await this.gameService.delete(ctx.params.id);
-      ctx.body = { data }
-      this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)
-    } catch (error) {
-      ctx.throw(400, error)
-    }
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        const data = await this.gameService.delete(ctx.params.id);
+        ctx.body = { data }
+        this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)
+      } catch (error) {
+        ctx.throw(400, error)
+      }
     })
   }
 

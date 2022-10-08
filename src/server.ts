@@ -8,14 +8,15 @@ import { Logger } from "./util/logger";
 import { ControllerInstaller } from "./controller/controller.installer";
 import errorHandler from 'koa-better-error-handler';
 import koa404Handler from 'koa-404-handler';
+import { koaSwagger } from 'koa2-swagger-ui';
 export class Server {
-
   private readonly CURRENT_ENV = config.get('env');
   private readonly CORS_ORIGINS = config.get('cors.origins');
   private readonly CORS_MAX_AGE = config.get('cors.maxAge');
   private readonly PORT = config.get('port');
   private application: Koa;
   private logger: Logger;
+  private yamljs = require('yamljs');
   private controllerInstaller: ControllerInstaller
 
   public constructor() {
@@ -43,6 +44,17 @@ export class Server {
     this.logger.info("Setting up routing.")
     this.controllerInstaller = new ControllerInstaller();
     this.controllerInstaller.installRoutes(this.application);
+    this.logger.info("Generating openAPI documentation.")
+    const spec = this.yamljs.load('swagger.yml')
+    this.application.use(
+      koaSwagger({
+        routePrefix: '/swagger',
+        specPrefix: '/swagger/spec', 
+        exposeSpec: true, 
+        swaggerOptions: { spec: spec
+        },
+      }),
+    );
   }
 
   public getApplicationContext(): Koa {

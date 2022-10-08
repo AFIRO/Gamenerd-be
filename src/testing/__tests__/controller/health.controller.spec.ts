@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import supertest from "supertest";
 import { Server } from "../../../server";
 const packageJson = require('../../../../package.json');
