@@ -1,74 +1,64 @@
 import supertest from 'supertest';
 import { PrismaClient } from "@prisma/client";
 import { TestData } from "../../test.data";
-import { TestHelpers } from '../../../../config/test/test.helpers';
-const { withServer} = require('../../../../config/test/supertest.setup');
+import { Server } from '../../../server';
+import { Logger } from '../../../util/logger';
 
-describe('game controller tests',()=>{
-    let request: supertest.SuperTest<supertest.Test>
-    let prisma: PrismaClient
-    let loginHeader: string
-    const url = '/api/games';
+describe('game controller tests', () => {
+  let request: supertest.SuperTest<supertest.Test>
+  let prisma: PrismaClient
+  let server: Server
+  const logger = new Logger()
+  const url = '/api/games';
 
-    withServer(({ prisma: p, supertest:request, server:server }) => {
-      prisma = p;
-      request = request;
-    });
-
-     beforeAll(async () =>  {
-        loginHeader = await TestHelpers.loginAdmin(request)
-    })
-
-    it('GET returns 200 and all items', async () => {
-      const response = await request.get(url);
-      expect(response.status).toBe(200);
-      expect(response.body.limit).toBe(100);
-      expect(response.body.offset).toBe(0);
-      expect(response.body.data.length).not.toBe(0);
-      expect(response.body.data).toContain(TestData.TEST_GAME_OUTPUT_DTO)
-    })
-    
-    it('GET by id returns 200 and specific item', async () => {
-        const response = await request.get(url+"/"+TestData.ID);
-        expect(response.status).toBe(200);
-        expect(response.body.limit).toBe(100);
-        expect(response.body.offset).toBe(0);
-        expect(response.body.data.length).toBe(1);
-        expect(response.body.data).toContain(TestData.TEST_GAME_OUTPUT_DTO)
-      }) 
-
-      it('POST returns 201 and created item', async () => {
-        prisma.game.delete({where: {id: TestData.ID}})
-        const response = await request.post(url).send(TestData.TEST_GAME_CREATE_DTO);
-        expect(response.status).toBe(201);
-        expect(response.body.limit).toBe(100);
-        expect(response.body.offset).toBe(0);
-        expect(response.body.data.length).toBe(1);
-        expect(response.body.data).toContain(TestData.TEST_GAME_OUTPUT_DTO)
-      }) 
-      
-      it('PUT returns 200 and created item', async () => {
-        const gewijzigdeData = TestData.TEST_GAME_UPDATE_DTO;
-        gewijzigdeData.name = "gewijzigdeNaam";
-        const response = await request.put(url+"/"+TestData.ID).send(gewijzigdeData);
-        expect(response.status).toBe(200);
-        expect(response.body.limit).toBe(100);
-        expect(response.body.offset).toBe(0);
-        expect(response.body.data.length).toBe(1);
-        expect(response.body.data).toContain(gewijzigdeData);
-        //rest test item voor volgende test
-        await prisma.game.delete({where: {id: TestData.ID}})
-        await prisma.game.create({data: TestData.TEST_GAME})
-      }) 
-
-      it('DELETE by id returns 200 and specific item', async () => {
-        const response = await request.delete(url+"/"+TestData.ID);
-        expect(response.status).toBe(200);
-        expect(response.body.limit).toBe(100);
-        expect(response.body.offset).toBe(0);
-        expect(response.body.data.length).toBe(1);
-        expect(response.body.data).toContain(TestData.TEST_GAME_OUTPUT_DTO)
-        //reset test item voor volgende test
-        await prisma.game.create({data: TestData.TEST_GAME})
-      }) 
+  beforeAll(async () => {
+    server = new Server()
+    request = supertest(server.getApplicationContext().callback())
+    prisma = new PrismaClient();
   })
+
+  async function getAdminToken() {
+    const data = await request.post("/api/login").send({ name: TestData.NAME, password: '12345678' });
+    return `Bearer ${data.body.token}`
+  }
+
+  it('GET returns 200 and all items', async () => {
+    const response = await request.get(url).set("Authorization", await getAdminToken())
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).not.toBe(0);
+    expect(response.body.data).toContainEqual(TestData.TEST_GAME_OUTPUT_DTO)
+  })
+
+  it('GET by id returns 200 and specific item', async () => {
+    const response = await request.get(url + "/" + TestData.ID).set("Authorization", await getAdminToken());
+    expect(response.status).toBe(200);
+    expect(response.body.data).toEqual(TestData.TEST_GAME_OUTPUT_DTO)
+  })
+
+  it('POST returns 201 and created item', async () => {
+    const response = await request.post(url).send({ name: "createGame", boxart: "createBoxart" }).set("Authorization", await getAdminToken());
+    expect(response.body.data.name).toEqual("createGame")
+    expect(response.body.data.boxart).toEqual("createBoxart")
+    await prisma.game.delete({ where: { id: response.body.data.id } })
+  })
+
+  it('PUT returns 200 and created item', async () => {
+    await prisma.game.create({ data: { id: "updateGame", name: "teWijzigenNaam", boxart: "maaktnietuit" } })
+    const gewijzigdeData = { id: "updateGame", name: "gewijzigdeNaam", boxart: "maaktnietuit" };
+    const response = await request.put(url + "/" + "updateGame").send(gewijzigdeData).set("Authorization", await getAdminToken());
+    logger.error(JSON.stringify(response))
+    expect(response.status).toBe(200);;
+    expect(response.body.data.name).toEqual("gewijzigdeNaam");
+    //rest test item voor volgende test
+    await prisma.game.delete({ where: { id: "updateGame" } })
+  })
+
+  it('DELETE by id returns 200 and specific item', async () => {
+    await prisma.game.create({ data: { id: "deleteGame", name: "deleteGame", boxart: "deleteGame" } })
+    const response = await request.delete(url + "/" + "deleteGame").set("Authorization", await getAdminToken());
+    expect(response.status).toBe(200);
+    expect(response.body.data.id).toEqual("deleteGame")
+    expect(response.body.data.name).toEqual("deleteGame")
+    expect(response.body.data.boxart).toEqual("deleteGame")
+  })
+})

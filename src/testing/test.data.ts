@@ -55,6 +55,10 @@ public static readonly TEST_REVIEW_CREATE_DTO = new ReviewCreateDto({content: Te
 public static readonly TEST_REVIEW_UPDATE_DTO = new ReviewUpdateDto({id: TestData.ID, content: TestData.CONTENT, gameId: TestData.GAME_ID, writerId: TestData.WRITER_ID, score: TestData.SCORE})
 public static readonly TEST_LOGIN_DATA_DTO = new LoginDataDto({name: TestData.NAME, password: TestData.PASSWORD})
 
+//objects for setup
+public static readonly testReview = {id: TestData.ID, content: TestData.CONTENT, writerId:TestData.ID, gameId:TestData.ID, score: TestData.SCORE}
+public static readonly testNews = {id: TestData.ID, content: TestData.CONTENT, writerId:TestData.ID, gameId:TestData.ID}
+
 //prisma inputs
 public static readonly PRISMA_USER =
 { id: TestData.ID,
