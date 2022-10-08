@@ -47,7 +47,7 @@ describe('game controller tests', () => {
     const gewijzigdeData = { id: "updateGame", name: "gewijzigdeNaam", boxart: "maaktnietuit" };
     const response = await request.put(url + "/" + "updateGame").send(gewijzigdeData).set("Authorization", await getAdminToken());
     logger.error(JSON.stringify(response))
-    expect(response.status).toBe(200);;
+    expect(response.status).toBe(200);
     expect(response.body.data.name).toEqual("gewijzigdeNaam");
     //rest test item voor volgende test
     await prisma.game.delete({ where: { id: "updateGame" } })

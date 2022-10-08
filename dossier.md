@@ -1,8 +1,5 @@
 # Andreeas Firoiu (077350AF)
 
-> Duid aan welke vakken je volgt en vermeld voor deze vakken de link naar jouw GitHub repository. In het geval je slechts één vak volgt, verwijder alle inhoud omtrent het andere vak.
-> Verwijder alle instructies (lijnen die starten met >)
-
 - [X] Front-end Web Development
   - [GitHub repository](github.com/HOGENT-Web)
   - [Online versie](github.com/HOGENT-Web)
@@ -106,9 +103,9 @@ naar users.
 <br />
 
 - **varia**
-  - [ ] een aantal niet-triviale testen (min. 1 controller >=80% coverage)
+  - [x] een aantal niet-triviale testen (min. 1 controller >=80% coverage)
   - [x] minstens één extra technologie
-  - [ ] duidelijke en volledige `README.md`
+  - [x] duidelijke en volledige `README.md`
   - [x] maakt gebruik van de laatste ES6-features (object destructuring, spread operator...)
   - [x] volledig en tijdig ingediend dossier
 
@@ -120,8 +117,6 @@ naar users.
 > Hoe heb je jouw applicatie gestructureerd (mappen, design patterns, hiërarchie van componenten, state...)?
 
 ### Web Services
-
-> Hoe heb je jouw applicatie gestructureerd (mappen, design patterns...)?
 
 Voor mijn backend ging ik voor de klassieke structuur van controller - service - repository - datalaag. Gezien het niet nodig was om meer overdreven dingen te doen (integraties, messaging, gateway stuctuur, etc.), wou ik het design niet overcompliceren.
 
@@ -143,8 +138,6 @@ De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Pris
 > Wat is de extra technologie? Hoe werkt het? Voeg een link naar het npm package toe!
 
 ### Web Services
-
-> Wat is de extra technologie? Hoe werkt het? Voeg een link naar het npm package toe!
 
 Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. Ik denk dat ik in 2022 toch wel type-safety mag eisen van een backend. Functioneel programmeren is leuk voor kleine applicaties, maar is problematisch voor scaling en communicatie tussen teamleden. Nuances in complexere data gaat zo verloren. 
 
@@ -168,8 +161,6 @@ https://www.npmjs.com/package/koa-better-error-handler
 
 ### Web Services
 
-> Schrijf hier een korte oplijsting en beschrijving van de geschreven testen + voeg een screenshot van de coverage en uitvoering toe
-
 Zoals good practice stipuleert bevatten de entities en dto's geen logica en dus valt er niets te testen. We verwachten dat dit impliciet getest worden door de andere testen.
 Om de testen neutraal te houden en menselijke fouten te mijden, heb ik als good practice mijn test data in een eigen bestand gestoken zodat die data statisch kan worden opgeroepen.
 
@@ -178,6 +169,13 @@ Uiteraard gaan we niet rechtstreeks testen op onze databasis, want dat is een en
 Verder gingen de testen goed tot ik bij mijn authentification service kwam. Deze haalt de auth header uit de context van koa. Dit object is echter in typescript niet te mocken daar het meer dan 52 velden bevat als ik mijn compiler mag geloven. Rechtstreeks data erin injecteren en doorgeven is blijkbaar ook geen optie, dus ik kreeg dit niet getest. Er zal wel ergens een correcte manier zijn van dit te mocken (zo heb ik een package gevonden van shopify die dit doet), maar dat leek mij de scope van het project voorbij te gaan.
 
 Het testen van de controllers was een uitdaging. In andere frameworks zijn de endpoints ook effectief functies met een gekoppelde listener, ergo deze kunnen onderworpen aan traditionele unit testing. Daar heel de controller structuur van Koa zich centreert op de twee centrale Koa en Router objecten, is dit niet mogelijk. Router mocken zou weinig opleveren daar de endpoints in dit object worden gegoten. Ik kon mijn controllers dus enkel testen via volledige integratrietesten, wat ergens een beetje verkeerd aanvoelt.
+
+Na het configureren van supertest begonnen er al een aantal problemen te verschijnen. Om 1 of andere reden vond supertest het niet tof als ik mijn server instantie, prismaclient instantie en request instantie in een ander bestand deed om het daarna door te sluizen naar de test. Hij vond het evenmin leuk om het request object door te sturen naar 
+een hulpklasse om mijn tokens te regelen. Nadat ik besloot om dit allemaal in de testbestanden zelf te houden, begon het vlot te gaan en kon ik alle positieve en negatieve paden testen.
+
+Resultaat: 95% coverage op heel applicatie via 155 tests in totaal.
+
+![testreport](config\test\testreport.png "Test Report")
 
 ## Gekende bugs
 

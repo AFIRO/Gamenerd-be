@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient({ log: ['query', 'info'] })
 
@@ -31,7 +32,7 @@ async function seedScript() {
       roles: {
         connect: [{name: "ADMIN"}, {name: "WRITER" }]
       },
-      password: "admin"
+      password: "$argon2id$v=19$m=131072,t=6,p=1$ZOxs3obC98rJgX9FZmIzaQ$DrBRNH9W9m+cOMN8d5StrW8cwpEKoAc5n63Av/lGMIQ"
     },
   })
 
@@ -44,7 +45,7 @@ async function seedScript() {
       roles: {
         connect: [{name: "WRITER"}]
       },
-      password: "writer"
+      password: "$argon2id$v=19$m=131072,t=6,p=1$UeXy7mMiDuUZnKsEWHmUkg$xp00Yq1QTCTLVlxrBmh/L6OscgPvy2byNfkvLfFxlQE"
     },
   })
 
@@ -57,7 +58,7 @@ async function seedScript() {
       roles: {
         connect: [{name: "USER" }]
       },
-      password: "user"
+      password: "$argon2id$v=19$m=131072,t=6,p=1$Z/jRmTHnlK8VzUNPUNkbsw$nYIZz0DfXg1cS3SMB1S04fLSpNeDnOsCyo58+9Mu7rM"
     },
   })
 

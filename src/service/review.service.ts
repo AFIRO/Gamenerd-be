@@ -30,8 +30,8 @@ export class ReviewService {
         const data: Review[] = await this.reviewRepository.findAll();
         if (data.length != 0) {
             const mappedData: ReviewOutputDto[] = []
-            for (let review of data) {
-                let mappedReview: ReviewOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(review);
+            for (const review of data) {
+                const mappedReview: ReviewOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(review);
                 mappedData.push(mappedReview);
             }
             return mappedData
@@ -47,8 +47,8 @@ export class ReviewService {
         const data: Review[] = await this.reviewRepository.findAllByGame(gameId);
         if (data.length != 0) {
             const mappedData: ReviewOutputDto[] = []
-            for (let review of data) {
-                let mappedReview: ReviewOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(review);
+            for (const review of data) {
+                const mappedReview: ReviewOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(review);
                 mappedData.push(mappedReview);
             }
             return mappedData
@@ -63,8 +63,8 @@ export class ReviewService {
         const data: Review[] = await this.reviewRepository.findAllByWriter(writerId);
         if (data.length != 0) {
             const mappedData: ReviewOutputDto[] = []
-            for (let review of data) {
-                let mappedReview: ReviewOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(review);
+            for (const review of data) {
+                const mappedReview: ReviewOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(review);
                 mappedData.push(mappedReview);
             }
             return mappedData
@@ -135,8 +135,8 @@ export class ReviewService {
     }
 
     private async retrieveEntitiesToBeMappedAndMapToOutputDto(reviewEntity: Review): Promise<ReviewOutputDto> {
-        let game: Game = await this.gameRepository.findById(reviewEntity.gameId);
-        let writer: User = await this.userRepositoy.findById(reviewEntity.writerId);
+        const game: Game = await this.gameRepository.findById(reviewEntity.gameId);
+        const writer: User = await this.userRepositoy.findById(reviewEntity.writerId);
         return ReviewMapper.toOutputDto(reviewEntity, UserMapper.toOutputDtoShort(writer), GameMapper.toOutputDto(game));
     }
 

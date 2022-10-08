@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('../../package.json');
 import { Logger } from "../util/logger";
 
@@ -6,7 +7,7 @@ export class HealthService {
 
   public ping() {
     this.logger.info("Resolving ping")
-    return { pong: true }};
+    return { pong: true }}
 
   public getVersion() {
     this.logger.info("Getting version info");
@@ -15,5 +16,5 @@ export class HealthService {
       version: packageJson.version,
       name: packageJson.name,
     })
-  };
+  }
 }

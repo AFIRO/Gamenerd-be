@@ -37,13 +37,13 @@ export class AuthenticationService {
     }
     this.logger.info(`Login for user with name ${dto.name} succesful.`);
     return await this.makeLoginData(user);
-  };
+  }
 
   public async makeLoginData(user: User): Promise<UserOutputDtoToken> {
     this.logger.info(`Generating new JWT token for user with name ${user.name}.`);
     const token = await this.JwtHelper.generateJWT(user);
     return UserMapper.toOutputDtoToken(user, token);
-  };
+  }
 
   public async authentificate(ctx: Koa.Context, roleRequired?: string){
     const authHeader = ctx.headers.authorization
@@ -77,6 +77,6 @@ export class AuthenticationService {
       roles,
 			authToken,
 		};
-};
+}
 }
 

@@ -14,5 +14,5 @@ export class UserMapper {
 
     public static toOutputDtoToken(user: User, token:string): UserOutputDtoToken {
         return new UserOutputDtoToken({user: this.toOutputDto(user), token: token})
-    };
+    }
 }

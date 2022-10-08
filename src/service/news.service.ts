@@ -30,8 +30,8 @@ export class NewsService {
         const data: News[] = await this.newsRepository.findAll();
         if (data.length != 0) {
             const mappedData: NewsOutputDto[] = []
-            for (let news of data) {
-                let mappedNews: NewsOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(news);
+            for (const news of data) {
+                const mappedNews: NewsOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(news);
                 mappedData.push(mappedNews);
             }
             return mappedData
@@ -46,8 +46,8 @@ export class NewsService {
         const data: News[] = await this.newsRepository.findAllByGame(gameId);
         if (data.length != 0) {
             const mappedData: NewsOutputDto[] = []
-            for (let news of data) {
-                let mappedNews: NewsOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(news);
+            for (const news of data) {
+                const mappedNews: NewsOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(news);
                 mappedData.push(mappedNews);
             }
             return mappedData
@@ -62,8 +62,8 @@ export class NewsService {
         const data: News[] = await this.newsRepository.findAllByWriter(writerId);
         if (data.length != 0) {
             const mappedData: NewsOutputDto[] = []
-            for (let news of data) {
-                let mappedNews: NewsOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(news);
+            for (const news of data) {
+                const mappedNews: NewsOutputDto = await this.retrieveEntitiesToBeMappedAndMapToOutputDto(news);
                 mappedData.push(mappedNews);
             }
             return mappedData
@@ -134,8 +134,8 @@ export class NewsService {
     }
 
     private async retrieveEntitiesToBeMappedAndMapToOutputDto(newsEntity: News): Promise<NewsOutputDto> {
-        let game: Game = await this.gameRepository.findById(newsEntity.gameId);
-        let writer: User = await this.userRepositoy.findById(newsEntity.writerId);
+        const game: Game = await this.gameRepository.findById(newsEntity.gameId);
+        const writer: User = await this.userRepositoy.findById(newsEntity.writerId);
         return NewsMapper.toOutputDto(newsEntity, UserMapper.toOutputDtoShort(writer), GameMapper.toOutputDto(game));
     }
 
