@@ -136,7 +136,7 @@ export class ReviewController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for game with id ${ctx.params.id} made.`)
       try {
-        await this.authenticationService.authentificate(ctx, Role.WRITER);
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.reviewService.delete(ctx.params.id);
         ctx.body = { data }
         this.logger.info(`DELETE for review with id ${ctx.params.id} succesful.`)

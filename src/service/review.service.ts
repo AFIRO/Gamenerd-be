@@ -104,12 +104,12 @@ export class ReviewService {
     }
 
     public async delete(id: string): Promise<ReviewOutputDto> {
-        this.logger.info(`NewsService deleting user with id ${id}.`)
+        this.logger.info(`ReviewService deleting review with id ${id}.`)
         if (await this.reviewRepository.existsById(id)) {
             const reviewEntity: Review = await this.reviewRepository.deleteById(id);
             return await this.retrieveEntitiesToBeMappedAndMapToOutputDto(reviewEntity)
         } else {
-            this.logger.error(`News with id ${id} not found in repository.`);
+            this.logger.error(`Review with id ${id} not found in repository.`);
             throw Error(`Review with ${id} not found in database`)
         }
     }

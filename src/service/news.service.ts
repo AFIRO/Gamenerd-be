@@ -103,7 +103,7 @@ export class NewsService {
     }
 
     public async delete(id: string): Promise<NewsOutputDto> {
-        this.logger.info(`NewsService deleting user with id ${id}.`)
+        this.logger.info(`NewsService deleting news with id ${id}.`)
         if (await this.newsRepository.existsById(id)) {
             const newsEntity: News = await this.newsRepository.deleteById(id);
             return await this.retrieveEntitiesToBeMappedAndMapToOutputDto(newsEntity)
