@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GameController } from "./game.controller";
 import { HealthController } from "./health.controller";
 import { NewsController } from "./news.controller";

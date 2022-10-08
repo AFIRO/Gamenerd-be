@@ -1,4 +1,4 @@
-import supertest, { Request, Response } from "supertest";
+import supertest from "supertest";
 import { Server } from "../../../server";
 const packageJson = require('../../../../package.json');
 

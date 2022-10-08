@@ -1,5 +1,4 @@
 import { HealthService } from "../../../service/health.service";
-import { TestData } from "../../test.data"
 
 const healthService = new HealthService()
 const packageJson = require('../../../../package.json');

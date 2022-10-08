@@ -1,5 +1,5 @@
 import { format } from 'winston';
-const { combine, timestamp, label, printf } = format;
+const { combine, timestamp, printf } = format;
 import * as winston from 'winston'
 
 export class Logger {
@@ -7,7 +7,7 @@ export class Logger {
   private logger;
 
   constructor() {
-    const formatting = printf(({ level, message, label, timestamp }) => {
+    const formatting = printf(({ level, message, timestamp }) => {
       return `${level} - ${timestamp}: ${message}`;
     });
 
