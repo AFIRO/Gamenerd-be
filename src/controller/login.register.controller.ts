@@ -5,7 +5,7 @@ import * as Koa from 'koa';
 import { validate, ValidatorOptions } from "class-validator";
 import { LoginDataDto } from "../entity/dto/login/login.data.dto";
 import { UserService } from "../service/user.service";
-import { UserCreateDto } from "../entity/dto/user/user.create.dto";
+import { UserRegisterDto } from "../entity/dto/user/user.register.dto";
 
 export class LoginAndRegistrationController {
   private router: Router;
@@ -52,7 +52,7 @@ export class LoginAndRegistrationController {
         //register endpoint
         this.router.post('/register', async (ctx: Koa.Context) => {
           this.logger.info(`REGISTER request for user with data ${JSON.stringify(ctx.request.body)} made.`)
-          const dto = new UserCreateDto(ctx.request.body)
+          const dto = new UserRegisterDto(ctx.request.body)
           await validate(dto, this.ValidatorOptions)
             .then(async errors => {
               if (errors.length > 0) {

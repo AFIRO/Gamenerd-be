@@ -38,15 +38,15 @@ describe('user service tests',()=>{
   })
 
   it('registers user correctly',async () => {
-    mockRepository.create= jest.fn().mockResolvedValue(TestData.TEST_USER);
+    mockRepository.create= jest.fn().mockResolvedValue(TestData.TEST_USER_NO_ADMIN);
     mockPasswordHasher.hashPassword = jest.fn().mockResolvedValue(TestData.PASSWORD)
-    mockService.makeLoginData = jest.fn().mockReturnValue(TestData.TEST_USER_TOKEN_DTO)
-    const actual = await userService.register(TestData.TEST_USER_CREATE_DTO);
+    mockService.makeLoginData = jest.fn().mockReturnValue(TestData.TEST_USER_TOKEN_DTO_NO_ADMIN)
+    const actual = await userService.register(TestData.TEST_USER_REGISTER_DTO);
 
-    expect(actual).toEqual(TestData.TEST_USER_TOKEN_DTO)
-    expect(mockRepository.create).toHaveBeenCalledWith(TestData.TEST_USER_CREATE_DTO)
+    expect(actual).toEqual(TestData.TEST_USER_TOKEN_DTO_NO_ADMIN)
+    expect(mockRepository.create).toHaveBeenCalledWith(TestData.TEST_USER_CREATE_DTO_NO_ADMIN)
     expect(mockPasswordHasher.hashPassword).toBeCalledWith(TestData.PASSWORD);
-    expect(mockService.makeLoginData).toBeCalledWith(TestData.TEST_USER)
+    expect(mockService.makeLoginData).toBeCalledWith(TestData.TEST_USER_NO_ADMIN)
   })
 
 

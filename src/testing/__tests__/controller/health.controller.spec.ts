@@ -1,6 +1,5 @@
 import supertest, { Request, Response } from "supertest";
 import { Server } from "../../../server";
-import { Logger } from "../../../util/logger";
 const packageJson = require('../../../../package.json');
 
 describe('health controller tests',()=>{

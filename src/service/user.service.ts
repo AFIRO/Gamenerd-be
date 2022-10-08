@@ -2,11 +2,10 @@ import { UserCreateDto } from "../entity/dto/user/user.create.dto";
 import { UserOutputDto } from "../entity/dto/user/user.output.dto";
 import { UserOutputDtoShort } from "../entity/dto/user/user.output.dto.short";
 import { UserOutputDtoToken } from "../entity/dto/user/user.output.dto.token";
+import { UserRegisterDto } from "../entity/dto/user/user.register.dto";
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
-import { User } from "../entity/user.model";
 import { UserMapper } from "../mapper/user.mapper";
 import { UserRepository } from "../repository/user.repository";
-import { JwtHelper } from "../util/jwt.utility";
 import { Logger } from "../util/logger";
 import { PasswordHasher } from "../util/password.hasher";
 import { AuthenticationService } from "./authentification.service";
@@ -54,10 +53,11 @@ export class UserService {
   }
 
   //public method for new user to register themselves
-  public async register(dto: UserCreateDto): Promise<UserOutputDtoToken> {
+  public async register(registerDto: UserRegisterDto): Promise<UserOutputDtoToken> {
     this.logger.info(`UserService registering new user.`)
-    dto.password = await this.passwordHasher.hashPassword(dto.password);
-    const user = await this.userRepository.create(dto)
+    registerDto.password = await this.passwordHasher.hashPassword(registerDto.password);
+    const createDto: UserCreateDto = {name: registerDto.name, password: registerDto.password, roles: []}
+    const user = await this.userRepository.create(createDto)
     return this.authentificationService.makeLoginData(user) ;
   }
 

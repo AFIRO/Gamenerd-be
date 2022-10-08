@@ -1,4 +1,4 @@
-import { prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import supertest from 'supertest';
 import { Server } from '../../../server';
 import { TestData } from "../../test.data";
@@ -34,7 +34,7 @@ describe('login and registration controller tests',()=>{
     
     
     it('REGISTER returns 201 and user info with token', async () => {
-        const response = await request.post("/api/register").send({name: "registerTest", password: "12345678", roles: []});
+        const response = await request.post("/api/register").send({name: "registerTest", password: "12345678"});
         expect(response.status).toBe(201);
         expect(response.body.data.user.name).toEqual("registerTest")
         expect(response.body.data.user.roles).toEqual([])

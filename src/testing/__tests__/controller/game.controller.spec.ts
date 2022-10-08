@@ -2,13 +2,11 @@ import supertest from 'supertest';
 import { PrismaClient } from "@prisma/client";
 import { TestData } from "../../test.data";
 import { Server } from '../../../server';
-import { Logger } from '../../../util/logger';
 
 describe('game controller tests', () => {
   let request: supertest.SuperTest<supertest.Test>
   let prisma: PrismaClient
   let server: Server
-  const logger = new Logger()
   const url = '/api/games';
 
   beforeAll(async () => {
@@ -46,7 +44,6 @@ describe('game controller tests', () => {
     await prisma.game.create({ data: { id: "updateGame", name: "teWijzigenNaam", boxart: "maaktnietuit" } })
     const gewijzigdeData = { id: "updateGame", name: "gewijzigdeNaam", boxart: "maaktnietuit" };
     const response = await request.put(url + "/" + "updateGame").send(gewijzigdeData).set("Authorization", await getAdminToken());
-    logger.error(JSON.stringify(response))
     expect(response.status).toBe(200);
     expect(response.body.data.name).toEqual("gewijzigdeNaam");
     //rest test item voor volgende test
