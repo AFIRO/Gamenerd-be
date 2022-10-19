@@ -23,7 +23,7 @@ De website zal gebruikers toelaten om games op te zoeken, gelinkte recensies en 
 
 ERD: 
 
-![ERD](prisma\erd.png "ERD")
+![ERD](/prisma/erd.png "ERD")
 
 ## Screenshots
 
@@ -175,7 +175,7 @@ een hulpklasse om mijn tokens te regelen. Nadat ik besloot om dit allemaal in de
 
 Resultaat: 95% coverage op heel applicatie via 155 tests in totaal.
 
-![testreport](config\test\testreport.png "Test Report")
+![testreport](/config/test/testreport.png "Test Report")
 
 ## Gekende bugs
 
