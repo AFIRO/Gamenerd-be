@@ -1,7 +1,7 @@
 # Andreeas Firoiu (077350AF)
 
 - [X] Front-end Web Development
-  - [GitHub repository](github.com/HOGENT-Web)
+  - [GitHub repository](https://github.com/Web-IV/2223-frontendweb-AFIRO)
   - [Online versie](github.com/HOGENT-Web)
 - [X] Web Services: GITHUB URL
   - [GitHub repository](https://github.com/Web-IV/2223-webservices-AFIRO)
@@ -118,9 +118,9 @@ ERD:
 
 ### Web Services
 
-Voor mijn backend ging ik voor de klassieke structuur van controller - service - repository - datalaag. Gezien het niet nodig was om meer overdreven dingen te doen (integraties, messaging, gateway stuctuur, etc.), wou ik het design niet overcompliceren.
+Voor mijn backend ging ik voor een domain-driven structuur met hexagonale architectuur. Al het zware werk qua logica wordt door de services in de domain-laag gedaan met de controllers en repo's als input en output poorten. Gezien het niet nodig was om meer overdreven dingen te doen (integraties, messaging, gateway structuren voor gecombineerde backends, etc.), wou ik het design niet overcompliceren.
 
-Ik heb besloten om het heel OO te doen gezien, laten we eerlijk zijn, JS binnen de industrie meer en meer marktaandeel verliest tegenover TS. Ik heb al mijn type objecten gegroepeerd in een logische ordening.
+Gezien mijn nadruk op domain-driven design leek het ook logisch om object-oriented te werken. TypeScript was dan ook de logische keuze hierbij. Ik heb al mijn type objecten gegroepeerd in een logische ordening.
 
 - controllers
 - services
@@ -139,14 +139,14 @@ De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Pris
 
 ### Web Services
 
-Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. Ik denk dat ik in 2022 toch wel type-safety mag eisen van een backend. Functioneel programmeren is leuk voor kleine applicaties, maar is problematisch voor scaling en communicatie tussen teamleden. Nuances in complexere data gaat zo verloren. 
+Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. TypeScript is sterk opkomend en wordt veelal gezien als good practice in de back-end waar data typing cruciaal is. Hier en daar zorgte dit uiteraard voor de nodige frustraties daar niet alle frameworks graag samenwerken met TypeScript.
 
 Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer mooi een ORM, data-modelling, migratie en seeding. Objectief gezien is Prisma als framework mogelijk iets te krachtig voor de use case, maar vroege implementatie hiervan heeft dan weer voordelen qua scaling. De queries die het genereert zijn min of meer wat de gemiddelde developer zou schrijven (zeker vergeleken met het soort queries dat Hibernate soms durft te genereren), dus me dunkt zijn de voordelen veel hoger dan eventuele nadelen.
 
 Gezien ik toch al full TypeScript ben gegaan, vond ik class-validator goed passen in het geheel. Joi's implementatie was niet echt mijn ding en gezien ik al Dto's had gemaakt voor al mijn entiteiten, was ze decoreren met constraints veel logischer dan de builder interface van Joi. Het zou gewoon dubbel werk zijn geweest.
 
 Een laatste is de unsubtiel genaamd "koa-better-error-handler". Deze vervangt de standaard error handler door een leukere met built-in support status codes, status messages en mooie formatting van de error richting de gebruiker.
-Het pakt deze dan op gebruiksvriendelijke manier onder de ctx.throw. Ik heb ook zitten zoeken naar een meer globalere oplossing, maar ik kon direct eentje vinden waarmee ik een error handler kon definieren die, op basis van opties in een error object, een flow kon volgen analoog aan de Global Advisor van Spring. Helaas. Dat had de implementatie veel cleaner gemaakt.
+Het pakt deze dan op gebruiksvriendelijke manier onder de ctx.throw. 
 
 https://www.npmjs.com/package/typescript
 https://www.npmjs.com/package/prisma
@@ -168,10 +168,10 @@ Uiteraard gaan we niet rechtstreeks testen op onze databasis, want dat is een en
 
 Verder gingen de testen goed tot ik bij mijn authentification service kwam. Deze haalt de auth header uit de context van koa. Dit object is echter in typescript niet te mocken daar het meer dan 52 velden bevat als ik mijn compiler mag geloven. Rechtstreeks data erin injecteren en doorgeven is blijkbaar ook geen optie, dus ik kreeg dit niet getest. Er zal wel ergens een correcte manier zijn van dit te mocken (zo heb ik een package gevonden van shopify die dit doet), maar dat leek mij de scope van het project voorbij te gaan.
 
-Het testen van de controllers was een uitdaging. In andere frameworks zijn de endpoints ook effectief functies met een gekoppelde listener, ergo deze kunnen onderworpen aan traditionele unit testing. Daar heel de controller structuur van Koa zich centreert op de twee centrale Koa en Router objecten, is dit niet mogelijk. Router mocken zou weinig opleveren daar de endpoints in dit object worden gegoten. Ik kon mijn controllers dus enkel testen via volledige integratrietesten, wat ergens een beetje verkeerd aanvoelt.
+Het testen van de controllers was een uitdaging. In andere frameworks zijn de endpoints ook effectief functies met een gekoppelde listener, ergo deze kunnen onderworpen aan traditionele unit testing. Daar heel de controller structuur van Koa zich centreert op de twee centrale Koa en Router objecten, is dit niet mogelijk. Router mocken zou weinig opleveren daar de endpoints in dit object worden gegoten. Ik kon mijn controllers dus enkel testen via volledige integratrietesten, wat ergens een beetje verkeerd aanvoelt. 
 
 Na het configureren van supertest begonnen er al een aantal problemen te verschijnen. Om 1 of andere reden vond supertest het niet tof als ik mijn server instantie, prismaclient instantie en request instantie in een ander bestand deed om het daarna door te sluizen naar de test. Hij vond het evenmin leuk om het request object door te sturen naar 
-een hulpklasse om mijn tokens te regelen. Nadat ik besloot om dit allemaal in de testbestanden zelf te houden, begon het vlot te gaan en kon ik alle positieve en negatieve paden testen.
+een hulpklasse om mijn tokens te regelen. Nadat ik besloot om dit allemaal in de testbestanden zelf te houden, begon het vlot te gaan en kon ik alle positieve en negatieve paden testen. Ik had ook liever een soort testcontainer databasis gebruikt die verschijnt en verdwijnt aan de start en einde van de testen door middel van Docker gezien dit meer en meer de trend is. Ik heb de nodige packages gevonden daarvoor, maar dit leek me de scope van dit project ver vooruit te gaan dus ik heb hier een lijn getrokken.
 
 Resultaat: 95% coverage op heel applicatie via 155 tests in totaal.
 
