@@ -21,9 +21,9 @@ degelijke nieuws.
 
 De website zal gebruikers toelaten om games op te zoeken, gelinkte recensies en nieuws te lezen en zelf recensies online te zetten.
 
-Technisch: 
-Game entiteiten met CRUD die one to many linken met nieuws items en recensies. Hoe de content opslaan nog niet besloten (me dunkt referenties naar een blob). Uiteraard moet content dan verder doorlinken
-naar users.
+ERD: 
+
+![ERD](prisma\erd.png "ERD")
 
 ## Screenshots
 
