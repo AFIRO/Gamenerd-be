@@ -19,7 +19,7 @@ export class Server {
   private yamljs = require('yamljs');
   private controllerInstaller: ControllerInstaller
 
-  public constructor() {
+  public constructor() { 
     this.logger = new Logger();
     this.logger.info("Starting Server")
     this.logger.info(`Current environment = ${this.CURRENT_ENV}`)
@@ -28,7 +28,7 @@ export class Server {
     this.logger.info("Setting cors configuration.")
     this.application.use(
       cors({
-        origin: this.CORS_ORIGINS,
+        origin: "*",
         headers: ['Accept', 'Content-Type', 'Authorization'],
         maxAge: this.CORS_MAX_AGE,
       }),
