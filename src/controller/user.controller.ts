@@ -36,7 +36,7 @@ export class UserController {
       try {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.userService.findAll();
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`GET for all users.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -49,7 +49,7 @@ export class UserController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.userService.findById(ctx.params.id);
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`GET for user with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -70,7 +70,7 @@ export class UserController {
             try {
               await this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.userService.create(dto);
-              ctx.body = { data }
+              ctx.body =  data 
               ctx.status = 201
               this.logger.info(`CREATE for user with id ${data.name} succesful.`)
             } catch (error) {
@@ -94,7 +94,7 @@ export class UserController {
             try {
             await this.authenticationService.authentificate(ctx);
             const data = await this.userService.update(ctx.params.id, dto);
-            ctx.body = { data }
+            ctx.body =  data 
             this.logger.info(`UPDATE for user with id ${ctx.params.id} succesful.`)
           } catch (error) {
             ctx.throw(400, error)
@@ -109,7 +109,7 @@ export class UserController {
       try {
       await this.authenticationService.authentificate(ctx, Role.ADMIN);
       const data = await this.userService.delete(ctx.params.id);
-      ctx.body = { data }
+      ctx.body =  data 
       this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)
     } catch (error) {
       ctx.throw(400, error)

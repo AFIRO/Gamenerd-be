@@ -25,21 +25,21 @@ describe('user controller tests',()=>{
     it('GET returns 200 and all items', async () => {
       const response = await request.get(url).set("Authorization", await getAdminToken());
       expect(response.status).toBe(200);
-      expect(response.body.data.length).not.toBe(0);
-      expect(response.body.data).toContainEqual(TestData.TEST_USER_OUTPUT_DTO)
+      expect(response.body.length).not.toBe(0);
+      expect(response.body).toContainEqual(TestData.TEST_USER_OUTPUT_DTO)
     })
     
     it('GET by id returns 200 and specific item', async () => {
         const response = await request.get(url+"/"+TestData.ID).set("Authorization", await getAdminToken());
         expect(response.status).toBe(200);
-        expect(response.body.data).toEqual(TestData.TEST_USER_SHORT_DTO)
+        expect(response.body).toEqual(TestData.TEST_USER_SHORT_DTO)
       }) 
 
       it('POST returns 201 and created item', async () => {
         const response = await request.post(url).send({name: "createUser", password:"createUser", roles: ["ADMIN"]}).set("Authorization", await getAdminToken());
         expect(response.status).toBe(201);
-        expect(response.body.data.name).toEqual("createUser")
-        expect(response.body.data.roles).toEqual(["ADMIN"])
+        expect(response.body.name).toEqual("createUser")
+        expect(response.body.roles).toEqual(["ADMIN"])
         await prisma.user.delete({where:{name: "createUser" }})
       }) 
       
@@ -56,9 +56,9 @@ describe('user controller tests',()=>{
         expect(response.status).toBe(200);
         const logger = new Logger
         logger.error(JSON.stringify(response))
-        expect(response.body.data.id).toEqual("updateUser");
-        expect(response.body.data.name).toEqual("gewijzigdeNaam");
-        expect(response.body.data.roles).toEqual(["ADMIN"]);
+        expect(response.body.id).toEqual("updateUser");
+        expect(response.body.name).toEqual("gewijzigdeNaam");
+        expect(response.body.roles).toEqual(["ADMIN"]);
         //rest test item voor volgende test
         await prisma.user.delete({where: {name: "gewijzigdeNaam"}})
       }) 
@@ -73,9 +73,9 @@ describe('user controller tests',()=>{
       }})
         const response = await request.delete(url+"/deleteUser").set("Authorization", await getAdminToken());
         expect(response.status).toBe(200);
-        expect(response.body.data.id).toEqual("deleteUser");
-        expect(response.body.data.name).toEqual("deleteUser");
-        expect(response.body.data.roles).toEqual(["ADMIN"]);
+        expect(response.body.id).toEqual("deleteUser");
+        expect(response.body.name).toEqual("deleteUser");
+        expect(response.body.roles).toEqual(["ADMIN"]);
       })
       
       it('GET all returns 400 with bad credentials', async () => {

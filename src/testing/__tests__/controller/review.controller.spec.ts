@@ -28,25 +28,25 @@ describe('review controller tests', () => {
   it('GET returns 200 and all items', async () => {
     const response = await request.get(url).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
+    expect(response.body).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
   })
 
   it('GET by writer returns 200 and correct items', async () => {
     const response = await request.get(url+ "/byWriter/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
+    expect(response.body).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
   })
 
   it('GET by game returns 200 and correct items', async () => {
     const response = await request.get(url+ "/byGame/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
+    expect(response.body).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
   })
 
   it('GET by id returns 200 and specific item', async () => {
     const response = await request.get(url + "/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
+    expect(response.body).toEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
   })
 
   it('POST returns 201 and created item', async () => {
@@ -63,13 +63,13 @@ describe('review controller tests', () => {
     })
     const response = await request.post(url).send({ content: "createReview", writerId: "helperReviewUser", gameId: "helperReviewGame", score: 10 }).set("Authorization", await getWriterToken());
     expect(response.status).toBe(201);
-    expect(response.body.data.content).toEqual("createReview")
-    expect(response.body.data.score).toEqual(10)
-    expect(response.body.data.writer.id).toEqual("helperReviewUser")
-    expect(response.body.data.writer.name).toEqual("helperReviewUser")
-    expect(response.body.data.game.id).toEqual("helperReviewGame")
-    expect(response.body.data.game.name).toEqual("helperReviewGame")
-    expect(response.body.data.game.boxart).toEqual("helperReviewGame")
+    expect(response.body.content).toEqual("createReview")
+    expect(response.body.score).toEqual(10)
+    expect(response.body.writer.id).toEqual("helperReviewUser")
+    expect(response.body.writer.name).toEqual("helperReviewUser")
+    expect(response.body.game.id).toEqual("helperReviewGame")
+    expect(response.body.game.name).toEqual("helperReviewGame")
+    expect(response.body.game.boxart).toEqual("helperReviewGame")
     //reset
     await prisma.review.delete({ where: { content: "createReview" } })
     await prisma.game.delete({ where: { id: "helperReviewGame" } })
@@ -92,14 +92,14 @@ describe('review controller tests', () => {
     const gewijzigdeData = { id: "updateReview", content: "gewijzigdeContent", writerId: "helperReviewUser", gameId: "helperReviewGame", score: 10 }
     const response = await request.put(url + "/updateReview").send(gewijzigdeData).set("Authorization", await getWriterToken());
     expect(response.status).toBe(200);
-    expect(response.body.data.id).toEqual("updateReview");
-    expect(response.body.data.content).toEqual("gewijzigdeContent")
-    expect(response.body.data.score).toEqual(10)
-    expect(response.body.data.writer.id).toEqual("helperReviewUser")
-    expect(response.body.data.writer.name).toEqual("helperReviewUser")
-    expect(response.body.data.game.id).toEqual("helperReviewGame")
-    expect(response.body.data.game.name).toEqual("helperReviewGame")
-    expect(response.body.data.game.boxart).toEqual("helperReviewGame")
+    expect(response.body.id).toEqual("updateReview");
+    expect(response.body.content).toEqual("gewijzigdeContent")
+    expect(response.body.score).toEqual(10)
+    expect(response.body.writer.id).toEqual("helperReviewUser")
+    expect(response.body.writer.name).toEqual("helperReviewUser")
+    expect(response.body.game.id).toEqual("helperReviewGame")
+    expect(response.body.game.name).toEqual("helperReviewGame")
+    expect(response.body.game.boxart).toEqual("helperReviewGame")
     //reset
     await prisma.review.delete({ where: { id: "updateReview" } })
     await prisma.game.delete({ where: { id: "helperReviewGame" } })
@@ -121,14 +121,14 @@ describe('review controller tests', () => {
     await prisma.review.create({ data: { id: "deleteReview", content: "deleteReview", writerId: "helperReviewUser", gameId: "helperReviewGame", score: 10 } })
     const response = await request.delete(url + "/deleteReview").set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data.id).toEqual("deleteReview");
-    expect(response.body.data.content).toEqual("deleteReview")
-    expect(response.body.data.score).toEqual(10)
-    expect(response.body.data.writer.id).toEqual("helperReviewUser")
-    expect(response.body.data.writer.name).toEqual("helperReviewUser")
-    expect(response.body.data.game.id).toEqual("helperReviewGame")
-    expect(response.body.data.game.name).toEqual("helperReviewGame")
-    expect(response.body.data.game.boxart).toEqual("helperReviewGame")
+    expect(response.body.id).toEqual("deleteReview");
+    expect(response.body.content).toEqual("deleteReview")
+    expect(response.body.score).toEqual(10)
+    expect(response.body.writer.id).toEqual("helperReviewUser")
+    expect(response.body.writer.name).toEqual("helperReviewUser")
+    expect(response.body.game.id).toEqual("helperReviewGame")
+    expect(response.body.game.name).toEqual("helperReviewGame")
+    expect(response.body.game.boxart).toEqual("helperReviewGame")
     //reset
     await prisma.game.delete({ where: { id: "helperReviewGame" } })
     await prisma.user.delete({ where: { id: "helperReviewUser" } })

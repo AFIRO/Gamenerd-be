@@ -28,26 +28,26 @@ describe('news controller tests', () => {
   it('GET returns 200 and all items', async () => {
     const response = await request.get(url).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toContainEqual(TestData.TEST_NEWS_OUTPUT_DTO)
+    expect(response.body).toContainEqual(TestData.TEST_NEWS_OUTPUT_DTO)
   })
 
   it('GET by writer returns 200 and correct items', async () => {
     const response = await request.get(url + "/byWriter/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toContainEqual(TestData.TEST_NEWS_OUTPUT_DTO)
+    expect(response.body).toContainEqual(TestData.TEST_NEWS_OUTPUT_DTO)
   })
 
   it('GET by game returns 200 and correct items', async () => {
     const response = await request.get(url + "/byGame/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toContainEqual(TestData.TEST_NEWS_OUTPUT_DTO)
+    expect(response.body).toContainEqual(TestData.TEST_NEWS_OUTPUT_DTO)
   })
 
 
   it('GET by id returns 200 and specific item', async () => {
     const response = await request.get(url + "/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toEqual(TestData.TEST_NEWS_OUTPUT_DTO)
+    expect(response.body).toEqual(TestData.TEST_NEWS_OUTPUT_DTO)
   })
 
   it('POST returns 201 and created item', async () => {
@@ -64,12 +64,12 @@ describe('news controller tests', () => {
     })
     const response = await request.post(url).send({ content: "createGame", writerId: "helperNewsUser", gameId: "helperNewsGame" }).set("Authorization", await getWriterToken());
     expect(response.status).toBe(201);
-    expect(response.body.data.content).toEqual("createGame")
-    expect(response.body.data.writer.id).toEqual("helperNewsUser")
-    expect(response.body.data.writer.name).toEqual("helperNewsUser")
-    expect(response.body.data.game.id).toEqual("helperNewsGame")
-    expect(response.body.data.game.name).toEqual("helperNewsGame")
-    expect(response.body.data.game.boxart).toEqual("helperNewsGame")
+    expect(response.body.content).toEqual("createGame")
+    expect(response.body.writer.id).toEqual("helperNewsUser")
+    expect(response.body.writer.name).toEqual("helperNewsUser")
+    expect(response.body.game.id).toEqual("helperNewsGame")
+    expect(response.body.game.name).toEqual("helperNewsGame")
+    expect(response.body.game.boxart).toEqual("helperNewsGame")
     //reset
     await prisma.news.delete({ where: { content: "createGame" } })
     await prisma.game.delete({ where: { id: "helperNewsGame" } })
@@ -92,13 +92,13 @@ describe('news controller tests', () => {
     const gewijzigdeData = { id: "updateNews", content: "gewijzigdeContent", writerId: "helperNewsUser", gameId: "helperNewsGame" }
     const response = await request.put(url + "/updateNews").send(gewijzigdeData).set("Authorization", await getWriterToken());
     expect(response.status).toBe(200);
-    expect(response.body.data.id).toEqual("updateNews");
-    expect(response.body.data.content).toEqual("gewijzigdeContent")
-    expect(response.body.data.writer.id).toEqual("helperNewsUser")
-    expect(response.body.data.writer.name).toEqual("helperNewsUser")
-    expect(response.body.data.game.id).toEqual("helperNewsGame")
-    expect(response.body.data.game.name).toEqual("helperNewsGame")
-    expect(response.body.data.game.boxart).toEqual("helperNewsGame")
+    expect(response.body.id).toEqual("updateNews");
+    expect(response.body.content).toEqual("gewijzigdeContent")
+    expect(response.body.writer.id).toEqual("helperNewsUser")
+    expect(response.body.writer.name).toEqual("helperNewsUser")
+    expect(response.body.game.id).toEqual("helperNewsGame")
+    expect(response.body.game.name).toEqual("helperNewsGame")
+    expect(response.body.game.boxart).toEqual("helperNewsGame")
     //reset
     await prisma.news.delete({ where: { id: "updateNews" } })
     await prisma.game.delete({ where: { id: "helperNewsGame" } })
@@ -120,13 +120,13 @@ describe('news controller tests', () => {
     await prisma.news.create({ data: { id: "deleteNews", content: "deleteNews", writerId: "helperNewsUser", gameId: "helperNewsGame" } })
     const response = await request.delete(url + "/deleteNews").set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data.id).toEqual("deleteNews");
-    expect(response.body.data.content).toEqual("deleteNews")
-    expect(response.body.data.writer.id).toEqual("helperNewsUser")
-    expect(response.body.data.writer.name).toEqual("helperNewsUser")
-    expect(response.body.data.game.id).toEqual("helperNewsGame")
-    expect(response.body.data.game.name).toEqual("helperNewsGame")
-    expect(response.body.data.game.boxart).toEqual("helperNewsGame")
+    expect(response.body.id).toEqual("deleteNews");
+    expect(response.body.content).toEqual("deleteNews")
+    expect(response.body.writer.id).toEqual("helperNewsUser")
+    expect(response.body.writer.name).toEqual("helperNewsUser")
+    expect(response.body.game.id).toEqual("helperNewsGame")
+    expect(response.body.game.name).toEqual("helperNewsGame")
+    expect(response.body.game.boxart).toEqual("helperNewsGame")
     //reset
     await prisma.game.delete({ where: { id: "helperNewsGame" } })
     await prisma.user.delete({ where: { id: "helperNewsUser" } })

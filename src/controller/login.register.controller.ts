@@ -62,7 +62,7 @@ export class LoginAndRegistrationController {
                 this.logger.info('validation successful.');
                 try {
                   const data = await this.userService.register(dto);
-                  ctx.body = { data }
+                  ctx.body =  data 
                   ctx.status = 201
                   this.logger.info(`REGISTER for user with id ${data.user.name} succesful.`)
                 } catch (error) {

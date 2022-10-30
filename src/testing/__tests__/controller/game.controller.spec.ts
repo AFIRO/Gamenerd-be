@@ -23,21 +23,21 @@ describe('game controller tests', () => {
   it('GET returns 200 and all items', async () => {
     const response = await request.get(url).set("Authorization", await getAdminToken())
     expect(response.status).toBe(200);
-    expect(response.body.data.length).not.toBe(0);
-    expect(response.body.data).toContainEqual(TestData.TEST_GAME_OUTPUT_DTO)
+    expect(response.body.length).not.toBe(0);
+    expect(response.body).toContainEqual(TestData.TEST_GAME_OUTPUT_DTO)
   })
 
   it('GET by id returns 200 and specific item', async () => {
     const response = await request.get(url + "/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data).toEqual(TestData.TEST_GAME_OUTPUT_DTO)
+    expect(response.body).toEqual(TestData.TEST_GAME_OUTPUT_DTO)
   })
 
   it('POST returns 201 and created item', async () => {
     const response = await request.post(url).send({ name: "createGame", boxart: "createBoxart" }).set("Authorization", await getAdminToken());
-    expect(response.body.data.name).toEqual("createGame")
-    expect(response.body.data.boxart).toEqual("createBoxart")
-    await prisma.game.delete({ where: { id: response.body.data.id } })
+    expect(response.body.name).toEqual("createGame")
+    expect(response.body.boxart).toEqual("createBoxart")
+    await prisma.game.delete({ where: { id: response.body.id } })
   })
 
   it('PUT returns 200 and update item', async () => {
@@ -45,7 +45,7 @@ describe('game controller tests', () => {
     const gewijzigdeData = { id: "updateGame", name: "gewijzigdeNaam", boxart: "maaktnietuit" };
     const response = await request.put(url + "/" + "updateGame").send(gewijzigdeData).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data.name).toEqual("gewijzigdeNaam");
+    expect(response.body.name).toEqual("gewijzigdeNaam");
     //rest test item voor volgende test
     await prisma.game.delete({ where: { id: "updateGame" } })
   })
@@ -54,9 +54,9 @@ describe('game controller tests', () => {
     await prisma.game.create({ data: { id: "deleteGame", name: "deleteGame", boxart: "deleteGame" } })
     const response = await request.delete(url + "/" + "deleteGame").set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
-    expect(response.body.data.id).toEqual("deleteGame")
-    expect(response.body.data.name).toEqual("deleteGame")
-    expect(response.body.data.boxart).toEqual("deleteGame")
+    expect(response.body.id).toEqual("deleteGame")
+    expect(response.body.name).toEqual("deleteGame")
+    expect(response.body.boxart).toEqual("deleteGame")
   })
 
   it('GET all returns 400 with bad credentials', async () => {

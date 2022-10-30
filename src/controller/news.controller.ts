@@ -36,7 +36,7 @@ export class NewsController {
       try {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.newsService.findAll();
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`GET for all news succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -50,7 +50,7 @@ export class NewsController {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const writerId: string = ctx.params.writerId.toString();
         const data = await this.newsService.findAllByWriter(writerId);
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`GET for all news by writer with id ${ctx.params.writerId}  succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -64,7 +64,7 @@ export class NewsController {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const gameId: string = ctx.params.gameId.toString();
         const data = await this.newsService.findAllByGame(gameId);
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`GET for all news by game with id ${ctx.params.gameId}  succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -77,7 +77,7 @@ export class NewsController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.newsService.findById(ctx.params.id);
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`GET for news with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -98,7 +98,7 @@ export class NewsController {
             try {
               await this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.newsService.create(dto);
-              ctx.body = { data }
+              ctx.body =  data 
               ctx.status = 201
               this.logger.info(`CREATE for news with id ${data.id} succesful.`)
             } catch (error) {
@@ -122,7 +122,7 @@ export class NewsController {
             try {
               await this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.newsService.update(ctx.params.id, dto);
-              ctx.body = { data }
+              ctx.body = data 
               this.logger.info(`UPDATE for news with id ${ctx.params.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
@@ -137,7 +137,7 @@ export class NewsController {
       try {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.newsService.delete(ctx.params.id);
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`DELETE for news with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)

@@ -39,7 +39,7 @@ export class GameController {
       try {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.gameService.findAll();
-        ctx.body = { data }
+        ctx.body =  data 
         this.logger.info(`GET for all games.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -52,7 +52,7 @@ export class GameController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.gameService.findById(ctx.params.id);
-        ctx.body = { data }
+        ctx.body = data 
         this.logger.info(`GET for game with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -73,7 +73,7 @@ export class GameController {
             try {
               await this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.gameService.create(dto);
-              ctx.body = { data }
+              ctx.body = data
               ctx.status = 201
               this.logger.info(`CREATE for game with id ${data.id} succesful.`)
             } catch (error) {
@@ -97,7 +97,7 @@ export class GameController {
             try {
               await this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.gameService.update(ctx.params.id, dto);
-              ctx.body = { data }
+              ctx.body = data
               this.logger.info(`UPDATE for game with id ${ctx.params.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
@@ -112,7 +112,7 @@ export class GameController {
       try {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.gameService.delete(ctx.params.id);
-        ctx.body = { data }
+        ctx.body = data
         this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)
