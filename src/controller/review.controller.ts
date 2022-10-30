@@ -35,7 +35,7 @@ export class ReviewController {
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all reviews made.")
       try {
-        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx);
         const data = await this.reviewService.findAll();
         ctx.body =  data 
         this.logger.info(`GET for all reviews succesful.`)
@@ -44,7 +44,7 @@ export class ReviewController {
       }
     })
 
-    //read all by writer
+    //read all by writer - DEPRECATED IN FINAAL ONTWERP
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by writer with id ${ctx.params.writerId} made.`)
       try {
@@ -58,7 +58,7 @@ export class ReviewController {
       }
     })
 
-    //read all by game
+    //read all by game - DEPRECATED IN FINAAL ONTWERP
     this.router.get('/byGame/:gameId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by game with id ${ctx.params.gameId} made.`)
       try {

@@ -34,7 +34,7 @@ export class NewsController {
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all news made.")
       try {
-        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx);
         const data = await this.newsService.findAll();
         ctx.body =  data 
         this.logger.info(`GET for all news succesful.`)
@@ -43,7 +43,7 @@ export class NewsController {
       }
     })
 
-    //read all by writer
+    //read all by writer - DEPRECATED IN FINAAL ONTWERP
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all news by writer with id ${ctx.params.writerId} made.`)
       try {

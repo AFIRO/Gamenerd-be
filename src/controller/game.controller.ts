@@ -8,12 +8,6 @@ import { validate, ValidatorOptions } from 'class-validator'
 import { AuthenticationService } from '../service/authentification.service';
 import { Role } from '../entity/role.model';
 
-/**
- * @swagger
- * tags:
- *   name: Games
- *   description: Represents the database of games
- */
 export class GameController {
   private readonly PREFIX: string = '/games'
   private router: Router;
@@ -37,7 +31,7 @@ export class GameController {
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all games made.")
       try {
-        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx);
         const data = await this.gameService.findAll();
         ctx.body =  data 
         this.logger.info(`GET for all games succesful.`)
