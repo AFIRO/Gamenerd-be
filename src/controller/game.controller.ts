@@ -40,7 +40,7 @@ export class GameController {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.gameService.findAll();
         ctx.body =  data 
-        this.logger.info(`GET for all games.`)
+        this.logger.info(`GET for all games succesful.`)
       } catch (error) {
         ctx.throw(400, error)
       }
