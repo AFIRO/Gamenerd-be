@@ -28,7 +28,7 @@ export class Server {
     this.logger.info("Setting cors configuration.")
     this.application.use(
       cors({
-        origin: "*",
+        origin: this.CORS_ORIGINS,
         headers: ['Accept', 'Content-Type', 'Authorization'],
         maxAge: this.CORS_MAX_AGE,
       }),

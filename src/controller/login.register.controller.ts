@@ -29,9 +29,8 @@ export class LoginAndRegistrationController {
     
     //login endpoint
     this.router.post('/login', async (ctx: Koa.Context) => {
-      this.logger.info(`LOGIN request for user with data ${JSON.stringify(ctx.request.body.name)} made.`)
-      const dto = new LoginDataDto(ctx.request.body.name)
-      this.logger.info(JSON.stringify(dto))
+      this.logger.info(`LOGIN request for user with data ${JSON.stringify(ctx.request.body)} made.`)
+      const dto = new LoginDataDto(ctx.request.body)
       await validate(dto, this.ValidatorOptions)
         .then(async errors => {
           if (errors.length > 0) {

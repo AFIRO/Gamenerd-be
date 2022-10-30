@@ -70,8 +70,8 @@ async function seedScript() {
     create:
     {
       id: "1",
-      name: "game 1",
-      boxart: "boxart voor game 1"
+      name: "Bayoneta 1",
+      boxart: "https://www.mobygames.com/images/covers/l/175131-bayonetta-playstation-3-front-cover.jpg"
     },
   })
 
@@ -81,8 +81,8 @@ async function seedScript() {
     create:
     {
       id: "2",
-      name: "game 2",
-      boxart: "boxart voor game 2"
+      name: "Bayonetta 2",
+      boxart: "https://www.mobygames.com/images/covers/l/467682-bayonetta-bayonetta-2-special-edition-wii-u-front-cover.jpg"
     },
   })
 
@@ -92,10 +92,21 @@ async function seedScript() {
     create:
     {
       id: "3",
-      name: "game 3",
-      boxart: "boxart voor game 3"
+      name: "Devil May Cry 5",
+      boxart: "https://www.mobygames.com/images/covers/l/546432-devil-may-cry-5-playstation-4-front-cover.jpg"
     },
-  })
+  },)
+
+  const game4 = await prisma.game.upsert({
+    where: { id: "4" },
+    update: {},
+    create:
+    {
+      id: "4",
+      name: "Metal Gear Rising: Revengeance",
+      boxart: "https://www.mobygames.com/images/covers/l/280542-metal-gear-rising-revengeance-windows-front-cover.jpg"
+    },
+  },)
 
   //genereer nieuws seeds
   const newsitem1 = await prisma.news.upsert({
