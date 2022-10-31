@@ -195,7 +195,7 @@ een hulpklasse om mijn tokens te regelen. Nadat ik besloot om dit allemaal in de
 
 Resultaat: 95% coverage op heel applicatie via 155 tests in totaal.
 
-![testreport](/config/test/testreport.png "Test Report")
+![image](https://user-images.githubusercontent.com/74510849/199118122-8033ce59-cd4f-4919-a381-d8f4c0025e18.png)
 
 ## Gekende bugs
 
