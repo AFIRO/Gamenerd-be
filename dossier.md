@@ -11,12 +11,15 @@
 
 De namen van de accounts komen overeen met hun rol. Admin heeft rol ADMIN en WRITER. Writer heeft enkel WRITER en user enkel USER. Dit is belangrijk omdat verschillende paden en UI elementen niet gerendered worden zonder de juiste rollen. Zo kan enkel een writer een nieuwsbericht of review aanmaken of wijzigen. Enkel een admin kan verwijderen.
 
+**ADMIN**
 - Gebruikersnaam: admin
 - Wachtwoord: admin
 
+**WRITER**
 - Gebruikersnaam: writer
 - Wachtwoord: writer
 
+**USER**
 - Gebruikersnaam: user
 - Wachtwoord: user
 
@@ -57,36 +60,36 @@ ERD:
 
 - **componenten**
 
-  - [ ] heeft meerdere componenten - dom & slim (naast login/register)
-  - [ ] definieert constanten (variabelen, functies en componenten) buiten de component
-  - [ ] minstens één form met validatie (naast login/register)
-  - [ ] login systeem (eigen of extern zoals bv. Auth0)
+  - [x] heeft meerdere componenten - dom & slim (naast login/register)
+  - [x] definieert constanten (variabelen, functies en componenten) buiten de component
+  - [x] minstens één form met validatie (naast login/register)
+  - [x] login systeem (eigen of extern zoals bv. Auth0)
 <br />
 
 - **routing**
-  - [ ] heeft minstens 2 pagina's (naast login/register)
-  - [ ] routes worden afgeschermd met authenticatie en autorisatie
+  - [x] heeft minstens 2 pagina's (naast login/register)
+  - [x] routes worden afgeschermd met authenticatie en autorisatie
 <br />
 
 - **state-management**
 
-  - [ ] meerdere API calls (naast login/register)
-  - [ ] degelijke foutmeldingen indien API call faalt
-  - [ ] gebruikt useState enkel voor lokale state
-  - [ ] gebruikt Context, useReducer, Redux… voor globale state
+  - [x] meerdere API calls (naast login/register)
+  - [x] degelijke foutmeldingen indien API call faalt
+  - [x] gebruikt useState enkel voor lokale state
+  - [x] gebruikt Context, useReducer, Redux… voor globale state
 <br />
 
 - **hooks**
 
-  - [ ] kent het verschil tussen de hooks (useCallback, useEffect…)
-  - [ ] gebruikt de hooks op de juiste manier
+  - [x] kent het verschil tussen de hooks (useCallback, useEffect…)
+  - [x] gebruikt de hooks op de juiste manier
 <br />
 
 - **varia**
   - [ ] een aantal niet-triviale testen (unit en/of e2e en/of ui)
-  - [ ] minstens één extra technologie
+  - [x] minstens één extra technologie
   - [ ] duidelijke en volledige README.md
-  - [ ] volledig en tijdig ingediend dossier
+  - [x] volledig en tijdig ingediend dossier
 
 
 ### Web Services
@@ -134,7 +137,12 @@ ERD:
 
 ### Front-end Web Development
 
-> Hoe heb je jouw applicatie gestructureerd (mappen, design patterns, hiërarchie van componenten, state...)?
+Voor mijn frontend heb ik gekozen om de domeinen altijd afzonderlijk te houden daar de features op zichzelf kunnen staan. 
+Qua structuur bevat de api map per domein een service die alle calls naar de backend regelt en de modellen die de applicatie gebruikt. Ik werk zo veel mogelijk type-safe waardoor de dto's van front en backend elkaar volgen. Ik acht dit als noodzakelijk daar het good practice is om nooit front en back elkaar te laten vertrouwen.
+
+De map compomenents bevat de componenten per domein met een slim en dom components voor de READ en aparte components voor CREATE, UPDATE en DELETE. Deze gebruiken de id param uit de url om hun data te halen uit de backend indien nodig. Komende vanuit een microservices achtergrond is dit voor mij het meest logische. Ze houden de data bij in hun eigen state zolang nodig om de operatie uit te voeren.
+
+De map context bevat de authprovider die zorgt voor gedeelde login state.
 
 ### Web Services
 
@@ -155,7 +163,11 @@ De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Pris
 
 ### Front-end Web Development
 
-> Wat is de extra technologie? Hoe werkt het? Voeg een link naar het npm package toe!
+Ik heb het project onmiddellijk gestart als een TypeScript project. Dit garandeerde mijn type-safety en de nuttige definitions hielpen zeker. Het feit dat ik mijn dto's uit de backend kon hergebruiken was dan ook zeer mooi meegenomen.
+Als extra technologie heb ik de validatie van alle input uit handen gegeven aan de Yup library. Deze maakt schema's vergelijkbaar met Joi uit de les voor inputvalidatie. Interessant is dat hij werkt ook als het de gebruiker lukt om de HTML velden van het component te omzeilen. Zolang het eindresultaat die naar de handler wordt gestuurd niet strookt met het validatieschema wordt de handler gewoon nooit opgeroepen.
+
+https://www.npmjs.com/package/typescript
+https://www.npmjs.com/package/yup
 
 ### Web Services
 
@@ -205,7 +217,7 @@ Resultaat: 95% coverage op heel applicatie via 155 tests in totaal.
 
 ### Web Services
 
-> Zijn er gekende bugs?
+Geen die ik mij voor de geest kan halen. Het geheel is zeer goed doorgetest.
 
 ## Wat is er verbeterd/aangepast?
 
