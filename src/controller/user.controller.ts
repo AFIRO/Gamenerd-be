@@ -7,6 +7,7 @@ import { UserCreateDto } from '../entity/dto/user/user.create.dto';
 import { UserUpdateDto } from '../entity/dto/user/user.update.dto';
 import { AuthenticationService } from '../service/authentification.service';
 import { Role } from '../entity/role.model';
+import { UserPasswordUpdateDto } from '../entity/dto/user/user.password.update.dto';
 
 export class UserController {
   private readonly PREFIX: string = '/users'
@@ -107,6 +108,29 @@ export class UserController {
             try {
               await this.authenticationService.authentificate(ctx);
               const data = await this.userService.update(ctx.params.id, dto);
+              ctx.body = data
+              this.logger.info(`UPDATE for user with id ${ctx.params.id} succesful.`)
+            } catch (error) {
+              ctx.throw(400, error)
+            }
+          }
+        });
+    })
+
+    //update password
+    this.router.put('password/:id', async (ctx: Koa.Context) => {
+      this.logger.info(`PUT password request for user with id  ${ctx.params.id} and data ${ctx.request.body} made.`)
+      const dto = new UserPasswordUpdateDto(ctx.request.body)
+      await validate(dto, this.ValidatorOptions)
+        .then(async errors => {
+          if (errors.length > 0) {
+            this.logger.error(`validation failed. errors: ${errors}`);
+            ctx.throw(400, new Error(errors.toString()))
+          } else {
+            this.logger.info('validation successful.');
+            try {
+              await this.authenticationService.authentificate(ctx);
+              const data = await this.userService.updatePassword(ctx.params.id, dto);
               ctx.body = data
               this.logger.info(`UPDATE for user with id ${ctx.params.id} succesful.`)
             } catch (error) {

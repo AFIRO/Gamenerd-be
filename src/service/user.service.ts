@@ -2,6 +2,7 @@ import { UserCreateDto } from "../entity/dto/user/user.create.dto";
 import { UserOutputDto } from "../entity/dto/user/user.output.dto";
 import { UserOutputDtoShort } from "../entity/dto/user/user.output.dto.short";
 import { UserOutputDtoToken } from "../entity/dto/user/user.output.dto.token";
+import { UserPasswordUpdateDto } from "../entity/dto/user/user.password.update.dto";
 import { UserRegisterDto } from "../entity/dto/user/user.register.dto";
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
 import { UserMapper } from "../mapper/user.mapper";
@@ -74,8 +75,17 @@ export class UserService {
       this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
       throw Error(`Id ${id} in request does not match the Id ${dto.id} in body.`)
     }
-    dto.password = await this.passwordHasher.hashPassword(dto.password);
     return UserMapper.toOutputDto((await this.userRepository.updateById(id, dto)));
+  }
+
+  public async updatePassword(id: string, dto: UserPasswordUpdateDto): Promise<UserOutputDto> {
+    this.logger.info(`UserService updating password of user with id ${id}.`)
+    if (id != dto.id) {
+      this.logger.error(`Update failed due to validation error. Id ${id} in request does not match the Id ${dto.id} in body.`)
+      throw Error(`Id ${id} in request does not match the Id ${dto.id} in body.`)
+    }
+    dto.password = await this.passwordHasher.hashPassword(dto.password);
+    return UserMapper.toOutputDto((await this.userRepository.updatePasswordById(id, dto)));
   }
 
   public async delete(id: string): Promise<UserOutputDto> {

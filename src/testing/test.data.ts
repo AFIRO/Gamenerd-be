@@ -12,6 +12,7 @@ import { UserCreateDto } from "../entity/dto/user/user.create.dto"
 import { UserOutputDto } from "../entity/dto/user/user.output.dto"
 import { UserOutputDtoShort } from "../entity/dto/user/user.output.dto.short"
 import { UserOutputDtoToken } from "../entity/dto/user/user.output.dto.token"
+import { UserPasswordUpdateDto } from "../entity/dto/user/user.password.update.dto"
 import { UserRegisterDto } from "../entity/dto/user/user.register.dto"
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto"
 import { Game } from "../entity/game.model"
@@ -47,7 +48,8 @@ export class TestData {
   public static readonly TEST_USER_NO_ADMIN = new User({ id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [] })
   public static readonly TEST_USER_OUTPUT_DTO = new UserOutputDto({ id: TestData.ID, name: TestData.NAME, roles: TestData.ROLES })
   public static readonly TEST_USER_OUTPUT_DTO_NO_ADMIN = new UserOutputDto({ id: TestData.ID, name: TestData.NAME, roles: [] })
-  public static readonly TEST_USER_UPDATE_DTO = new UserUpdateDto({ id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES })
+  public static readonly TEST_USER_UPDATE_DTO = new UserUpdateDto({ id: TestData.ID, name: TestData.NAME, roles: TestData.ROLES })
+  public static readonly TEST_USER_UPDATE_PASSWORD_DTO = new UserPasswordUpdateDto({ id: TestData.ID, password: TestData.PASSWORD})
   public static readonly TEST_USER_CREATE_DTO = new UserCreateDto({ name: TestData.NAME, password: TestData.PASSWORD, roles: TestData.ROLES })
   public static readonly TEST_USER_CREATE_DTO_NO_ADMIN = new UserCreateDto({ name: TestData.NAME, password: TestData.PASSWORD, roles: [] })
   public static readonly TEST_USER_REGISTER_DTO = new UserRegisterDto({ name: TestData.NAME, password: TestData.PASSWORD })

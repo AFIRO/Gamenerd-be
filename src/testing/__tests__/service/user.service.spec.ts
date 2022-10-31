@@ -62,11 +62,19 @@ describe('user service tests', () => {
 
   it('updates user correctly', async () => {
     mockRepository.updateById = jest.fn().mockResolvedValue(TestData.TEST_USER);
-    mockPasswordHasher.hashPassword = jest.fn().mockResolvedValue(TestData.PASSWORD)
     const actual = await userService.update(TestData.ID, TestData.TEST_USER_UPDATE_DTO);
 
     expect(actual).toEqual(TestData.TEST_USER_OUTPUT_DTO)
     expect(mockRepository.updateById).toHaveBeenCalledWith(TestData.ID, TestData.TEST_USER_UPDATE_DTO)
+  })
+
+  it('updates password correctly', async () => {
+    mockRepository.updatePasswordById = jest.fn().mockResolvedValue(TestData.TEST_USER);
+    mockPasswordHasher.hashPassword = jest.fn().mockResolvedValue(TestData.PASSWORD)
+    const actual = await userService.updatePassword(TestData.ID, TestData.TEST_USER_UPDATE_PASSWORD_DTO);
+
+    expect(actual).toEqual(TestData.TEST_USER_OUTPUT_DTO)
+    expect(mockRepository.updatePasswordById).toHaveBeenCalledWith(TestData.ID, TestData.TEST_USER_UPDATE_PASSWORD_DTO)
     expect(mockPasswordHasher.hashPassword).toBeCalledWith(TestData.PASSWORD);
   })
 

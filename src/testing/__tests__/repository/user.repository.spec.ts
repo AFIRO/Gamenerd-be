@@ -68,6 +68,18 @@ describe('user repository tests', () => {
   }
   )
 
+  it('updates password correctly', async () => {
+    const valueToBeReturnedByPrisma: User & {
+      roles: Role[]
+    } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
+    prisma.user.update = jest.fn();
+    prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
+    expect(await userRepository.updatePasswordById(TestData.ID, TestData.TEST_USER_UPDATE_PASSWORD_DTO)).toEqual(TestData.TEST_USER)
+    expect(userRepository.prisma.user.update).toHaveBeenCalled();
+    expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
+  }
+  )
+
   it('deletes object correctly', async () => {
     const valueToBeReturnedByPrisma: User & {
       roles: Role[]

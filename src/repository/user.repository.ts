@@ -3,6 +3,7 @@ import { PrismaClient, Role } from '@prisma/client'
 import { User } from "../entity/user.model";
 import { UserCreateDto } from "../entity/dto/user/user.create.dto";
 import { UserUpdateDto } from "../entity/dto/user/user.update.dto";
+import { UserPasswordUpdateDto } from "../entity/dto/user/user.password.update.dto";
 
 export class UserRepository {
 
@@ -89,7 +90,6 @@ export class UserRepository {
         where: { id: id },
         data: {
           name: dto.name,
-          password: dto.password,
           roles: {
             disconnect: this.ALL_ROLES,
             connect: mappedRoles
@@ -104,7 +104,29 @@ export class UserRepository {
       })
       return { id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) };
     } catch (error) {
-      this.logger.error(`Error in create: ${error}`)
+      this.logger.error(`Error in update: ${error}`)
+      throw new Error("Error while updating: data already present in other user entity.");
+    }
+  }
+
+  public async updatePasswordById(id: string, dto: UserPasswordUpdateDto): Promise<User> {
+    this.logger.info(`Updating password of user with id ${id} in repository.`);
+    try {
+      await this.prisma.user.update({
+        where: { id: id },
+        data: {
+          password: dto.password,
+        }
+      })
+      const data = await this.prisma.user.findUniqueOrThrow({
+        where: {
+          id: id,
+        },
+        include: { roles: true }
+      })
+      return { id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) };
+    } catch (error) {
+      this.logger.error(`Error in update: ${error}`)
       throw new Error("Error while updating: data already present in other user entity.");
     }
   }
