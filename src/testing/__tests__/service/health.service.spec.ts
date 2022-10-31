@@ -4,13 +4,13 @@ import { HealthService } from "../../../service/health.service";
 const healthService = new HealthService()
 const packageJson = require('../../../../package.json');
 
-describe('health service tests',()=>{
+describe('health service tests', () => {
   it('pings correctly', () => {
     const actual = healthService.ping()
 
     expect(actual.pong).toBe(true)
   })
-  
+
   it('returns version info correctly', () => {
     const actual = healthService.getVersion()
 

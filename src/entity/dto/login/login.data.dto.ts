@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class LoginDataDto{
+export class LoginDataDto {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -11,5 +11,5 @@ export class LoginDataDto{
   public constructor(base?: Partial<LoginDataDto>) {
     this.name = base.name || this.name;
     this.password = base.password || this.password;
-}
+  }
 }

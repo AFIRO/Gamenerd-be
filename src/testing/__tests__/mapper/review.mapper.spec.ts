@@ -1,7 +1,7 @@
 import { ReviewMapper } from "../../../mapper/review.mapper";
 import { TestData } from "../../test.data";
 
-describe('review mapper tests',()=>{
+describe('review mapper tests', () => {
   it('maps entity to output dto correctly', () => {
     const actual = ReviewMapper.toOutputDto(TestData.TEST_REVIEW, TestData.TEST_USER_SHORT_DTO, TestData.TEST_GAME_OUTPUT_DTO);
 
@@ -13,5 +13,5 @@ describe('review mapper tests',()=>{
     expect(actual.game.boxart).toBe(TestData.BOXART)
     expect(actual.writer.id).toBe(TestData.ID)
     expect(actual.writer.name).toBe(TestData.NAME)
-  })  
+  })
 })

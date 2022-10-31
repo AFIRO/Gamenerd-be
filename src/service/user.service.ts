@@ -56,16 +56,16 @@ export class UserService {
   public async register(registerDto: UserRegisterDto): Promise<UserOutputDtoToken> {
     this.logger.info(`UserService registering new user.`)
     registerDto.password = await this.passwordHasher.hashPassword(registerDto.password);
-    const createDto: UserCreateDto = {name: registerDto.name, password: registerDto.password, roles: []}
+    const createDto: UserCreateDto = { name: registerDto.name, password: registerDto.password, roles: [] }
     const user = await this.userRepository.create(createDto)
-    return this.authentificationService.makeLoginData(user) ;
+    return this.authentificationService.makeLoginData(user);
   }
 
   //authenticated method for admin to create a user  
   public async create(dto: UserCreateDto): Promise<UserOutputDto> {
     this.logger.info(`UserService creating new user.`)
     dto.password = await this.passwordHasher.hashPassword(dto.password);
-    return UserMapper.toOutputDto(await this.userRepository.create(dto)) ;
+    return UserMapper.toOutputDto(await this.userRepository.create(dto));
   }
 
   public async update(id: string, dto: UserUpdateDto): Promise<UserOutputDto> {

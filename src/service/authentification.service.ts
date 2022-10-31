@@ -14,7 +14,7 @@ export class AuthenticationService {
   public passwordHasher: PasswordHasher
   public JwtHelper: JwtHelper
 
-  public constructor(){
+  public constructor() {
     this.userRepository = new UserRepository();
     this.logger = new Logger();
     this.passwordHasher = new PasswordHasher()
@@ -45,38 +45,38 @@ export class AuthenticationService {
     return UserMapper.toOutputDtoToken(user, token);
   }
 
-  public async authentificate(ctx: Koa.Context, roleRequired?: string){
+  public async authentificate(ctx: Koa.Context, roleRequired?: string) {
     const authHeader = ctx.headers.authorization
-    const {roles} = await this.checkAndParseSession(authHeader)
-    if (roleRequired){
+    const { roles } = await this.checkAndParseSession(authHeader)
+    if (roleRequired) {
       this.checkifUserHasCorrectRoles(roleRequired, roles)
     }
   }
 
-  private checkifUserHasCorrectRoles(roleRequired: string, userRoles: string[]): void{
-    if (!userRoles.includes(roleRequired)){
+  private checkifUserHasCorrectRoles(roleRequired: string, userRoles: string[]): void {
+    if (!userRoles.includes(roleRequired)) {
       this.logger.error("Insufficient security clearance");
       throw new Error("You are not allowed to view this application.")
     }
   }
 
-  private async checkAndParseSession(authHeader){
-  if (!authHeader) {
+  private async checkAndParseSession(authHeader) {
+    if (!authHeader) {
       this.logger.error("User not signed in.");
       throw new Error('You need to be signed in');
     }
-  
+
     if (!authHeader.startsWith('Bearer ')) {
       this.logger.error("Incorrect token.");
       throw new Error('Invalid authentication token');
     }
     const authToken = authHeader.substr(7);
-    const {userId, roles} = await this.JwtHelper.verifyJWT(authToken);
-		return {
+    const { userId, roles } = await this.JwtHelper.verifyJWT(authToken);
+    return {
       userId,
       roles,
-			authToken,
-		};
-}
+      authToken,
+    };
+  }
 }
 

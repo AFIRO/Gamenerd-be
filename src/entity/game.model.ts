@@ -8,5 +8,4 @@ export class Game {
     this.name = base.name || this.name;
     this.boxart = base.boxart || this.boxart;
   }
-
 }

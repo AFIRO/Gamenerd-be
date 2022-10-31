@@ -114,7 +114,7 @@ export class NewsService {
     }
 
     private async validateExistenceOfPassedWritersAndGames(createDto?: NewsCreateDto, updateDto?: NewsUpdateDto) {
-        if (createDto){
+        if (createDto) {
             if (!await this.gameRepository.existsById(createDto.gameId)) {
                 throw Error(`Game with ${createDto.gameId} not found in database`)
             }
@@ -130,7 +130,7 @@ export class NewsService {
                 throw Error(`Writer with ${updateDto.writerId} not found in database`)
             }
         }
-        
+
     }
 
     private async retrieveEntitiesToBeMappedAndMapToOutputDto(newsEntity: News): Promise<NewsOutputDto> {

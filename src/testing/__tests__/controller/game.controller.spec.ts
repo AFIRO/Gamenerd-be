@@ -62,10 +62,10 @@ describe('game controller tests', () => {
   it('GET all returns 400 with bad credentials', async () => {
     const response = await request.get(url);
     expect(response.status).toBe(400);
-  }) 
+  })
 
   it('GET by id returns 400 with bad credentials', async () => {
-    const response = await request.get(url+"/"+TestData.ID);
+    const response = await request.get(url + "/" + TestData.ID);
     expect(response.status).toBe(400);
   })
 
@@ -75,7 +75,7 @@ describe('game controller tests', () => {
   })
 
   it('POST returns 400 with bad credentials', async () => {
-    const response = await request.post(url).send({name: "createGame", boxart: "createGame"});
+    const response = await request.post(url).send({ name: "createGame", boxart: "createGame" });
     expect(response.status).toBe(400);
   })
 
@@ -85,12 +85,12 @@ describe('game controller tests', () => {
   })
 
   it('PUT returns 400 with bad credentials', async () => {
-    const response = await request.put(url + "/updateGame").send({id:"updateGame", name: "updateGame", boxart: "updateGame"});
+    const response = await request.put(url + "/updateGame").send({ id: "updateGame", name: "updateGame", boxart: "updateGame" });
     expect(response.status).toBe(400);
   })
 
   it('PUT returns 400 when id in url and dto do not match', async () => {
-    const data = {id: "WRONG", name: "updateGame", boxart: "updateGame"}
+    const data = { id: "WRONG", name: "updateGame", boxart: "updateGame" }
     const response = await request.put(url + "/updateGame").send(data).set("Authorization", await getAdminToken());
     expect(response.status).toBe(400);
   })

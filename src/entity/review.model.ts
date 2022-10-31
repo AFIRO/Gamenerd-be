@@ -12,5 +12,4 @@ export class Review {
     this.content = base.content || this.content;
     this.gameId = base.gameId || this.gameId;
   }
-
 }

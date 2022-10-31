@@ -19,7 +19,6 @@ export class ReviewUpdateDto {
   @IsNotEmpty()
   gameId: string;
 
-  
   public constructor(base?: Partial<ReviewUpdateDto>) {
     this.id = base.id || this.id;
     this.score = base.score || this.score;

@@ -12,7 +12,7 @@ userService.userRepository = mockRepository;
 userService.passwordHasher = mockPasswordHasher;
 userService.authentificationService = mockService
 
-describe('user service tests',()=>{
+describe('user service tests', () => {
   it('get all gets all user correctly', async () => {
     mockRepository.findAll = jest.fn().mockResolvedValue([TestData.TEST_USER]);
     const actual = await userService.findAll();
@@ -21,7 +21,7 @@ describe('user service tests',()=>{
     expect(mockRepository.findAll).toBeCalled()
   })
 
-  it('get by id gets user correctly',async () => {
+  it('get by id gets user correctly', async () => {
     mockRepository.findById = jest.fn().mockResolvedValue(TestData.TEST_USER);
     const actual = await userService.findById(TestData.ID);
 
@@ -29,7 +29,7 @@ describe('user service tests',()=>{
     expect(mockRepository.findById).toHaveBeenCalledWith(TestData.ID)
   })
 
-  it('get by id with roles gets user correctly',async () => {
+  it('get by id with roles gets user correctly', async () => {
     mockRepository.findById = jest.fn().mockResolvedValue(TestData.TEST_USER);
     const actual = await userService.findByIdWithRoles(TestData.ID);
 
@@ -37,8 +37,8 @@ describe('user service tests',()=>{
     expect(mockRepository.findById).toHaveBeenCalledWith(TestData.ID)
   })
 
-  it('registers user correctly',async () => {
-    mockRepository.create= jest.fn().mockResolvedValue(TestData.TEST_USER_NO_ADMIN);
+  it('registers user correctly', async () => {
+    mockRepository.create = jest.fn().mockResolvedValue(TestData.TEST_USER_NO_ADMIN);
     mockPasswordHasher.hashPassword = jest.fn().mockResolvedValue(TestData.PASSWORD)
     mockService.makeLoginData = jest.fn().mockReturnValue(TestData.TEST_USER_TOKEN_DTO_NO_ADMIN)
     const actual = await userService.register(TestData.TEST_USER_REGISTER_DTO);
@@ -50,8 +50,8 @@ describe('user service tests',()=>{
   })
 
 
-  it('creates user correctly',async () => {
-    mockRepository.create= jest.fn().mockResolvedValue(TestData.TEST_USER);
+  it('creates user correctly', async () => {
+    mockRepository.create = jest.fn().mockResolvedValue(TestData.TEST_USER);
     mockPasswordHasher.hashPassword = jest.fn().mockResolvedValue(TestData.PASSWORD)
     const actual = await userService.create(TestData.TEST_USER_CREATE_DTO);
 
@@ -60,19 +60,19 @@ describe('user service tests',()=>{
     expect(mockPasswordHasher.hashPassword).toBeCalledWith(TestData.PASSWORD);
   })
 
-  it('updates user correctly',async () => {
-    mockRepository.updateById= jest.fn().mockResolvedValue(TestData.TEST_USER);
+  it('updates user correctly', async () => {
+    mockRepository.updateById = jest.fn().mockResolvedValue(TestData.TEST_USER);
     mockPasswordHasher.hashPassword = jest.fn().mockResolvedValue(TestData.PASSWORD)
-    const actual = await userService.update(TestData.ID,TestData.TEST_USER_UPDATE_DTO);
+    const actual = await userService.update(TestData.ID, TestData.TEST_USER_UPDATE_DTO);
 
     expect(actual).toEqual(TestData.TEST_USER_OUTPUT_DTO)
-    expect(mockRepository.updateById).toHaveBeenCalledWith(TestData.ID,TestData.TEST_USER_UPDATE_DTO)
+    expect(mockRepository.updateById).toHaveBeenCalledWith(TestData.ID, TestData.TEST_USER_UPDATE_DTO)
     expect(mockPasswordHasher.hashPassword).toBeCalledWith(TestData.PASSWORD);
   })
 
-  it('delete user correctly',async () => {
-    mockRepository.existsById= jest.fn().mockResolvedValue(true)
-    mockRepository.deleteById= jest.fn().mockResolvedValue(TestData.TEST_USER);
+  it('delete user correctly', async () => {
+    mockRepository.existsById = jest.fn().mockResolvedValue(true)
+    mockRepository.deleteById = jest.fn().mockResolvedValue(TestData.TEST_USER);
     const actual = await userService.delete(TestData.ID);
 
     expect(actual).toEqual(TestData.TEST_USER_OUTPUT_DTO)
@@ -100,7 +100,7 @@ describe('user service tests',()=>{
 
   it('update throws when id and dto id are not same', async () => {
     expect(userService.update("WRONG", TestData.TEST_USER_UPDATE_DTO)).rejects.toThrow();
-    
+
   })
 
   it('delete by id throws error when no data', async () => {

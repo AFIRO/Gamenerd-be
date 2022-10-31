@@ -37,7 +37,7 @@ export class ReviewController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.reviewService.findAll();
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`GET for all reviews succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -51,7 +51,7 @@ export class ReviewController {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const writerId: string = ctx.params.writerId.toString();
         const data = await this.reviewService.findAllByWriter(writerId);
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`GET for all reviews by writer with id ${ctx.params.writerId}  succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -65,7 +65,7 @@ export class ReviewController {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const gameId: string = ctx.params.gameId.toString();
         const data = await this.reviewService.findAllByGame(gameId);
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`GET for all reviews by game with id ${ctx.params.gameId}  succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -78,7 +78,7 @@ export class ReviewController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.reviewService.findById(ctx.params.id);
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`GET for review with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -99,7 +99,7 @@ export class ReviewController {
             try {
               await this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.reviewService.create(dto);
-              ctx.body =  data 
+              ctx.body = data
               ctx.status = 201
               this.logger.info(`CREATE for review with id ${data.id} succesful.`)
             } catch (error) {
@@ -123,7 +123,7 @@ export class ReviewController {
             try {
               await this.authenticationService.authentificate(ctx, Role.WRITER);
               const data = await this.reviewService.update(ctx.params.id, dto);
-              ctx.body =  data 
+              ctx.body = data
               this.logger.info(`UPDATE for review with id ${ctx.params.id} succesful.`)
             } catch (error) {
               ctx.throw(400, error)
@@ -138,7 +138,7 @@ export class ReviewController {
       try {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.reviewService.delete(ctx.params.id);
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`DELETE for review with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)

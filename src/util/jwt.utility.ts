@@ -4,13 +4,13 @@ import { User } from "../entity/user.model";
 import { Logger } from "./logger";
 
 export class JwtHelper {
-    private JWT_AUDIENCE 
+    private JWT_AUDIENCE
     private JWT_SECRET
     private JWT_ISSUER
     private JWT_EXPIRATION_INTERVAL
     private logger: Logger
 
-    public constructor(){
+    public constructor() {
         this.JWT_AUDIENCE = config.get('auth.jwt.audience');
         this.JWT_SECRET = config.get('auth.jwt.secret');
         this.JWT_ISSUER = config.get('auth.jwt.issuer');
@@ -19,12 +19,12 @@ export class JwtHelper {
     }
 
     public generateJWT(user: User): Promise<string> {
-            
+
         const tokenData = {
             userId: user.id,
             roles: user.roles,
         };
-    
+
         const signOptions = {
             expiresIn: Math.floor(this.JWT_EXPIRATION_INTERVAL / 1000),
             audience: this.JWT_AUDIENCE,
@@ -46,13 +46,13 @@ export class JwtHelper {
         });
     }
 
-    public verifyJWT(authToken: string): Promise<{userId: string, roles:string[]}> {
+    public verifyJWT(authToken: string): Promise<{ userId: string, roles: string[] }> {
         const verifyOptions = {
             audience: this.JWT_AUDIENCE,
             issuer: this.JWT_ISSUER,
             subject: 'auth',
         };
-    
+
         return new Promise((resolve, reject) => {
             jwt.verify(
                 authToken, this.JWT_SECRET, verifyOptions, (err, decodedToken) => {
@@ -61,7 +61,7 @@ export class JwtHelper {
                         return reject(err || new Error('Token could not be parsed'));
                     }
                     this.logger.info(`JWT token containing ${JSON.stringify(decodedToken)} verified succesfully.`)
-                    const returnValue = decodedToken as {userId: string, roles:string[]}
+                    const returnValue = decodedToken as { userId: string, roles: string[] }
                     return resolve(returnValue);
                 },
             );

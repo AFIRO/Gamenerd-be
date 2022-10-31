@@ -22,9 +22,9 @@ model User {
 model News {
   id  String @id @default(uuid())
   content String @unique
-  writer User @relation(fields: [writerId],references: [id])
+  writer User @relation(fields: [writerId],references: [id], onDelete: Cascade)
   writerId String 
-  game Game @relation(fields: [gameId],references: [id])
+  game Game @relation(fields: [gameId],references: [id], onDelete: Cascade)
   gameId String
 }
 
@@ -32,9 +32,9 @@ model Review {
   id  String @id @default(uuid())
   content String @unique
   score Int
-  writer User @relation(fields: [writerId],references: [id])
+  writer User @relation(fields: [writerId],references: [id], onDelete: Cascade)
   writerId String
-  game Game @relation(fields: [gameId],references: [id])
+  game Game @relation(fields: [gameId],references: [id], onDelete: Cascade)
   gameId String
 }
 

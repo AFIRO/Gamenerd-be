@@ -17,7 +17,7 @@ describe('user repository tests', () => {
   }
   )
 
-  it('get by id to return object correctly',async () => {
+  it('get by id to return object correctly', async () => {
     const valueToBeReturnedByPrisma: User & {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
@@ -27,7 +27,7 @@ describe('user repository tests', () => {
   }
   )
 
-  it('get by name to return object correctly',async () => {
+  it('get by name to return object correctly', async () => {
     const valueToBeReturnedByPrisma: User & {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
@@ -37,14 +37,14 @@ describe('user repository tests', () => {
   }
   )
 
-  it('exist by id to return correct boolean',async () => {
+  it('exist by id to return correct boolean', async () => {
     prisma.user.count = jest.fn().mockResolvedValue(1);
     expect(await userRepository.existsById(TestData.NAME)).toBe(true)
     expect(userRepository.prisma.user.count).toHaveBeenCalled()
   }
   )
 
-  it('creates object correctly',async () => {
+  it('creates object correctly', async () => {
     const valueToBeReturnedByPrisma: User & {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
@@ -56,19 +56,19 @@ describe('user repository tests', () => {
   }
   )
 
-  it('updates object correctly',async () => {
+  it('updates object correctly', async () => {
     const valueToBeReturnedByPrisma: User & {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }
     prisma.user.update = jest.fn();
     prisma.user.findUniqueOrThrow = jest.fn().mockResolvedValue(valueToBeReturnedByPrisma);
-    expect(await userRepository.updateById(TestData.ID,TestData.TEST_USER_UPDATE_DTO)).toEqual(TestData.TEST_USER)
+    expect(await userRepository.updateById(TestData.ID, TestData.TEST_USER_UPDATE_DTO)).toEqual(TestData.TEST_USER)
     expect(userRepository.prisma.user.update).toHaveBeenCalled();
     expect(userRepository.prisma.user.findUniqueOrThrow).toHaveBeenCalled()
   }
   )
 
-  it('deletes object correctly', async() => {
+  it('deletes object correctly', async () => {
     const valueToBeReturnedByPrisma: User & {
       roles: Role[]
     } = { id: TestData.ID, name: TestData.NAME, password: TestData.PASSWORD, roles: [{ name: "ADMIN" }] }

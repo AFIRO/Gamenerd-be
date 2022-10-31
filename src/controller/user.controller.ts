@@ -36,7 +36,7 @@ export class UserController {
       try {
         await this.authenticationService.authentificate(ctx, Role.ADMIN);
         const data = await this.userService.findAll();
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`GET for all users.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -49,8 +49,21 @@ export class UserController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.userService.findById(ctx.params.id);
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`GET for user with id ${ctx.params.id} succesful.`)
+      } catch (error) {
+        ctx.throw(400, error)
+      }
+    })
+
+    //read specific with roles
+    this.router.get('/roles/:id', async (ctx: Koa.Context) => {
+      this.logger.info(`GET request for user with roles with id  ${ctx.params.id} made.`)
+      try {
+        await this.authenticationService.authentificate(ctx);
+        const data = await this.userService.findByIdWithRoles(ctx.params.id);
+        ctx.body = data
+        this.logger.info(`GET for user with roles with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)
       }
@@ -70,7 +83,7 @@ export class UserController {
             try {
               await this.authenticationService.authentificate(ctx, Role.ADMIN);
               const data = await this.userService.create(dto);
-              ctx.body =  data 
+              ctx.body = data
               ctx.status = 201
               this.logger.info(`CREATE for user with id ${data.name} succesful.`)
             } catch (error) {
@@ -92,13 +105,13 @@ export class UserController {
           } else {
             this.logger.info('validation successful.');
             try {
-            await this.authenticationService.authentificate(ctx);
-            const data = await this.userService.update(ctx.params.id, dto);
-            ctx.body =  data 
-            this.logger.info(`UPDATE for user with id ${ctx.params.id} succesful.`)
-          } catch (error) {
-            ctx.throw(400, error)
-          }
+              await this.authenticationService.authentificate(ctx);
+              const data = await this.userService.update(ctx.params.id, dto);
+              ctx.body = data
+              this.logger.info(`UPDATE for user with id ${ctx.params.id} succesful.`)
+            } catch (error) {
+              ctx.throw(400, error)
+            }
           }
         });
     })
@@ -107,13 +120,13 @@ export class UserController {
     this.router.delete('/:id', async (ctx: Koa.Context) => {
       this.logger.info(`DELETE request for user with id  ${ctx.params.id} made.`)
       try {
-      await this.authenticationService.authentificate(ctx, Role.ADMIN);
-      const data = await this.userService.delete(ctx.params.id);
-      ctx.body =  data 
-      this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)
-    } catch (error) {
-      ctx.throw(400, error)
-    }
+        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        const data = await this.userService.delete(ctx.params.id);
+        ctx.body = data
+        this.logger.info(`DELETE for game with id ${ctx.params.id} succesful.`)
+      } catch (error) {
+        ctx.throw(400, error)
+      }
     })
   }
 

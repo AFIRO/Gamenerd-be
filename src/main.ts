@@ -8,9 +8,9 @@ async function onClose() {
 }
 
 try {
-process.on('SIGTERM', onClose);
-process.on('SIGQUIT', onClose);
-server.start();
-} catch(error) {
+    process.on('SIGTERM', onClose);
+    process.on('SIGQUIT', onClose);
+    server.start();
+} catch (error) {
     process.exit(-1)
 }

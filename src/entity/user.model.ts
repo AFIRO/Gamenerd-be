@@ -1,6 +1,3 @@
-
-
-
 export class User {
   id: string;
   name: string;
@@ -13,5 +10,4 @@ export class User {
     this.roles = base.roles || this.roles;
     this.password = base.password || this.password;
   }
-
 }

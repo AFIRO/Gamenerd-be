@@ -138,17 +138,17 @@ describe('news controller tests', () => {
   })
 
   it('GET all by writer returns 400 with bad credentials', async () => {
-    const response = await request.get(url+"/byWriter/"+TestData.ID);
+    const response = await request.get(url + "/byWriter/" + TestData.ID);
     expect(response.status).toBe(400);
   })
 
   it('GET all by game returns 400 with bad credentials', async () => {
-    const response = await request.get(url+"/byWriter/"+TestData.ID);
+    const response = await request.get(url + "/byWriter/" + TestData.ID);
     expect(response.status).toBe(400);
   })
 
   it('GET by id returns 400 with bad credentials', async () => {
-    const response = await request.get(url+"/"+TestData.ID);
+    const response = await request.get(url + "/" + TestData.ID);
     expect(response.status).toBe(400);
   })
 

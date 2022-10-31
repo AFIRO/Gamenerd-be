@@ -13,7 +13,7 @@ authenticationService.passwordHasher = mockPasswordHasher
 authenticationService.userRepository = mockuserRepository
 authenticationService.JwtHelper = mockJwtHelper
 
-describe('authentification service tests',()=>{
+describe('authentification service tests', () => {
   it('login performs operations correctly', async () => {
     mockuserRepository.findByName = jest.fn().mockResolvedValue(TestData.TEST_USER);
     mockPasswordHasher.verifyPassword = jest.fn().mockResolvedValue(true)
@@ -22,7 +22,7 @@ describe('authentification service tests',()=>{
 
     expect(actual).toEqual(TestData.TEST_USER_TOKEN_DTO)
     expect(mockuserRepository.findByName).toHaveBeenCalledWith(TestData.NAME)
-    expect(mockPasswordHasher.verifyPassword).toHaveBeenCalledWith(TestData.PASSWORD,TestData.PASSWORD)
+    expect(mockPasswordHasher.verifyPassword).toHaveBeenCalledWith(TestData.PASSWORD, TestData.PASSWORD)
     expect(authenticationService.makeLoginData).toHaveBeenCalledWith(TestData.TEST_USER)
   })
 

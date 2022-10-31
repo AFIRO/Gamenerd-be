@@ -19,12 +19,12 @@ export class Server {
   private yamljs = require('yamljs');
   private controllerInstaller: ControllerInstaller
 
-  public constructor() { 
+  public constructor() {
     this.logger = new Logger();
     this.logger.info("Starting Server")
     this.logger.info(`Current environment = ${this.CURRENT_ENV}`)
     this.logger.info("Creating application context.")
-    this.application = new Koa({env: this.CURRENT_ENV});
+    this.application = new Koa({ env: this.CURRENT_ENV });
     this.logger.info("Setting cors configuration.")
     this.application.use(
       cors({
@@ -49,9 +49,10 @@ export class Server {
     this.application.use(
       koaSwagger({
         routePrefix: '/swagger',
-        specPrefix: '/swagger/spec', 
-        exposeSpec: true, 
-        swaggerOptions: { spec: spec
+        specPrefix: '/swagger/spec',
+        exposeSpec: true,
+        swaggerOptions: {
+          spec: spec
         },
       }),
     );
@@ -61,7 +62,7 @@ export class Server {
     return this.application;
   }
 
-  public async start(): Promise<void>{
+  public async start(): Promise<void> {
     return new Promise((resolve) => {
       const port = this.PORT || 9000;
       this.application.listen(port);
@@ -70,7 +71,7 @@ export class Server {
     });
   }
 
-  public async stop(): Promise<void>{
+  public async stop(): Promise<void> {
     this.logger.info(`Closing server post ${this.PORT}`)
     this.application.removeAllListeners();
   }

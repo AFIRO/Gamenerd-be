@@ -33,7 +33,7 @@ export class GameController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.gameService.findAll();
-        ctx.body =  data 
+        ctx.body = data
         this.logger.info(`GET for all games succesful.`)
       } catch (error) {
         ctx.throw(400, error)
@@ -46,7 +46,7 @@ export class GameController {
       try {
         await this.authenticationService.authentificate(ctx);
         const data = await this.gameService.findById(ctx.params.id);
-        ctx.body = data 
+        ctx.body = data
         this.logger.info(`GET for game with id ${ctx.params.id} succesful.`)
       } catch (error) {
         ctx.throw(400, error)

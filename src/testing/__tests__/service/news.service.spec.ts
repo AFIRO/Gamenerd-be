@@ -17,7 +17,7 @@ newsService.gameRepository = mockgameRepository
 newsService.userRepositoy = mockuserRepository
 
 
-describe('news service tests',()=>{
+describe('news service tests', () => {
   it('get all gets all news correctly', async () => {
     mockNewsRepository.findAll = jest.fn().mockResolvedValue([TestData.TEST_NEWS]);
     const actual = await newsService.findAll();
@@ -26,24 +26,24 @@ describe('news service tests',()=>{
     expect(mockNewsRepository.findAll).toBeCalled()
   })
 
-    it('get all by game gets all news correctly', async () => {
-      mockNewsRepository.findAllByGame = jest.fn().mockResolvedValue([TestData.TEST_NEWS]);
-      const actual = await newsService.findAllByGame(TestData.GAME_ID);
-  
-      expect(actual).toEqual(expect.arrayContaining(([TestData.TEST_NEWS_OUTPUT_DTO])))
-      expect(mockNewsRepository.findAllByGame).toBeCalledWith(TestData.GAME_ID)
-    })
+  it('get all by game gets all news correctly', async () => {
+    mockNewsRepository.findAllByGame = jest.fn().mockResolvedValue([TestData.TEST_NEWS]);
+    const actual = await newsService.findAllByGame(TestData.GAME_ID);
 
-    it('get all by writer gets all news correctly', async () => {
-      mockNewsRepository.findAllByWriter = jest.fn().mockResolvedValue([TestData.TEST_NEWS]);
-      const actual = await newsService.findAllByWriter(TestData.GAME_ID);
-  
-      expect(actual).toEqual(expect.arrayContaining(([TestData.TEST_NEWS_OUTPUT_DTO])))
-      expect(mockNewsRepository.findAllByGame).toBeCalledWith(TestData.GAME_ID)
-    })
+    expect(actual).toEqual(expect.arrayContaining(([TestData.TEST_NEWS_OUTPUT_DTO])))
+    expect(mockNewsRepository.findAllByGame).toBeCalledWith(TestData.GAME_ID)
+  })
+
+  it('get all by writer gets all news correctly', async () => {
+    mockNewsRepository.findAllByWriter = jest.fn().mockResolvedValue([TestData.TEST_NEWS]);
+    const actual = await newsService.findAllByWriter(TestData.GAME_ID);
+
+    expect(actual).toEqual(expect.arrayContaining(([TestData.TEST_NEWS_OUTPUT_DTO])))
+    expect(mockNewsRepository.findAllByGame).toBeCalledWith(TestData.GAME_ID)
+  })
 
 
-  it('get by id gets news correctly',async () => {
+  it('get by id gets news correctly', async () => {
     mockNewsRepository.findById = jest.fn().mockResolvedValue(TestData.TEST_NEWS);
     const actual = await newsService.findById(TestData.ID);
 
@@ -51,25 +51,25 @@ describe('news service tests',()=>{
     expect(mockNewsRepository.findById).toHaveBeenCalledWith(TestData.ID)
   })
 
-  it('creates news correctly',async () => {
-    mockNewsRepository.create= jest.fn().mockResolvedValue(TestData.TEST_NEWS);
+  it('creates news correctly', async () => {
+    mockNewsRepository.create = jest.fn().mockResolvedValue(TestData.TEST_NEWS);
     const actual = await newsService.create(TestData.TEST_NEWS_CREATE_DTO);
 
     expect(actual).toEqual(TestData.TEST_NEWS_OUTPUT_DTO)
     expect(mockNewsRepository.create).toHaveBeenCalledWith(TestData.TEST_NEWS_CREATE_DTO)
   })
 
-  it('updates news correctly',async () => {
-    mockNewsRepository.updateById= jest.fn().mockResolvedValue(TestData.TEST_NEWS);
-    const actual = await newsService.update(TestData.ID,TestData.TEST_NEWS_UPDATE_DTO);
+  it('updates news correctly', async () => {
+    mockNewsRepository.updateById = jest.fn().mockResolvedValue(TestData.TEST_NEWS);
+    const actual = await newsService.update(TestData.ID, TestData.TEST_NEWS_UPDATE_DTO);
 
     expect(actual).toEqual(TestData.TEST_NEWS_OUTPUT_DTO)
-    expect(mockNewsRepository.updateById).toHaveBeenCalledWith(TestData.ID,TestData.TEST_NEWS_UPDATE_DTO)
+    expect(mockNewsRepository.updateById).toHaveBeenCalledWith(TestData.ID, TestData.TEST_NEWS_UPDATE_DTO)
   })
 
-  it('delete news correctly',async () => {
-    mockNewsRepository.existsById= jest.fn().mockResolvedValue(true)
-    mockNewsRepository.deleteById= jest.fn().mockResolvedValue(TestData.TEST_NEWS);
+  it('delete news correctly', async () => {
+    mockNewsRepository.existsById = jest.fn().mockResolvedValue(true)
+    mockNewsRepository.deleteById = jest.fn().mockResolvedValue(TestData.TEST_NEWS);
     const actual = await newsService.delete(TestData.ID);
 
     expect(actual).toEqual(TestData.TEST_NEWS_OUTPUT_DTO)
@@ -102,7 +102,7 @@ describe('news service tests',()=>{
 
   it('update throws when id and dto id are not same', async () => {
     expect(newsService.update("WRONG", TestData.TEST_NEWS_UPDATE_DTO)).rejects.toThrow();
-    
+
   })
 
   it('delete by id throws error when no data', async () => {

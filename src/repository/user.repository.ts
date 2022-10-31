@@ -8,7 +8,7 @@ export class UserRepository {
 
   public prisma: PrismaClient;
   private logger: Logger;
-  private readonly ALL_ROLES: Role[] = [{name: "ADMIN"},{name:"WRITER"}, {name: "USER"}];
+  private readonly ALL_ROLES: Role[] = [{ name: "ADMIN" }, { name: "WRITER" }, { name: "USER" }];
 
   public constructor() {
     this.prisma = new PrismaClient({ log: ['query', 'info'] });
@@ -18,8 +18,8 @@ export class UserRepository {
   public async findAll(): Promise<User[]> {
     this.logger.info("Getting all users from repository.");
     const mappedUsers: User[] = [];
-    const users = await this.prisma.user.findMany({include: {roles: true}});
-    users.map((data)=> mappedUsers.push({id: data.id, name: data.name, password: data.password, roles: data.roles.map((role)=> role.name)}))
+    const users = await this.prisma.user.findMany({ include: { roles: true } });
+    users.map((data) => mappedUsers.push({ id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) }))
     return mappedUsers;
 
   }
@@ -30,9 +30,9 @@ export class UserRepository {
       where: {
         id: id,
       },
-      include: {roles: true}
+      include: { roles: true }
     })
-    return {id: data.id, name: data.name, password: data.password, roles: data.roles.map((role)=> role.name)};
+    return { id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) };
   }
 
   public async findByName(name: string): Promise<User> {
@@ -41,9 +41,9 @@ export class UserRepository {
       where: {
         name: name,
       },
-      include: {roles: true}
+      include: { roles: true }
     })
-    return {id: data.id, name: data.name, password: data.password, roles: data.roles.map((role)=> role.name)};
+    return { id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) };
   }
 
   public async existsById(id: string): Promise<boolean> {
@@ -55,56 +55,58 @@ export class UserRepository {
   public async create(dto: UserCreateDto): Promise<User> {
     this.logger.info(`Creating new user in repository.`);
     const mappedRoles: Role[] = []
-    dto.roles.forEach(roles => mappedRoles.push({name: roles}))
+    dto.roles.forEach(roles => mappedRoles.push({ name: roles }))
     try {
-    await this.prisma.user.create(
-      { data: {
-        name: dto.name,
-        roles: {
-          connect: mappedRoles
+      await this.prisma.user.create(
+        {
+          data: {
+            name: dto.name,
+            roles: {
+              connect: mappedRoles
+            },
+            password: dto.password
+          }
+        });
+      const data = await this.prisma.user.findUniqueOrThrow({
+        where: {
+          name: dto.name,
         },
-        password: dto.password
-      }
-       });
-    const data = await this.prisma.user.findUniqueOrThrow({
-      where: {
-        name: dto.name,
-      },
-      include: {roles: true}
-    })
-    return {id: data.id, name: data.name, password: data.password, roles: data.roles.map((role)=> role.name)};
-  } catch (error) {
-    this.logger.error(`Error in create: ${error}`)
-    throw new Error("Error while creating: data already present in other user entity.");
-  }
+        include: { roles: true }
+      })
+      return { id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) };
+    } catch (error) {
+      this.logger.error(`Error in create: ${error}`)
+      throw new Error("Error while creating: data already present in other user entity.");
+    }
   }
 
   public async updateById(id: string, dto: UserUpdateDto): Promise<User> {
     this.logger.info(`Updating user with id ${id} in repository.`);
     const mappedRoles: Role[] = []
-    dto.roles.forEach(roles => mappedRoles.push({name: roles}))
+    dto.roles.forEach(roles => mappedRoles.push({ name: roles }))
     try {
-    await this.prisma.user.update({
-      where: { id: id },
-      data: {
-        name:dto.name,
-        password: dto.password,
-        roles: {
-          disconnect: this.ALL_ROLES,
-          connect: mappedRoles}
+      await this.prisma.user.update({
+        where: { id: id },
+        data: {
+          name: dto.name,
+          password: dto.password,
+          roles: {
+            disconnect: this.ALL_ROLES,
+            connect: mappedRoles
+          }
         }
-    })
-    const data = await this.prisma.user.findUniqueOrThrow({
-      where: {
-        id: id,
-      },
-      include: {roles: true}
-    })
-    return {id: data.id, name: data.name, password: data.password, roles: data.roles.map((role)=> role.name)};
-  } catch (error) {
-    this.logger.error(`Error in create: ${error}`)
-    throw new Error("Error while updating: data already present in other user entity.");
-  }
+      })
+      const data = await this.prisma.user.findUniqueOrThrow({
+        where: {
+          id: id,
+        },
+        include: { roles: true }
+      })
+      return { id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) };
+    } catch (error) {
+      this.logger.error(`Error in create: ${error}`)
+      throw new Error("Error while updating: data already present in other user entity.");
+    }
   }
 
   public async deleteById(id: string): Promise<User> {
@@ -113,10 +115,10 @@ export class UserRepository {
       where: {
         id: id,
       },
-      include: {roles: true}
+      include: { roles: true }
     })
     await this.prisma.user.delete({ where: { id: id } })
-    return {id: data.id, name: data.name, password: data.password, roles: data.roles.map((role)=> role.name)};
+    return { id: data.id, name: data.name, password: data.password, roles: data.roles.map((role) => role.name) };
   }
 
 

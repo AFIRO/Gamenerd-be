@@ -21,12 +21,13 @@ export class HealthController {
       ctx.body = this.healthService.ping()
     }
     )
-    
-     //read version info
-     this.router.get('/info', (ctx: Koa.Context) => {
+
+    //read version info
+    this.router.get('/info', (ctx: Koa.Context) => {
       this.logger.info(`Version info request made by IP adress ${ctx.request.ip}`)
       ctx.status = 200
-      ctx.body = this.healthService.getVersion();}
+      ctx.body = this.healthService.getVersion();
+    }
     )
   }
 

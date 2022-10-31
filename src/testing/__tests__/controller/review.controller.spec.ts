@@ -32,13 +32,13 @@ describe('review controller tests', () => {
   })
 
   it('GET by writer returns 200 and correct items', async () => {
-    const response = await request.get(url+ "/byWriter/" + TestData.ID).set("Authorization", await getAdminToken());
+    const response = await request.get(url + "/byWriter/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
     expect(response.body).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
   })
 
   it('GET by game returns 200 and correct items', async () => {
-    const response = await request.get(url+ "/byGame/" + TestData.ID).set("Authorization", await getAdminToken());
+    const response = await request.get(url + "/byGame/" + TestData.ID).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
     expect(response.body).toContainEqual(TestData.TEST_REVIEW_OUTPUT_DTO)
   })
@@ -140,18 +140,18 @@ describe('review controller tests', () => {
   })
 
   it('GET all by writer returns 400 with bad credentials', async () => {
-    const response = await request.get(url+"/byWriter/"+TestData.ID);
+    const response = await request.get(url + "/byWriter/" + TestData.ID);
     expect(response.status).toBe(400);
   })
 
   it('GET all by game returns 400 with bad credentials', async () => {
-    const response = await request.get(url+"/byWriter/"+TestData.ID);
+    const response = await request.get(url + "/byWriter/" + TestData.ID);
     expect(response.status).toBe(400);
   })
 
 
   it('GET by id returns 400 with bad credentials', async () => {
-    const response = await request.get(url+"/"+TestData.ID);
+    const response = await request.get(url + "/" + TestData.ID);
     expect(response.status).toBe(400);
   })
 

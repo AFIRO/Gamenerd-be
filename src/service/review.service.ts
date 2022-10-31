@@ -41,7 +41,7 @@ export class ReviewService {
         }
     }
 
-    
+
     public async findAllByGame(gameId: string): Promise<ReviewOutputDto[]> {
         this.logger.info(`ReviewService getting all reviews.`)
         const data: Review[] = await this.reviewRepository.findAllByGame(gameId);
@@ -115,7 +115,7 @@ export class ReviewService {
     }
 
     private async validateExistenceOfPassedWritersAndGames(createDto?: ReviewCreateDto, updateDto?: ReviewUpdateDto) {
-        if (createDto){
+        if (createDto) {
             if (!await this.gameRepository.existsById(createDto.gameId)) {
                 throw Error(`Game with ${createDto.gameId} not found in database`)
             }
@@ -131,7 +131,7 @@ export class ReviewService {
                 throw Error(`Writer with ${updateDto.writerId} not found in database`)
             }
         }
-        
+
     }
 
     private async retrieveEntitiesToBeMappedAndMapToOutputDto(reviewEntity: Review): Promise<ReviewOutputDto> {

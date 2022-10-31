@@ -3,7 +3,6 @@ import { GameUpdateDto } from "../entity/dto/game/game.update.dto"
 import { Logger } from "../util/logger";
 import { PrismaClient } from '@prisma/client'
 import { Game } from "../entity/game.model";
-
 export class GameRepository {
 
   public prisma: PrismaClient;
@@ -23,7 +22,7 @@ export class GameRepository {
 
   public async findById(id: string): Promise<Game> {
     this.logger.info(`Getting game with id ${id} from repository.`);
-    
+
     const potentialGame = await this.prisma.game.findUniqueOrThrow({
       where: {
         id: id,
@@ -84,5 +83,4 @@ export class GameRepository {
     return potentialGame;
 
   }
-
 }

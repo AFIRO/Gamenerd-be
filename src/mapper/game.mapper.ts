@@ -5,5 +5,4 @@ export class GameMapper {
     public static toOutputDto(game: Game): GameOutputDto {
         return new GameOutputDto(game);
     }
-
 }

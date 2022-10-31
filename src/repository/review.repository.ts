@@ -3,7 +3,6 @@ import { ReviewUpdateDto } from "../entity/dto/review/review.update.dto"
 import { Logger } from "../util/logger";
 import { Review } from "../entity/review.model";
 import { PrismaClient } from "@prisma/client";
-
 export class ReviewRepository {
 
   public prisma: PrismaClient;
@@ -60,37 +59,37 @@ export class ReviewRepository {
 
   public async create(dto: ReviewCreateDto): Promise<Review> {
     this.logger.info(`Creating new review in repository.`);
-    try{
-    await this.prisma.review.create({ data: dto });
-    const protentialReview = await this.prisma.review.findUniqueOrThrow({
-      where: {
-        content: dto.content,
-      },
-    });
-    return protentialReview;
-  } catch (error) {
-    this.logger.error(`Error in create: ${error}`)
-    throw new Error("Error while creating: data already present in other review entity.");
-  }
+    try {
+      await this.prisma.review.create({ data: dto });
+      const protentialReview = await this.prisma.review.findUniqueOrThrow({
+        where: {
+          content: dto.content,
+        },
+      });
+      return protentialReview;
+    } catch (error) {
+      this.logger.error(`Error in create: ${error}`)
+      throw new Error("Error while creating: data already present in other review entity.");
+    }
   }
 
   public async updateById(id: string, dto: ReviewUpdateDto): Promise<Review> {
     this.logger.info(`Updating review with id ${id} in repository.`);
     try {
-    await this.prisma.review.update({
-      where: { id: id },
-      data: dto
-    });
-    const protentialReview = await this.prisma.review.findUniqueOrThrow({
-      where: {
-        id: id,
-      },
-    });
-    return protentialReview;
-  } catch (error) {
-    this.logger.error(`Error in create: ${error}`)
-    throw new Error("Error while updating: data already present in other review entity.");
-  }
+      await this.prisma.review.update({
+        where: { id: id },
+        data: dto
+      });
+      const protentialReview = await this.prisma.review.findUniqueOrThrow({
+        where: {
+          id: id,
+        },
+      });
+      return protentialReview;
+    } catch (error) {
+      this.logger.error(`Error in create: ${error}`)
+      throw new Error("Error while updating: data already present in other review entity.");
+    }
   }
 
   public async deleteById(id: string): Promise<Review> {
@@ -103,5 +102,4 @@ export class ReviewRepository {
     await this.prisma.review.delete({ where: { id: id } })
     return protentialReview;
   }
-
 }

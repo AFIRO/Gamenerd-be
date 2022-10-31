@@ -7,7 +7,8 @@ export class HealthService {
 
   public ping() {
     this.logger.info("Resolving ping")
-    return { pong: true }}
+    return { pong: true }
+  }
 
   public getVersion() {
     this.logger.info("Getting version info");
