@@ -9,10 +9,16 @@
 
 **Logingegevens**
 
-- Gebruikersnaam/e-mailadres:
-- Wachtwoord:
+De namen van de accounts komen overeen met hun rol. Admin heeft rol ADMIN en WRITER. Writer heeft enkel WRITER en user enkel USER. Dit is belangrijk omdat verschillende paden en UI elementen niet gerendered worden zonder de juiste rollen. Zo kan enkel een writer een nieuwsbericht of review aanmaken of wijzigen. Enkel een admin kan verwijderen.
 
-> Vul eventueel aan met extra accounts voor administrators of andere rollen.
+- Gebruikersnaam: admin
+- Wachtwoord: admin
+
+- Gebruikersnaam: writer
+- Wachtwoord: writer
+
+- Gebruikersnaam: user
+- Wachtwoord: user
 
 ## Projectbeschrijving
 
@@ -27,7 +33,7 @@ ERD:
 
 ## Screenshots
 
-> Voeg enkele (nuttige!) screenshots toe die tonen wat de app doet.
+
 
 ## Behaalde minimumvereisten
 
