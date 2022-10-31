@@ -96,7 +96,7 @@ export class UserController {
 
     //update
     this.router.put('/:id', async (ctx: Koa.Context) => {
-      this.logger.info(`PUT request for user with id  ${ctx.params.id} and data ${ctx.request.body} made.`)
+      this.logger.info(`PUT request for user with id  ${ctx.params.id} and data ${JSON.stringify(ctx.request.body)} made.`)
       const dto = new UserUpdateDto(ctx.request.body)
       await validate(dto, this.ValidatorOptions)
         .then(async errors => {
@@ -118,8 +118,8 @@ export class UserController {
     })
 
     //update password
-    this.router.put('password/:id', async (ctx: Koa.Context) => {
-      this.logger.info(`PUT password request for user with id  ${ctx.params.id} and data ${ctx.request.body} made.`)
+    this.router.put('/password/:id', async (ctx: Koa.Context) => {
+      this.logger.info(`PUT password request for user with id  ${ctx.params.id} and data ${JSON.stringify(ctx.request.body)} made.`)
       const dto = new UserPasswordUpdateDto(ctx.request.body)
       await validate(dto, this.ValidatorOptions)
         .then(async errors => {

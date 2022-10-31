@@ -66,7 +66,7 @@ describe('user controller tests', () => {
     expect(response.body.name).toEqual("gewijzigdeNaam");
     expect(response.body.roles).toEqual(["ADMIN"]);
     //rest test item voor volgende test
-    await prisma.user.delete({ where: { name: "gewijzigdeNaam" } })
+    await prisma.user.delete({ where: { id: "updateUser" } })
   })
 
   it('PUT password returns 200 and updated item', async () => {
@@ -81,13 +81,13 @@ describe('user controller tests', () => {
       }
     })
     const gewijzigdeData = { id: "updateUser", password: "gewijzigdePassword"}
-    const response = await request.put(url + "password/updateUser").send(gewijzigdeData).set("Authorization", await getAdminToken());
+    const response = await request.put(url + "/password/updateUser").send(gewijzigdeData).set("Authorization", await getAdminToken());
     expect(response.status).toBe(200);
     expect(response.body.id).toEqual("updateUser");
     expect(response.body.name).toEqual("updateUser");
     expect(response.body.roles).toEqual(["ADMIN"]);
     //rest test item voor volgende test
-    await prisma.user.delete({ where: { name: "updateUser" } })
+    await prisma.user.delete({ where: { id: "updateUser" } })
   })
 
   it('DELETE by id returns 200 and specific item', async () => {
@@ -150,18 +150,18 @@ describe('user controller tests', () => {
   })
 
   it('PUT password returns 400 with invalid data', async () => {
-    const response = await request.put(url + "password/updateUser").send({}).set("Authorization", await getAdminToken());
+    const response = await request.put(url + "/password/updateUser").send({}).set("Authorization", await getAdminToken());
     expect(response.status).toBe(400);
   })
 
   it('PUT password returns 400 with bad credentials', async () => {
-    const response = await request.put(url + "password/updateUser").send({ id: "updateUser", password: "updateUser"});
+    const response = await request.put(url + "/password/updateUser").send({ id: "updateUser", password: "updateUser"});
     expect(response.status).toBe(400);
   })
 
   it('PUT password returns 400 when id in url and dto do not match', async () => {
     const data = { id: "WRONG", password: "createUser" }
-    const response = await request.put(url + "password/updateUser").send(data).set("Authorization", await getAdminToken());
+    const response = await request.put(url + "/password/updateUser").send(data).set("Authorization", await getAdminToken());
     expect(response.status).toBe(400);
   })
 

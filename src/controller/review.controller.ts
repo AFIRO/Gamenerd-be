@@ -111,7 +111,7 @@ export class ReviewController {
 
     //update
     this.router.put('/:id', async (ctx: Koa.Context) => {
-      this.logger.info(`PUT request for news with id ${ctx.params.id} and data ${ctx.request.body} made.`)
+      this.logger.info(`PUT request for news with id ${ctx.params.id} and data ${JSON.stringify(ctx.request.body)} made.`)
       const dto = new ReviewUpdateDto(ctx.request.body)
       await validate(dto, this.ValidatorOptions)
         .then(async errors => {
