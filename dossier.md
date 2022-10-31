@@ -29,7 +29,7 @@ De website zal gebruikers toelaten om games op te zoeken, gelinkte recensies en 
 
 ERD: 
 
-![ERD](/prisma/erd.png "ERD")
+![image](https://user-images.githubusercontent.com/74510849/199118037-9f55c70f-2af4-4080-ae24-4d8c9777eb72.png)
 
 ## Screenshots
 ### Game overzicht net view admin
