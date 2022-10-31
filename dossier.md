@@ -32,6 +32,20 @@ ERD:
 ![ERD](/prisma/erd.png "ERD")
 
 ## Screenshots
+### Game overzicht net view admin
+![image](https://user-images.githubusercontent.com/74510849/199117411-157766ed-d6b6-4471-9b8e-c868e86f1c14.png)
+
+### Nieuws overzicht. Merk op dat een writer enkel zijn eigen berichten kan editeren.
+![image](https://user-images.githubusercontent.com/74510849/199117618-19a930dd-b3b4-401a-9295-4bfc92efe026.png)
+
+### Review overzicht. Idem
+![image](https://user-images.githubusercontent.com/74510849/199117711-f1beafb1-bd13-443e-a991-67c4bd87e0c8.png)
+
+### Admin only user tab
+![image](https://user-images.githubusercontent.com/74510849/199117811-3e06d877-9954-4c2c-bc8f-eff95e4f41ef.png)
+
+### Password aanpassing waar admin niet aan kan
+![image](https://user-images.githubusercontent.com/74510849/199117887-0664507e-cbcc-4f93-8aa2-b3e5a74cf4c4.png)
 
 
 
