@@ -1,6 +1,4 @@
-# Examenopdracht Front-end Web Development / Web Services
-
-> Schrap hierboven wat niet past
+# Examenopdracht  Web Services
 
 - Student: ANDREEAS FIROIU
 - Studentennummer: 077350AF
