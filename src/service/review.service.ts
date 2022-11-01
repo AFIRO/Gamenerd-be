@@ -37,7 +37,7 @@ export class ReviewService {
             return mappedData
         } else {
             this.logger.error(`No reviews in database`)
-            throw Error(`No review in database`)
+            throw Error(`No reviews in database`)
         }
     }
 
@@ -54,7 +54,7 @@ export class ReviewService {
             return mappedData
         } else {
             this.logger.error(`No reviews in database found for game with id ${gameId}`)
-            throw Error(`No reviews in database found for game with id ${gameId}`)
+            throw Error(`No reviews in database found for game`)
         }
     }
 
@@ -70,7 +70,7 @@ export class ReviewService {
             return mappedData
         } else {
             this.logger.error(`No reviews in database found written by writer with with id ${writerId}`)
-            throw Error(`No reviews in database found written by writer with id ${writerId}`)
+            throw Error(`No reviews in database found written by writer`)
         }
     }
 

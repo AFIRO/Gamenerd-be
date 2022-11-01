@@ -28,6 +28,9 @@ export class GameController {
     this.gameService = new GameService();
     this.logger = new Logger;
     this.authenticationService = new AuthenticationService();
+    //route definitions
+
+    //read all
     this.router.get('/', async (ctx: Koa.Context) => {
       this.logger.info("GET request for all games made.")
       try {

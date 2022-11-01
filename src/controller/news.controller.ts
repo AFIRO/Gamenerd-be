@@ -43,7 +43,7 @@ export class NewsController {
       }
     })
 
-    //read all by writer - DEPRECATED IN FINAAL ONTWERP
+    //read all by writer
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all news by writer with id ${ctx.params.writerId} made.`)
       try {

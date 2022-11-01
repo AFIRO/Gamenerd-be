@@ -3,7 +3,6 @@ const { combine, timestamp, printf } = format;
 import * as winston from 'winston'
 
 export class Logger {
-
   private logger;
 
   constructor() {
@@ -24,14 +23,11 @@ export class Logger {
   }
 
   public info(message: string) {
-
     this.logger.info(message)
-
   }
 
   public error(message: string) {
     this.logger.error(message)
-
   }
 
 }

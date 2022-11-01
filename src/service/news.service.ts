@@ -53,7 +53,7 @@ export class NewsService {
             return mappedData
         } else {
             this.logger.error(`No news in database found for game with id ${gameId}`)
-            throw Error(`No news in database found for game with id ${gameId}`)
+            throw Error(`No news in database found for game`)
         }
     }
 
@@ -69,7 +69,7 @@ export class NewsService {
             return mappedData
         } else {
             this.logger.error(`No news in database found written by writer with with id ${writerId}`)
-            throw Error(`No news in database found written by writer with id ${writerId}`)
+            throw Error(`No news in database found written by writer`)
         }
     }
 

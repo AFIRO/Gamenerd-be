@@ -44,7 +44,7 @@ export class ReviewController {
       }
     })
 
-    //read all by writer - DEPRECATED IN FINAAL ONTWERP
+    //read all by writer
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by writer with id ${ctx.params.writerId} made.`)
       try {
@@ -58,7 +58,7 @@ export class ReviewController {
       }
     })
 
-    //read all by game - DEPRECATED IN FINAAL ONTWERP
+    //read all by game
     this.router.get('/byGame/:gameId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by game with id ${ctx.params.gameId} made.`)
       try {

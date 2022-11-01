@@ -26,14 +26,14 @@ export class AuthenticationService {
     const user = await this.userRepository.findByName(dto.name);
     if (!user) {
       this.logger.error(`Login error: User with name ${dto.name} does not exist.`)
-      throw new Error('The given name and password do not match');
+      throw new Error('The given user and password do not match');
     }
 
     const passwordValid = await this.passwordHasher.verifyPassword(dto.password, user.password);
 
     if (!passwordValid) {
       this.logger.error(`Login error: Password given for User with name ${dto.name} does not match with saved PasswordHash.`)
-      throw new Error('The given email and password do not match');
+      throw new Error('The given user and password do not match');
     }
     this.logger.info(`Login for user with name ${dto.name} succesful.`);
     return await this.makeLoginData(user);
