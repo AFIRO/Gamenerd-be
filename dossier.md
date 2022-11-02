@@ -189,7 +189,11 @@ https://www.npmjs.com/package/koa-better-error-handler
 
 ### Front-end Web Development
 
-> Schrijf hier een korte oplijsting en beschrijving van de geschreven testen
+Ik ga zeker en vast akkoord met de redenering dat unit testing in FE componenten relatief nutteloos is. Unit testing in de front end is momenteel ook een beetje in benarde positie gezien er weinig classes zijn die  echt getest kunnen worden qua traditionele logica en dat de traditionele methodes voor het testen van components via shallow en mounted rendering niet 100% waterdicht zijn. Ergens hoort men op twee oren te kunnen slapen indien een component goed doorlopen is met unit testing, maar dat is niet altijd het geval. Ik ben daarom altijd fan geweest van automatische testing via frameworks zoals Cypress en PlayWright.
+
+Qua structuur heb ik besloten om domein per domein te werken in dezelfde structuur als mijn front-end. Dit leek me logisch gezien mijn design zeer domain-driven is. Waar nodig probeer ik de back-end te mocken, maar in kader van volledige E2E testing probeer ik dit eveneens te mijden als het niet moet. Dit zorgt uiteraard voor extra setup en cleanup, maar ergens is dit ook nuttig voor testing. Ik heb mijn focus gelegd op  CRUD te testen van alle functionaliteiten gevolgd door alle negatieve paden. Waar relevant check ik ook de correcte rendering van UI elementen. Soms moet dit via omwegen daar bepaalde handeling user-gebonden zijn. Zo kan een schrijver enkel maar zijn eigen artikels en nieuwsitems aanpassen. Voor deze test had ik dus twee verschillende users nodig omdat een user enkel maar in eigen naam nieuws en artikels kan aanmaken.
+
+Na het configureren van Cypress heb ik merendeel van mijn testen geschreven vanuit het oogpunt van de admin. Reden hiervoor is dat mijn site vrij veel features bevat die enkel zichtbaar zijn voor specifieke rollen. Admin heeft zowel de ADMIN als WRITER rol waardoor deze de meeste rechten bezit.
 
 ### Web Services
 
