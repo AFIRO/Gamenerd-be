@@ -1,1 +1,1 @@
-worker: yarn web
+worker: node dist/src/main.js
