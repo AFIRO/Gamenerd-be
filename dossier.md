@@ -86,9 +86,9 @@ ERD:
 <br />
 
 - **varia**
-  - [ ] een aantal niet-triviale testen (unit en/of e2e en/of ui)
+  - [x] een aantal niet-triviale testen (unit en/of e2e en/of ui)
   - [x] minstens één extra technologie
-  - [ ] duidelijke en volledige README.md
+  - [x] duidelijke en volledige README.md
   - [x] volledig en tijdig ingediend dossier
 
 
@@ -164,14 +164,14 @@ De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Pris
 ### Front-end Web Development
 
 Ik heb het project onmiddellijk gestart als een TypeScript project. Dit garandeerde mijn type-safety en de nuttige definitions hielpen zeker. Het feit dat ik mijn dto's uit de backend kon hergebruiken was dan ook zeer mooi meegenomen.
-Als extra technologie heb ik de validatie van alle input uit handen gegeven aan de Yup library. Deze maakt schema's vergelijkbaar met Joi uit de les voor inputvalidatie. Interessant is dat hij werkt ook als het de gebruiker lukt om de HTML velden van het component te omzeilen. Zolang het eindresultaat die naar de handler wordt gestuurd niet strookt met het validatieschema wordt de handler gewoon nooit opgeroepen.
+Als extra technologie heb ik de validatie van alle input uit handen gegeven aan de Yup library. Deze maakt schema's vergelijkbaar met Joi uit de lessen Webservices voor inputvalidatie. Interessant is dat hij werkt ook als het de gebruiker lukt om de HTML velden van het component te omzeilen. Zolang het eindresultaat die naar de handler wordt gestuurd niet strookt met het validatieschema wordt de handler gewoon nooit opgeroepen.
 
 https://www.npmjs.com/package/typescript
 https://www.npmjs.com/package/yup
 
 ### Web Services
 
-Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. TypeScript is sterk opkomend en wordt veelal gezien als good practice in de back-end waar data typing cruciaal is. Hier en daar zorgte dit uiteraard voor de nodige frustraties daar niet alle frameworks graag samenwerken met TypeScript.
+Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. TypeScript is sterk opkomend en wordt veelal gezien als good practice in de back-end waar data typing cruciaal is. Hier en daar zorgte dit uiteraard voor de nodige frustraties daar niet alle frameworks graag samenwerken met TypeScript. Koa heeft gelukkig degelijke type definitions.
 
 Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer mooi een ORM, data-modelling, migratie en seeding. Objectief gezien is Prisma als framework mogelijk iets te krachtig voor de use case, maar vroege implementatie hiervan heeft dan weer voordelen qua scaling. De queries die het genereert zijn min of meer wat de gemiddelde developer zou schrijven (zeker vergeleken met het soort queries dat Hibernate soms durft te genereren), dus me dunkt zijn de voordelen veel hoger dan eventuele nadelen.
 
@@ -189,7 +189,16 @@ https://www.npmjs.com/package/koa-better-error-handler
 
 ### Front-end Web Development
 
-> Schrijf hier een korte oplijsting en beschrijving van de geschreven testen
+Ik ga zeker en vast akkoord met de redenering dat unit testing in FE een beetje achterhaald is. Unit testing in de front end heb ik al vaak moeten doen  via shallow en mounted rendering, maar ervaring leert dat deze niet 100% waterdicht zijn. Ergens hoort men op twee oren te kunnen slapen indien een component goed doorlopen is met unit testing, maar dat is niet altijd het geval. Ik ben daarom altijd fan geweest van automatische testing via frameworks zoals Cypress en PlayWright. Het enige wat een beetje zout is, is dat response timings bij Cypress kunnen zorgen voor false positives. Ik heb dit opgevangen door strategisch gebruik van timeouts.
+
+Qua structuur heb ik besloten om domein per domein te werken in dezelfde structuur als mijn front-end. Dit leek me logisch gezien mijn design zeer domain-driven is. Waar nodig probeer ik de back-end te mocken. Dit is dan geen echte e2e gezien we nooit de backend bereiken, maar tegelijkertijd vind ik persoonlijk e2e testing buiten een testomgeving of zonder een testcontainer enorm gevaarlijk voor databevuiling. Degelijke mocking hoort normaal gezien ook de uitgaande requests te checken (wat ik ook gedaan heb in elke test) en als de backend doorgetest is... ja, hoeveel nut heeft e2e dan? Er zijn tegenwoordig ook opties zoals Pact-testing om de link tussen FE en BE te testen. Ik heb mijn focus gelegd op  CRUD te testen van alle functionaliteiten gevolgd door alle negatieve paden. Waar relevant check ik ook de correcte rendering van UI elementen. 
+
+Na het configureren van Cypress heb ik merendeel van mijn testen geschreven vanuit het oogpunt van de admin. Reden hiervoor is dat mijn site vrij veel features bevat die enkel zichtbaar zijn voor specifieke rollen. Admin heeft zowel de ADMIN als WRITER rol waardoor deze de meeste rechten bezit. Indien bepaalde zaken afgeschermd zijn, dan switch ik van user. Ik heb het mezelf makkelijker gemaakt door allerhande commando's te definieren zoals heel de login flow of bepaalde mock responses. Hierdoor kon ik vaart maken in de testen.
+
+Resultaat: 119 groene testen. Indien gewenst heb ik ook all.cy.ts bestand gemaakt om deze allemaal tegelijk te draaien. Er staat ook een filmpje van de all run in de cypress map.
+
+![image](https://user-images.githubusercontent.com/74510849/199813239-b6fafc5b-dd87-435c-8282-297c5192ef67.png)
+
 
 ### Web Services
 
@@ -213,7 +222,12 @@ Resultaat: 95% coverage op heel applicatie via 155 tests in totaal.
 
 ### Front-end Web Development
 
-> Zijn er gekende bugs?
+Zodra de JWT token expired, moet de user nog manueel uitloggen en herinloggen. Hij krijgt wel een fout melding.
+Bij een harde refresh of harde route change moet de user herinloggen.
+
+Ik begrijp min of meer het probleem. Ergens moet de user opgeslagen worden in localStorage zodat de provider hem kan ophalen bij een bezoek zolang de token nog ok is. Een andere optie is werken met een refresh token waardoor de houder een nieuwe token krijgt zonder in te loggen. Ik vond dit echter vooral nice to haves gezien dit soort login procedures oftewel door libraries, oftewel door 3rd parties geregeld worden.
+
+Voor de rest
 
 ### Web Services
 

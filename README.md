@@ -31,8 +31,8 @@ DATABASE_PASSWORD=*username van de toepassingsuser die rechten heeft op de db*
 
 Indien een nieuwe db wordt gekoppeld, gelieve de volgende commando's uit te voeren.
 
-yarn prisma:migrate
-yarn prisma:seed
+- yarn prisma:migrate
+- yarn prisma:seed
 
 Hiermee zal Prisma ORM de nieuwe DB aanmaken op basis van migratie bestand en deze vervolgens seeden met dummy data.
 Applicatie zal starten met yarn start in de omgeving doorgegeven in de .env.
