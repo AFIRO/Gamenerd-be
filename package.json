@@ -5,8 +5,8 @@
   "main": "main.ts",
   "scripts": {
     "postinstall": "tsc",
-    "start": "npx env-cmd nodemon src/main.ts",
-    "web": "node dist/src/main.js",
+    "start:local": "npx env-cmd nodemon src/main.ts",
+    "start": "node dist/src/main.js",
     "test": "jest",
     "test:ci": "jest",
     "test:coverage": "yarn test --coverage",
