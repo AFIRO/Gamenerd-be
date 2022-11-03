@@ -4,8 +4,9 @@
   "description": "game-nerd",
   "main": "main.ts",
   "scripts": {
+    "build": "tsc",
     "start": "npx env-cmd nodemon src/main.ts",
-    "web": "ts-node src/main.ts",
+    "web": "node dist/main.ts",
     "test": "jest",
     "test:ci": "jest",
     "test:coverage": "yarn test --coverage",

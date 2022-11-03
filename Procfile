@@ -1,1 +1,2 @@
-web: ts-node src/main.ts
+build: tsc
+web: node dist/main.ts
