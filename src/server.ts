@@ -13,7 +13,7 @@ export class Server {
   private readonly CURRENT_ENV = config.get('env');
   private readonly CORS_ORIGINS = config.get('cors.origins');
   private readonly CORS_MAX_AGE = config.get('cors.maxAge');
-  private readonly PORT = config.get('port');
+  private readonly PORT = process.env.PORT;
   private application: Koa;
   private logger: Logger;
   private yamljs = require('yamljs');
