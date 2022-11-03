@@ -40,4 +40,3 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}    
           
     - run: yarn install --frozen-lockfile
-    - run: yarn run test:ci
