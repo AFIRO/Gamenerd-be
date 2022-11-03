@@ -10,7 +10,6 @@ import errorHandler from 'koa-better-error-handler';
 import koa404Handler from 'koa-404-handler';
 import { koaSwagger } from 'koa2-swagger-ui';
 export class Server {
-  private readonly CURRENT_ENV = config.get('env');
   private readonly CORS_ORIGINS = config.get('cors.origins');
   private readonly CORS_MAX_AGE = config.get('cors.maxAge');
   private readonly PORT = process.env.PORT;
@@ -22,9 +21,8 @@ export class Server {
   public constructor() {
     this.logger = new Logger();
     this.logger.info("Starting Server")
-    this.logger.info(`Current environment = ${this.CURRENT_ENV}`)
     this.logger.info("Creating application context.")
-    this.application = new Koa({ env: this.CURRENT_ENV });
+    this.application = new Koa();
     this.logger.info("Setting cors configuration.")
     this.application.use(
       cors({
