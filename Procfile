@@ -1,2 +1,1 @@
-build: tsc
-web: node dist/src/main.js
+worker: yarn web
