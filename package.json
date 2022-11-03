@@ -6,9 +6,10 @@
   "scripts": {
     "start": "npx env-cmd nodemon src/main.ts",
     "test": "jest",
+    "test:ci": "jest",
     "test:coverage": "yarn test --coverage",
     "prisma:generate": "npx prisma generate",
-    "prisma:migrate": "npx prisma migrate dev --name init",
+    "prisma:push": "npx prisma db push",
     "prisma:seed": "npx prisma db seed",
     "lint": "npx eslint . --fix"
   },
