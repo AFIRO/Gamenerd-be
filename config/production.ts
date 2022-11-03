@@ -4,7 +4,7 @@ module.exports = {
 		disabled: false,
 	},
 	cors: {
-		origins: ['http://localhost:3000','https://afiro.github.io/'],
+		origins: ['http://localhost:3000','https://afiro.github.io/',],
 		maxAge: 3 * 60 * 60,
 	},
 	environment: 'production',
