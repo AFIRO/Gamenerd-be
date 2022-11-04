@@ -2,10 +2,10 @@
 
 - [X] Front-end Web Development
   - [GitHub repository](https://github.com/Web-IV/2223-frontendweb-AFIRO)
-  - [Online versie](github.com/HOGENT-Web)
+  - [[Online versie]](https://gamenerd-fe.vercel.app/)
 - [X] Web Services: GITHUB URL
   - [GitHub repository](https://github.com/Web-IV/2223-webservices-AFIRO)
-  - [Online versie](github.com/HOGENT-Web)
+  - [Online versie]](https://gamenerd-api.herokuapp.com/))
 
 **Logingegevens**
 
@@ -226,8 +226,6 @@ Zodra de JWT token expired, moet de user nog manueel uitloggen en herinloggen. H
 Bij een harde refresh of harde route change moet de user herinloggen.
 
 Ik begrijp min of meer het probleem. Ergens moet de user opgeslagen worden in localStorage zodat de provider hem kan ophalen bij een bezoek zolang de token nog ok is. Een andere optie is werken met een refresh token waardoor de houder een nieuwe token krijgt zonder in te loggen. Ik vond dit echter vooral nice to haves gezien dit soort login procedures oftewel door libraries, oftewel door 3rd parties geregeld worden.
-
-Voor de rest
 
 ### Web Services
 
