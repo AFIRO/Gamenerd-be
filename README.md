@@ -27,7 +27,9 @@ Maak een .env bestand aan met de volgende parameters en hun invullen.
 - DATABASE_USERNAME=*username van de toepassingsuser die rechten heeft op de db*
 - DATABASE_PASSWORD=*username van de toepassingsuser die rechten heeft op de db*
 
-De gegevens zijn in een text bestand in de root van het project.
+De gegevens zijn in een text bestand in de root van het project. Dit is normaal
+
+DATABASE_URL="mysql://OssIeUgXcE:d6L1Qa10JK@remotemysql.com:3306/OssIeUgXcE"
 
 Indien een nieuwe db wordt gekoppeld, gelieve de volgende commando's uit te voeren.
 
