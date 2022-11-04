@@ -21,11 +21,13 @@ Draai allereerst een NPM install om alle dependencies binnen te halen.
 
 Maak een .env bestand aan met de volgende parameters en hun invullen. 
 
-DATABASE_URL=*database url: verwacht standaard een msql databasis*
-DATABASE_HOST=*host van db*
-DATABASE_PORT=*poort van db*
-DATABASE_USERNAME=*username van de toepassingsuser die rechten heeft op de db*
-DATABASE_PASSWORD=*username van de toepassingsuser die rechten heeft op de db*
+- DATABASE_URL=*database url: verwacht standaard een msql databasis*
+- DATABASE_HOST=*host van db*
+- DATABASE_PORT=*poort van db*
+- DATABASE_USERNAME=*username van de toepassingsuser die rechten heeft op de db*
+- DATABASE_PASSWORD=*username van de toepassingsuser die rechten heeft op de db*
+
+De gegevens zijn in een text bestand in de root van het project.
 
 Indien een nieuwe db wordt gekoppeld, gelieve de volgende commando's uit te voeren.
 
@@ -33,7 +35,7 @@ Indien een nieuwe db wordt gekoppeld, gelieve de volgende commando's uit te voer
 - yarn prisma:seed
 
 Hiermee zal Prisma ORM de nieuwe DB aanmaken op basis van migratie bestand en deze vervolgens seeden met dummy data.
-Applicatie zal starten met yarn start in de omgeving doorgegeven in de .env.
+Applicatie zal starten met yarn start:local in de omgeving doorgegeven in de .env.
 
 ## Testen
 Gelieve de instructies hierboven te volgen voor de correcte .env.
