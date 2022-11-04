@@ -2,7 +2,7 @@
 
 - [X] Front-end Web Development
   - [GitHub repository](https://github.com/Web-IV/2223-frontendweb-AFIRO)
-  - [[Online versie]](https://gamenerd-fe.vercel.app/)
+  - [Online versie](https://gamenerd-fe.vercel.app/)
 - [X] Web Services: GITHUB URL
   - [GitHub repository](https://github.com/Web-IV/2223-webservices-AFIRO)
   - [Online versie](https://gamenerd-api.herokuapp.com/)
