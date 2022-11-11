@@ -39,6 +39,10 @@ Indien een nieuwe db wordt gekoppeld, gelieve de volgende commando's uit te voer
 Hiermee zal Prisma ORM de nieuwe DB aanmaken op basis van migratie bestand en deze vervolgens seeden met dummy data.
 Applicatie zal starten met yarn start:local in de omgeving doorgegeven in de .env.
 
+## Documentatie
+Documentatie rond de endpoints is te vinden in de Excel in de root folder.
+Swaggerdoc is geimplementeerd om te tonen dat ik dit kan en zou kunnen aangevuld worden met extra definities in de Swagger.yml, maar met mijn voltijdse job heb ik niet genoeg vrije tijd om naast al het ander schoolwerk 27 endpoints te documenteren in swagger definities. Na overleg in een Github Issue werd dit tevens bestempeld als een nice-to-have.
+
 ## Testen
 Gelieve de instructies hierboven te volgen voor de correcte .env.
 Applicatie zal testen met yarn test en coverage tests uitvoeren met yarn test:coverage
