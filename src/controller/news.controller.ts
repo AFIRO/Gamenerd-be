@@ -47,7 +47,7 @@ export class NewsController {
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all news by writer with id ${ctx.params.writerId} made.`)
       try {
-        await this.authenticationService.authentificate(ctx);
+        await this.authenticationService.authentificate(ctx,Role.ADMIN);
         const writerId: string = ctx.params.writerId.toString();
         const data = await this.newsService.findAllByWriter(writerId);
         ctx.body = data
