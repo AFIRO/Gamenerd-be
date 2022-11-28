@@ -47,7 +47,7 @@ export class NewsController {
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all news by writer with id ${ctx.params.writerId} made.`)
       try {
-        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx);
         const writerId: string = ctx.params.writerId.toString();
         const data = await this.newsService.findAllByWriter(writerId);
         ctx.body = data
@@ -61,7 +61,7 @@ export class NewsController {
     this.router.get('/byGame/:gameId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all news by game with id ${ctx.params.gameId} made.`)
       try {
-        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx);
         const gameId: string = ctx.params.gameId.toString();
         const data = await this.newsService.findAllByGame(gameId);
         ctx.body = data

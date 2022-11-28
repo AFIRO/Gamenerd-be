@@ -48,7 +48,7 @@ export class ReviewController {
     this.router.get('/byWriter/:writerId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by writer with id ${ctx.params.writerId} made.`)
       try {
-        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx);
         const writerId: string = ctx.params.writerId.toString();
         const data = await this.reviewService.findAllByWriter(writerId);
         ctx.body = data
@@ -62,7 +62,7 @@ export class ReviewController {
     this.router.get('/byGame/:gameId', async (ctx: Koa.Context) => {
       this.logger.info(`GET request for all reviews by game with id ${ctx.params.gameId} made.`)
       try {
-        await this.authenticationService.authentificate(ctx, Role.ADMIN);
+        await this.authenticationService.authentificate(ctx);
         const gameId: string = ctx.params.gameId.toString();
         const data = await this.reviewService.findAllByGame(gameId);
         ctx.body = data
