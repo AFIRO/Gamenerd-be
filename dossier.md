@@ -47,14 +47,12 @@ ERD:
 ### Admin only user tab
 ![image](https://user-images.githubusercontent.com/74510849/199117811-3e06d877-9954-4c2c-bc8f-eff95e4f41ef.png)
 
-### Password aanpassing waar admin niet aan kan
+### Password aanpassing. Deze is op niveau van user geregeld.
 ![image](https://user-images.githubusercontent.com/74510849/199117887-0664507e-cbcc-4f93-8aa2-b3e5a74cf4c4.png)
 
 
 
 ## Behaalde minimumvereisten
-
-> Duid per vak aan welke minimumvereisten je denkt behaald te hebben
 
 ### Front-end Web Development
 
@@ -140,13 +138,13 @@ ERD:
 Voor mijn frontend heb ik gekozen om de domeinen altijd afzonderlijk te houden daar de features op zichzelf kunnen staan. 
 Qua structuur bevat de api map per domein een service die alle calls naar de backend regelt en de modellen die de applicatie gebruikt. Ik werk zo veel mogelijk type-safe waardoor de dto's van front en backend elkaar volgen. Ik acht dit als noodzakelijk daar het good practice is om nooit front en back elkaar te laten vertrouwen.
 
-De map compomenents bevat de componenten per domein met een slim en dom components voor de READ en aparte components voor CREATE, UPDATE en DELETE. Deze gebruiken de id param uit de url om hun data te halen uit de backend indien nodig. Komende vanuit een microservices achtergrond is dit voor mij het meest logische. Ze houden de data bij in hun eigen state zolang nodig om de operatie uit te voeren.
+De map compomenents bevat de componenten per domein met slim en dom components voor de READ en aparte components voor CREATE, UPDATE en DELETE. Deze gebruiken de id param uit de url om hun data te halen uit de backend indien nodig. Komende vanuit een microservices achtergrond is dit voor mij het meest logische. Ze houden de data bij in hun eigen state zolang nodig om de operatie uit te voeren. De globale staat wordt behouden via een context. Ik was eerst van plan om Redux te gebruiken, maar bij nader inzien heb ik dit gemeden omdat ik op het werk al de angular store gebruik en deze zeer gelijkaardig is. Mijn bedoeling blijft om bij te leren uit deze projecten en iets gebruiken dat ik al ken helpt mij niet.
 
 De map context bevat de authprovider die zorgt voor gedeelde login state.
 
 ### Web Services
 
-Voor mijn backend ging ik voor een domain-driven structuur met hexagonale architectuur. Al het zware werk qua logica wordt door de services in de domain-laag gedaan met de controllers en repo's als input en output poorten. Gezien het niet nodig was om meer overdreven dingen te doen (integraties, messaging, gateway structuren voor gecombineerde backends, etc.), wou ik het design niet overcompliceren.
+Voor mijn backend ging ik voor een domain-driven structuur met hexagonale architectuur. Al het zware werk qua logica wordt door de services in de domain-laag gedaan met de controllers en repo's als input en output poorten. Gezien het niet nodig was om meer overdreven dingen te doen (integraties, messaging, gateway structuren voor gecombineerde backends, etc.), wou ik het design niet overcompliceren. Ik gebruik hierbij sowieso al veel good practice design patterns zoals dto's.
 
 Gezien mijn nadruk op domain-driven design leek het ook logisch om object-oriented te werken. TypeScript was dan ook de logische keuze hierbij. Ik heb al mijn type objecten gegroepeerd in een logische ordening.
 
@@ -164,7 +162,7 @@ De map prisma vervangt de datalaag gezien dit volledig gemanaged wordt door Pris
 ### Front-end Web Development
 
 Ik heb het project onmiddellijk gestart als een TypeScript project. Dit garandeerde mijn type-safety en de nuttige definitions hielpen zeker. Het feit dat ik mijn dto's uit de backend kon hergebruiken was dan ook zeer mooi meegenomen.
-Als extra technologie heb ik de validatie van alle input uit handen gegeven aan de Yup library. Deze maakt schema's vergelijkbaar met Joi uit de lessen Webservices voor inputvalidatie. Interessant is dat hij werkt ook als het de gebruiker lukt om de HTML velden van het component te omzeilen. Zolang het eindresultaat die naar de handler wordt gestuurd niet strookt met het validatieschema wordt de handler gewoon nooit opgeroepen.
+Als extra technologie heb ik de validatie van alle input uit handen gegeven aan de Yup library. Deze maakt schema's vergelijkbaar met Joi uit de lessen Webservices voor inputvalidatie. Interessant is dat hij werkt ook als het de gebruiker lukt om de HTML velden van het component te omzeilen. Zolang het eindresultaat die naar de handler wordt gestuurd niet strookt met het validatieschema wordt de handler gewoon nooit opgeroepen. Dit had bij testing voor en nadelen, maar zodra ik de click maakte dat de validatie van Yup los stond van de validatie van de UI liep dit vrij strak.
 
 https://www.npmjs.com/package/typescript
 https://www.npmjs.com/package/yup
@@ -173,11 +171,11 @@ https://www.npmjs.com/package/yup
 
 Ik heb sowieso als eerste TypeScript geimplementeerd om logische redenen. TypeScript is sterk opkomend en wordt veelal gezien als good practice in de back-end waar data typing cruciaal is. Hier en daar zorgte dit uiteraard voor de nodige frustraties daar niet alle frameworks graag samenwerken met TypeScript. Koa heeft gelukkig degelijke type definitions.
 
-Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer mooi een ORM, data-modelling, migratie en seeding. Objectief gezien is Prisma als framework mogelijk iets te krachtig voor de use case, maar vroege implementatie hiervan heeft dan weer voordelen qua scaling. De queries die het genereert zijn min of meer wat de gemiddelde developer zou schrijven (zeker vergeleken met het soort queries dat Hibernate soms durft te genereren), dus me dunkt zijn de voordelen veel hoger dan eventuele nadelen.
+Verder leek het me interessant om Prisma ORM te gebruiken. Het combineert zeer mooi een ORM, data-modelling, migratie en seeding. Objectief gezien is Prisma als library mogelijk iets te krachtig voor de use case, maar vroege implementatie hiervan heeft dan weer voordelen qua scaling. De queries die het genereert zijn min of meer wat de gemiddelde developer zou schrijven (zeker vergeleken met het soort queries dat Spring Hibernate soms durft te genereren), dus me dunkt zijn de voordelen veel hoger dan eventuele nadelen.
 
-Gezien ik toch al full TypeScript ben gegaan, vond ik class-validator goed passen in het geheel. Joi's implementatie was niet echt mijn ding en gezien ik al Dto's had gemaakt voor al mijn entiteiten, was ze decoreren met constraints veel logischer dan de builder interface van Joi. Het zou gewoon dubbel werk zijn geweest.
+Gezien ik toch al full TypeScript ben gegaan, vond ik class-validator goed passen in het geheel. Joi's implementatie was niet echt mijn ding en gezien ik al Dto's had gemaakt voor al mijn entiteiten, was ze decoreren met constraints veel logischer dan de gechainde builder interface van Joi. Het zou gewoon dubbel werk zijn geweest.
 
-Een laatste is de unsubtiel genaamd "koa-better-error-handler". Deze vervangt de standaard error handler door een leukere met built-in support status codes, status messages en mooie formatting van de error richting de gebruiker.
+Een laatste is de unsubtiel genoemde "koa-better-error-handler". Deze vervangt de standaard error handler door een leukere met built-in support status codes, status messages en mooie formatting van de error richting de gebruiker.
 Het pakt deze dan op gebruiksvriendelijke manier onder de ctx.throw. 
 
 https://www.npmjs.com/package/typescript
@@ -191,7 +189,7 @@ https://www.npmjs.com/package/koa-better-error-handler
 
 Ik ga zeker en vast akkoord met de redenering dat unit testing in FE een beetje achterhaald is. Unit testing in de front end heb ik al vaak moeten doen  via shallow en mounted rendering, maar ervaring leert dat deze niet 100% waterdicht zijn. Ergens hoort men op twee oren te kunnen slapen indien een component goed doorlopen is met unit testing, maar dat is niet altijd het geval. Ik ben daarom altijd fan geweest van automatische testing via frameworks zoals Cypress en PlayWright. Het enige wat een beetje zout is, is dat response timings bij Cypress kunnen zorgen voor false positives. Ik heb dit opgevangen door strategisch gebruik van timeouts.
 
-Qua structuur heb ik besloten om domein per domein te werken in dezelfde structuur als mijn front-end. Dit leek me logisch gezien mijn design zeer domain-driven is. Waar nodig probeer ik de back-end te mocken. Dit is dan geen echte e2e gezien we nooit de backend bereiken, maar tegelijkertijd vind ik persoonlijk e2e testing buiten een testomgeving of zonder een testcontainer enorm gevaarlijk voor databevuiling. Degelijke mocking hoort normaal gezien ook de uitgaande requests te checken (wat ik ook gedaan heb in elke test) en als de backend doorgetest is... ja, hoeveel nut heeft e2e dan? Er zijn tegenwoordig ook opties zoals Pact-testing om de link tussen FE en BE te testen. Ik heb mijn focus gelegd op  CRUD te testen van alle functionaliteiten gevolgd door alle negatieve paden. Waar relevant check ik ook de correcte rendering van UI elementen. 
+Qua structuur heb ik besloten om domein per domein te werken in dezelfde structuur als mijn front-end. Dit leek me logisch gezien mijn design zeer domain-driven is. Waar mogelijk probeer ik de back-end te mocken. Dit is dan geen echte e2e gezien we nooit de backend bereiken, maar tegelijkertijd vind ik persoonlijk e2e testing buiten een dedicated testomgeving of zonder een testcontainer enorm gevaarlijk voor databevuiling. Degelijke mocking hoort normaal gezien ook de uitgaande requests te checken (wat ik ook gedaan heb in elke test) en als de backend doorgetest is... ja, hoeveel nut heeft e2e dan? Er zijn tegenwoordig ook opties zoals Pact-testing om de link tussen FE en BE te testen. Ik heb mijn focus gelegd op  CRUD te testen van alle functionaliteiten gevolgd door alle negatieve paden. Waar relevant check ik ook de correcte rendering van UI elementen.  Ik wou als nice-to-have eigenlijk ook kijken voor een testcontainer implementatie, maar daarvoor zou ik Windows 10 Pro nodig hebben gezien Docker anders weigert te draaien. Dit idee zal dus voor een later project zijn.
 
 Na het configureren van Cypress heb ik merendeel van mijn testen geschreven vanuit het oogpunt van de admin. Reden hiervoor is dat mijn site vrij veel features bevat die enkel zichtbaar zijn voor specifieke rollen. Admin heeft zowel de ADMIN als WRITER rol waardoor deze de meeste rechten bezit. Indien bepaalde zaken afgeschermd zijn, dan switch ik van user. Ik heb het mezelf makkelijker gemaakt door allerhande commando's te definieren zoals heel de login flow of bepaalde mock responses. Hierdoor kon ik vaart maken in de testen.
 
@@ -207,12 +205,10 @@ Om de testen neutraal te houden en menselijke fouten te mijden, heb ik als good 
 
 Uiteraard gaan we niet rechtstreeks testen op onze databasis, want dat is een enorme bad practice. Prisma heeft echter als voordeel dat we een centraal object hebben dat de connectie managed tussen ons en onze databasis. We kunnen deze met jest-mock mocken, verregaande checks uitvoeren en onze unit tests uitvoeren. Het nadeel is dat we dit object publiek moeten zetten opdat we onze mock kunnen injecteren. Een min-puntje qua encapsulatie, maar een noodzakelijk kwaad. Ik heb een eigen implementatie proberen schrijven met deep-mocking, maar die liep tegen circulaire dependencies aan. Blijkbaar een vaak voorkomend probleem in kader van Prisma en mocking.
 
-Verder gingen de testen goed tot ik bij mijn authentification service kwam. Deze haalt de auth header uit de context van koa. Dit object is echter in typescript niet te mocken daar het meer dan 52 velden bevat als ik mijn compiler mag geloven. Rechtstreeks data erin injecteren en doorgeven is blijkbaar ook geen optie, dus ik kreeg dit niet getest. Er zal wel ergens een correcte manier zijn van dit te mocken (zo heb ik een package gevonden van shopify die dit doet), maar dat leek mij de scope van het project voorbij te gaan.
-
 Het testen van de controllers was een uitdaging. In andere frameworks zijn de endpoints ook effectief functies met een gekoppelde listener, ergo deze kunnen onderworpen aan traditionele unit testing. Daar heel de controller structuur van Koa zich centreert op de twee centrale Koa en Router objecten, is dit niet mogelijk. Router mocken zou weinig opleveren daar de endpoints in dit object worden gegoten. Ik kon mijn controllers dus enkel testen via volledige integratrietesten, wat ergens een beetje verkeerd aanvoelt. 
 
 Na het configureren van supertest begonnen er al een aantal problemen te verschijnen. Om 1 of andere reden vond supertest het niet tof als ik mijn server instantie, prismaclient instantie en request instantie in een ander bestand deed om het daarna door te sluizen naar de test. Hij vond het evenmin leuk om het request object door te sturen naar 
-een hulpklasse om mijn tokens te regelen. Nadat ik besloot om dit allemaal in de testbestanden zelf te houden, begon het vlot te gaan en kon ik alle positieve en negatieve paden testen. Ik had ook liever een soort testcontainer databasis gebruikt die verschijnt en verdwijnt aan de start en einde van de testen door middel van Docker gezien dit meer en meer de trend is. Ik heb de nodige packages gevonden daarvoor, maar dit leek me de scope van dit project ver vooruit te gaan dus ik heb hier een lijn getrokken.
+een hulpklasse om mijn tokens te regelen. Nadat ik besloot om dit allemaal in de testbestanden zelf te houden, begon het vlot te gaan en kon ik alle positieve en negatieve paden testen. Ik had ook liever een soort testcontainer databasis gebruikt die verschijnt en verdwijnt aan de start en einde van de testen door middel van Docker gezien dit meer en meer de trend is. Ik heb de nodige packages gevonden daarvoor, maar dit leek me de scope van dit project ver vooruit te gaan dus ik heb hier een lijn getrokken. Het feit dat ik docker ook niet kan draaien op Windows 10 Home (en een upgrade daarvan pikant is qua kostprijs) forceerde mijn hand ook.
 
 Resultaat: 95% coverage op heel applicatie via 155 tests in totaal.
 
