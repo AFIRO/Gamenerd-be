@@ -29,7 +29,12 @@ Maak een .env bestand aan met de volgende parameters en hun invullen.
 
 De gegevens zijn in een text bestand in de root van het project. Dit is normaal
 
-DATABASE_URL="mysql://OssIeUgXcE:d6L1Qa10JK@remotemysql.com:3306/OssIeUgXcE"
+DATABASE_URL="mysql://077350af:vUIwN8ktNVWCGxAXq33f@vichogent.be:40043/077350af?connection_limit=10&pool_timeout=180"
+DATABASE_HOST="vichogent.be"
+DATABASE_PORT=40043
+DATABASE_USERNAME="077350af"
+DATABASE_PASSWORD="vUIwN8ktNVWCGxAXq33f"
+DATABASE_NAME="077350af"
 
 Indien een nieuwe db wordt gekoppeld, gelieve de volgende commando's uit te voeren.
 
@@ -41,7 +46,7 @@ Applicatie zal starten met yarn start:local in de omgeving doorgegeven in de .en
 
 ## Documentatie
 Documentatie rond de endpoints is te vinden in de Excel in de root folder.
-Swaggerdoc is geimplementeerd om te tonen dat ik dit kan en zou kunnen aangevuld worden met extra definities in de Swagger.yml, maar met mijn voltijdse job heb ik niet genoeg vrije tijd om naast al het ander schoolwerk 27 endpoints te documenteren in swagger definities. Na overleg in een Github Issue werd dit tevens bestempeld als een nice-to-have.
+Swaggerdoc is geimplementeerd om te tonen dat ik dit kan en zou kunnen aangevuld worden met extra definities in de Swagger.yml, maar met mijn voltijdse job heb ik niet genoeg vrije tijd om naast al het ander schoolwerk om 27 endpoints te documenteren in swagger definities. Na overleg in een Github Issue werd dit tevens bestempeld als een nice-to-have.
 
 ## Testen
 Gelieve de instructies hierboven te volgen voor de correcte .env.
