@@ -17,7 +17,7 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 Draai allereerst een NPM install om alle dependencies binnen te halen.
 
 Maak een .env bestand aan met de volgende parameters en hun invullen. 
-
+- NODE_ENV=development (test of production mag ook).
 - DATABASE_URL=*database url: verwacht standaard een msql databasis*
 - DATABASE_HOST=*host van db*
 - DATABASE_PORT=*poort van db*
