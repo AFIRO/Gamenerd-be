@@ -4,7 +4,9 @@
   "description": "game-nerd",
   "main": "main.ts",
   "scripts": {
-    "start": "npx env-cmd nodemon src/main.ts",
+    "postinstall": "tsc",
+    "start:local": "npx env-cmd nodemon src/main.ts",
+    "start": "node build/main.js",
     "test": "jest",
     "test:ci": "jest",
     "test:coverage": "yarn test --coverage",
